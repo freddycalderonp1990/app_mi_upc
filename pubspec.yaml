@@ -1,0 +1,21 @@
+name: app_mi_upc
+description: "Integrar la funcionalidad de Mi Upc"
+version: 0.0.1
+author: "Freddy Calderón"
+homepage: "sitio web"
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  get: ^4.6.6 #manejador de estados
+  google_fonts: ^6.1.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+

@@ -1,21 +1,48 @@
 name: app_mi_upc
 description: "Integrar la funcionalidad de Mi Upc"
 version: 0.0.1
-author: "Freddy Calderón"
-homepage: "sitio web"
+homepage: "https://siipne.policia.gob.ec/indexSiipne.php"
 
 environment:
   sdk: '>=3.3.4 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
+  flutter_launcher_icons: ^0.13.1
   get: ^4.6.6 #manejador de estados
   google_fonts: ^6.1.0
+  equatable: ^2.0.5 #Permite realizar una comparacion de los objetos de manera mas profunda (Permite hacer testing)
+  http: ^1.1.0 # Conectar con proveedor - Apis
+  local_auth: ^2.1.8 # Acceso Biometrico
+  shared_preferences: ^2.2.2
+  intl: ^0.18.0 #Conversion de idiomas, enteros, fechas
+  awesome_dialog: ^3.2.0 #Dialogos
+  url_launcher: ^6.2.4
+  package_info_plus: ^5.0.1 #obtener version code de la app
+  connectivity_plus: ^5.0.2 # Verifica a que tipo de red esta conectado
+  device_information: ^0.0.4 #Obtener el IMEI, modelo .. (no incluye la programacion del permiso READ_PHONE_STATE)
+  device_info_plus: ^9.1.1 #Informacion del cell,Version Sistema Operatvivo
+  network_info_plus: ^4.1.0 #Obtener ip del celular (se deben asiganr permisos para IOS)
+  cached_network_image: ^3.3.1 #Muestra imagenes desde internet y las guarda en cache
+  flutter_speed_dial: ^7.0.0 #Botones flotantes, utilizado para el menu (Cerrar sesion y mas)
+  permission_handler: ^6.0.0 # Solicita Permisos del dispositivo al usuario (Ubicacion,Galeria.....)
+  image: ^4.1.4 #Para trabajar con imagenes de la galeria
+  image_picker: ^0.8.5+3 #Obtener img de la camara o galeria
+  share_plus: ^7.2.1 #Compartir aplicacion
+  flutter_map: ^6.1.0
+  flutter_map_location_marker: ^8.0.4
+  latlong2: ^0.9.1
+  #vibration: ^1.7.6 #vibracion device
+  location: ^5.0.3
+  geocoding: ^2.1.1
+  #device_imei: ^0.0.4+2
+  #unique_identifier: ^0.3.0 #obtener imei
 
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^3.0.0
+  geolocator_android: ^4.5.1
+  background_locator_2: ^2.0.6
+  geolocator : ^10.1.0 #ubicacion Gps, del dispositivo #error en la actualizacion 8.0.1 No named parameter with the name 'desiredAccuracy'.
+
 
 

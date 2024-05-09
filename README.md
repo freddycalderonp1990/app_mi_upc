@@ -16,10 +16,12 @@ Para implementar mi UPC
 
 1. Copiar a tu propyecto /assets/imgs_mi_upc/*
 2. crear la sigueinte estructura
+```xml
         app
             presentation
                 routes
                     app_pages.dart //contine todas las paguinas del proyecto y se debe agregar la de mi upc.. ejemplo
+```
 ```dart
 
                             import 'package:app_mi_upc/app_mi_upc.dart';

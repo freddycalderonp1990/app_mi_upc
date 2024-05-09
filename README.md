@@ -18,6 +18,31 @@ Para implementar mi UPC
 2. crear la sigueinte estructura
 ```xml
         app
+
+
+            dependency_injection_app.dart
+```
+```dart
+            import 'package:app_mi_upc/app_mi_upc.dart';
+            import 'package:get/get.dart';
+
+            class DependencyInjectionApp extends Bindings {
+            static ini() {
+                //agregar la inyeccion de dependencia de todos las apps
+
+                  DependencyInjectionMiUpc.ini();
+
+            }
+
+            @override
+            void dependencies() {
+                print('DependencyInjection');
+                ini();
+            }
+            }
+
+```
+```xml
             presentation
                 routes
                     app_pages.dart //contine todas las paguinas del proyecto y se debe agregar la de mi upc.. ejemplo
@@ -58,28 +83,6 @@ Para implementar mi UPC
                                 return _pages;
                             }
                             }
-```
-
-            dependency_injection_app.dart
-```dart
-            import 'package:app_mi_upc/app_mi_upc.dart';
-            import 'package:get/get.dart';
-
-            class DependencyInjectionApp extends Bindings {
-            static ini() {
-                //agregar la inyeccion de dependencia de todos las apps
-
-                  DependencyInjectionMiUpc.ini();
-
-            }
-
-            @override
-            void dependencies() {
-                print('DependencyInjection');
-                ini();
-            }
-            }
-
 ```
 
 

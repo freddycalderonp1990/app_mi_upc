@@ -191,7 +191,7 @@ end
 
 2. /ios/Runner/Info.plist agregar los mensajes que requiere el aplicativo
 ```xml
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>

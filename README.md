@@ -183,7 +183,7 @@ class MyApp extends StatelessWidget {
 
 ## Additional information
 
-## Archivos del Proyecto
+## Archivos del Proyecto IOS
 
 ### Podfile
 1. /ios/Podfile agregar lo siguiente
@@ -266,5 +266,14 @@ end
 	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>
+```
+## Archivos del Proyecto Android
+ruta: android/app/build.gradle: 
+```android
+    defaultConfig {
+       
+        minSdkVersion 20
+     
+    }
 ```
 

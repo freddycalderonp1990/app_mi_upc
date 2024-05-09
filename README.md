@@ -268,12 +268,22 @@ end
 	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>
 ```
 ## Archivos del Proyecto Android
-ruta: android/app/build.gradle: 
+1. Modificar el minSdkVersion ruta: android/app/build.gradle: 
 ```android
     defaultConfig {
        
         minSdkVersion 20
      
     }
+```
+
+2. Agregar permisos en el AndroidManifest ruta: /android/app/src/main/AndroidManifest.xml
+```xml
+  <!-- Internet -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Permissions para el GPS -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 ```
 

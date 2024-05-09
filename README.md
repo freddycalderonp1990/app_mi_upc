@@ -88,6 +88,8 @@ class MainApp extends StatelessWidget {
 
 
 ```xml
+
+	app
             presentation
                 routes
                     app_pages.dart //contine todas las paguinas del proyecto y se debe agregar la de mi upc.. ejemplo
@@ -130,6 +132,8 @@ class MainApp extends StatelessWidget {
                             }
 ```
 
+3. main.dart  remmplazar con el código y darle la funcionalidad que desee
+
 
 ## Usage
 
@@ -171,6 +175,8 @@ class MainApp extends StatelessWidget {
 }
 
 ```
+
+
 
 ## Additional information
 

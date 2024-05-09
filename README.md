@@ -115,9 +115,13 @@ class MainApp extends StatelessWidget {
 ```
 
 ## Additional information
+
+## Archivos del Proyecto
+
+### Podfile
 1. /ios/Podfile agregar lo siguiente
 
-
+```ruby
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
@@ -183,8 +187,7 @@ post_install do |installer|
   end
 end
 
-
-
+```
 
 2. /ios/Runner/Info.plist agregar los mensajes que requiere el aplicativo
 

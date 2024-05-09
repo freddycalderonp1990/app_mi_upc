@@ -132,7 +132,7 @@ class MainApp extends StatelessWidget {
                             }
 ```
 
-3. main.dart  remmplazar con el código y darle la funcionalidad que desee
+3. main.dart  reemplazar con el código y darle la funcionalidad que desee
 
 
 ## Usage

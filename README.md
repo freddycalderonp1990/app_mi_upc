@@ -7,10 +7,12 @@ Para implementar mi UPC
 ## Getting started
 
 ##Add En la dependecia de tu proyecto
+```dart
   app_mi_upc:
     git:
       url: https://github.com/freddycalderonp1990/app_mi_upc.git
       ref: master
+```
 
 1. Copiar a tu propyecto /assets/imgs_mi_upc/*
 2. crear la sigueinte estructura

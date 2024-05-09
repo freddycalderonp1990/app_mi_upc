@@ -140,39 +140,42 @@ class MainApp extends StatelessWidget {
 
 ```dart
 
-import 'package:app_mi_upc/app_mi_upc.dart';
+import 'dart:io';
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-import '../../../../../app/dependency_injection_app.dart';
+import 'package:flutter/rendering.dart';
+import '../app/dependency_injection_app.dart';
 
-import 'presentation/routes/app_pages.dart';
+import 'app/main_app.dart';
 
-class MainApp extends StatelessWidget {
-  const MainApp({Key? key}) : super(key: key);
 
+//solucion:OS Error:   CERTIFICATE_VERIFY_FAILED
+class MyHttpOverrides extends HttpOverrides{
   @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      //theme: AppTheme.lightTheme,
-      theme: ThemeData(fontFamily: 'Sans'),
-      locale: Locale('es'),
-      // translations will be displayed in that locale
-      fallbackLocale: Locale('es'),
-      initialRoute: AppRoutesMiUpc.SPLASH,
-      initialBinding: DependencyInjectionApp(),
-      getPages: AppPages.getPages(),
-      home: Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Text('Mi UPC'),
-          ),
-        ),
-      ),
-    );
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
+
+
+void main() {
+  HttpOverrides.global = new MyHttpOverrides();
+  DependencyInjectionApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+
+
+    return MainApp();
+  }
+}
+
 
 ```
 

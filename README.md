@@ -272,7 +272,7 @@ end
 ```gradle
     defaultConfig {
        
-        minSdkVersion 20
+        minSdkVersion 21
      
     }
 ```

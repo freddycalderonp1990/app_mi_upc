@@ -135,7 +135,7 @@ class DeviceInfo {
         };
 
 
-        result = "ANDROID: "+ build.version.release!;
+        result = "ANDROID: "+ build.version.release;
       } else {
         IosDeviceInfo data = await deviceInfo.iosInfo;
 

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:rxdart/rxdart.dart';
+
 import 'package:flutter/cupertino.dart';
 
 import '../utils/check_internet_conexion.dart';

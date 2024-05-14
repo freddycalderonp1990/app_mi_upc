@@ -1,6 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
-import '../../data/models/auditoriaModel.dart';
+
 import '../utils/utilidadesUtil.dart';
 
 class Auditoria {

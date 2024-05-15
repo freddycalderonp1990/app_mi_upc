@@ -26,7 +26,7 @@ import '../models/items.dart';
 import '../models/models.dart';
 import '../models/servicios.dart';
 
-part 'local/local_store_provider.dart';
+part 'local/mi_upc_local_store_provider.dart';
 
 part 'remote/host/url_api_provider.dart';
 part 'remote/host/cabecera_json_model.dart';

@@ -9,7 +9,7 @@ import '../../data/providers/providers_impl.dart';
 import '../../domain/repositories/domain_repositories.dart';
 import '../models/items.dart';
 
-part 'local/local_store_impl.dart';
+part 'local/mi_upc_local_store_impl.dart';
 part 'remote/apis/modulos_api_impl.dart';
 part 'remote/apis/servicios_api_impl.dart';
 part 'remote/apis/items_api_impl.dart';

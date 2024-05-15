@@ -5,7 +5,7 @@ import '../../data/models/items.dart';
 import '../../data/models/modulos.dart';
 import '../../data/models/servicios.dart';
 
-part 'local/local_storage_repository.dart';
+part 'local/mi_upc_local_storage_repository.dart';
 part 'remote/apis/modulos_repository.dart';
 part 'remote/apis/servicios_repository.dart';
 part 'remote/apis/items_repository.dart';

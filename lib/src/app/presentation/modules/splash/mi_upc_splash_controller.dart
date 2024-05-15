@@ -1,6 +1,6 @@
 part of '../controllers.dart';
 
-class SplashController extends GetxController {
+class MiUpcSplashController extends GetxController {
   @override
   void onInit() {
     _cargarPantallaLogin_InicioRapido();

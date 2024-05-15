@@ -26,8 +26,8 @@ class AppPagesMiUpc {
   static final List<GetPage> pages = [
     getPageConfig(
         name: AppRoutesMiUpc.SPLASH,
-        page: () => SplashPage(),
-        binding: SplashBinding()),
+        page: () => MiUpcSplashPage(),
+        binding: MiUpcSplashBinding()),
     getPageConfig(
         name: AppRoutesMiUpc.SERVICIOS,
         page: () => ServiciosPage(),

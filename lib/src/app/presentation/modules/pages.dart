@@ -22,7 +22,7 @@ import '../widgets/custom_widgets.dart';
 
 import 'controllers.dart';
 
-part 'splash/splash_page.dart';
+part 'splash/mi_upc_splash_page.dart';
 part 'menu/menu_principal_page.dart';
 part 'servicios/servicios_page.dart';
 part 'acuerdo/acuerdo_page.dart';

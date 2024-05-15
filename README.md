@@ -297,3 +297,10 @@ plugins {
 }
 ```
 
+4. agregar los assets ruta: pubspec.yaml
+```yaml
+  assets:
+    - assets/imgs_mi_upc/img/
+    - assets/imgs_mi_upc/icon/
+```
+

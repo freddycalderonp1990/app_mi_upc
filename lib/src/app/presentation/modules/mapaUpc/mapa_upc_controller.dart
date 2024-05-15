@@ -4,7 +4,8 @@ class MapaUpcController extends GetxController {
   RxBool peticionServerState = false.obs;
   final internetChecker = CheckInternetConnection();
   final GpsController gpsController = Get.find<GpsController>();
-  final MapaUpcApiImpl _apiMapaUpcRepository = Get.find<MapaUpcApiImpl>();
+  final MiUpcMapaUpcApiImpl _apiMapaUpcRepository =
+      Get.find<MiUpcMapaUpcApiImpl>();
 
   Rx<Upc> listaUpc = Upc(
           descripcionUpc: '',
@@ -49,7 +50,7 @@ class MapaUpcController extends GetxController {
 
   @override
   void onInit() {
-   _init();
+    _init();
 
     // TODO: el contolloler se ha creado pero la vista no se ha renderizado
     super.onInit();
@@ -58,32 +59,36 @@ class MapaUpcController extends GetxController {
   @override
   void onReady() {
     // TODO: Donde la vista ya se presento
-   // getLocationNueva();
+    // getLocationNueva();
   }
 
   _init() async {
     print(Get.deviceLocale.toString());
-   // getLocation();
-   // iniciarSeguimiento1();
-   // getLocationNueva();
+    // getLocation();
+    // iniciarSeguimiento1();
+    // getLocationNueva();
     consultarUpc();
-
   }
-consultarUpc()async{
 
-    print('auxilioooo'+AppConfig.ubicacionLista.toString());
+  consultarUpc() async {
+    print('auxilioooo' + AppConfig.ubicacionLista.toString());
 
-    print('auxiliooooeeeeeeeee'+AppConfig.ubicacion.value.latitude.toString());
-    if (AppConfig.ubicacionLista.isTrue){
-      getDatosUpc(la:AppConfig.ubicacion.value.latitude, lo:AppConfig.ubicacion.value.longitude );
+    print(
+        'auxiliooooeeeeeeeee' + AppConfig.ubicacion.value.latitude.toString());
+    if (AppConfig.ubicacionLista.isTrue) {
+      getDatosUpc(
+          la: AppConfig.ubicacion.value.latitude,
+          lo: AppConfig.ubicacion.value.longitude);
       zoomMap = 15;
       mapController.move(
-          LatLng(AppConfig.ubicacion.value.latitude, AppConfig.ubicacion.value.longitude), zoomMap);
-    }else{
+          LatLng(AppConfig.ubicacion.value.latitude,
+              AppConfig.ubicacion.value.longitude),
+          zoomMap);
+    } else {
       gpsController.iniciarSeguimiento();
     }
+  }
 
-}
   getDatosUpc({required double la, required double lo}) async {
     try {
       datosUpc.clear();
@@ -100,9 +105,11 @@ consultarUpc()async{
 
   getBount() {
     LatLngBounds bounds = LatLngBounds(
-        LatLng(AppConfig.ubicacion.value.latitude, AppConfig.ubicacion.value.longitude),
-        LatLng(AppConfig.ubicacion.value.latitude, AppConfig.ubicacion.value.longitude));
-    for(var i=0; i<datosUpc.length; i++) {
+        LatLng(AppConfig.ubicacion.value.latitude,
+            AppConfig.ubicacion.value.longitude),
+        LatLng(AppConfig.ubicacion.value.latitude,
+            AppConfig.ubicacion.value.longitude));
+    for (var i = 0; i < datosUpc.length; i++) {
       var location = LatLng(double.parse(datosUpc[i].latitudUpc),
           double.parse(datosUpc[i].longitudUpc));
       bounds.extend(location);

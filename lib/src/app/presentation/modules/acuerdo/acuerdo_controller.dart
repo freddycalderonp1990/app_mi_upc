@@ -1,7 +1,7 @@
 part of '../controllers.dart';
 
 class AcuerdoController extends GetxController {
-  final LocalStoreImpl _LocalStoreImpl = Get.find<LocalStoreImpl>();
+  final MiUpcLocalStoreImpl _LocalStoreImpl = Get.find<MiUpcLocalStoreImpl>();
   RxBool peticionServerState = false.obs;
   RxBool chk = false.obs;
   String acuerdo = "";

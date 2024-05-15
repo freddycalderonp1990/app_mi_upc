@@ -1,6 +1,5 @@
 part of '../../domain_repositories.dart';
 
-abstract class ModulosRepository {
-  Future<List<Modulo>> buscaListaModulos() ;
-
+abstract class MiUpcModulosRepository {
+  Future<List<Modulo>> buscaListaModulos();
 }

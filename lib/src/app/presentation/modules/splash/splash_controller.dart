@@ -14,7 +14,7 @@ class SplashController extends GetxController {
     _init();
   }
 
-  final LocalStoreImpl _localStoreImpl = Get.find<LocalStoreImpl>();
+  final MiUpcLocalStoreImpl _localStoreImpl = Get.find<MiUpcLocalStoreImpl>();
 
   _init() async {
     print(Get.deviceLocale.toString());

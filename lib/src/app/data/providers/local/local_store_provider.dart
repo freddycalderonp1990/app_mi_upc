@@ -1,24 +1,23 @@
 part of '../providers_impl.dart';
 
-const _PREF_TOKEN = 'TOKEN';
-const _PREF_USUARIO = 'USER';
+const _PREF_TOKEN = 'MI_UPC_TOKEN';
+const _PREF_USUARIO = 'MI_UPC_USER';
 
-const _PREF_MAIL = 'MAIL';
-const _PREF_ACUERDO = 'ACUERDO';
+const _PREF_MAIL = 'MI_UPC_MAIL';
+const _PREF_ACUERDO = 'MI_UPC_ACUERDO';
 
-const _PREF_PASS = 'PASS';
+const _PREF_PASS = 'MI_UPC_PASS';
 
 const _PREF_APP_INICIAL =
-    'APP_INICIAL'; // sirve para controlar si el usuario recien instalo la aplicacion y mostrarle directamente el login
-const _PREF_TIENE_HUELLA = 'TIENE_HUELLA';
-const _PREF_USER_NAME = 'USER_NAME';
-const _PREF_THEME = 'THEME_DARK';
+    'MI_UPC_APP_INICIAL'; // sirve para controlar si el usuario recien instalo la aplicacion y mostrarle directamente el login
+const _PREF_TIENE_HUELLA = 'MI_UPC_TIENE_HUELLA';
+const _PREF_USER_NAME = 'MI_UPC_USER_NAME';
+const _PREF_THEME = 'MI_UPC_THEME_DARK';
 const _PREF_CONTADOR_FALLIDO =
-    'CONTADOR_FALLIDO'; //Cuando el usuario a cambiado la clave y al precionar la huella por segunda  vez y no ingresa tiene que reiniciarse
+    'MI_UPC_CONTADOR_FALLIDO'; //Cuando el usuario a cambiado la clave y al precionar la huella por segunda  vez y no ingresa tiene que reiniciarse
 //para que se loguee con su nueva cuenta
 
-
-class LocalStoreProviderImpl extends LocalStorageRepository {
+class MiUpcLocalStoreProviderImpl extends MiUpcLocalStorageRepository {
   @override
   Future<void> clearAllData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

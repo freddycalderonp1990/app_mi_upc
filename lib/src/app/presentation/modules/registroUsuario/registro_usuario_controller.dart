@@ -1,10 +1,10 @@
 part of '../controllers.dart';
 
 class RegistroUsuarioController extends GetxController {
-  final RegistroUsuarioApiImpl _apiRegistroUsuarioRepository =
-      Get.find<RegistroUsuarioApiImpl>();
+  final MiUpcRegistroUsuarioApiImpl _apiRegistroUsuarioRepository =
+      Get.find<MiUpcRegistroUsuarioApiImpl>();
   final GpsController gpsController = Get.find<GpsController>();
-  final LocalStoreImpl _LocalStoreImpl = Get.find<LocalStoreImpl>();
+  final MiUpcLocalStoreImpl _LocalStoreImpl = Get.find<MiUpcLocalStoreImpl>();
   RxBool cedulaLista = false.obs;
   String imeiCell = '';
   bool cargarDatos = true;

@@ -10,22 +10,28 @@ import 'domain/repositories/domain_repositories.dart';
 
 class DependencyInjectionMiUpc extends Bindings {
   static ini() {
-    Get.lazyPut<LocalStorageRepository>(() => LocalStoreProviderImpl(),
+    Get.lazyPut<MiUpcLocalStorageRepository>(
+        () => MiUpcLocalStoreProviderImpl(),
         fenix: true);
-    Get.lazyPut<LocalStoreProviderImpl>(() => LocalStoreProviderImpl(),
+    Get.lazyPut<MiUpcLocalStoreProviderImpl>(
+        () => MiUpcLocalStoreProviderImpl(),
         fenix: true);
-    Get.lazyPut<LocalStoreImpl>(() => LocalStoreImpl(), fenix: true);
-    Get.lazyPut<ModulosApiImpl>(() => ModulosApiImpl(ModulosApiProviderImpl()),
+    Get.lazyPut<MiUpcLocalStoreImpl>(() => MiUpcLocalStoreImpl(), fenix: true);
+    Get.lazyPut<MiUpcModulosApiImpl>(
+        () => MiUpcModulosApiImpl(MiUpcModulosApiProviderImpl()),
         fenix: true);
-    Get.lazyPut<ServiciosApiImpl>(
-        () => ServiciosApiImpl(ServiciosApiProviderImpl()),
+    Get.lazyPut<MiUpcServiciosApiImpl>(
+        () => MiUpcServiciosApiImpl(MiUpcServiciosApiProviderImpl()),
         fenix: true);
-    Get.lazyPut<ItemsApiImpl>(() => ItemsApiImpl(ItemsApiProviderImpl()),
+    Get.lazyPut<MiUpcItemsApiImpl>(
+        () => MiUpcItemsApiImpl(MiUpcItemsApiProviderImpl()),
         fenix: true);
-    Get.lazyPut<MapaUpcApiImpl>(() => MapaUpcApiImpl(MapaUpcApiProviderImpl()),
+    Get.lazyPut<MiUpcMapaUpcApiImpl>(
+        () => MiUpcMapaUpcApiImpl(MiUpcMapaUpcApiProviderImpl()),
         fenix: true);
-    Get.lazyPut<RegistroUsuarioApiImpl>(
-        () => RegistroUsuarioApiImpl(RegistroUsuarioApiProviderImpl()),
+    Get.lazyPut<MiUpcRegistroUsuarioApiImpl>(
+        () =>
+            MiUpcRegistroUsuarioApiImpl(MiUpcRegistroUsuarioApiProviderImpl()),
         fenix: true);
     Get.put(GpsController());
   }

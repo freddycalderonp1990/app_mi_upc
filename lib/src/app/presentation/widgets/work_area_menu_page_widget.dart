@@ -57,7 +57,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
     });
   }
 
-  final LocalStoreImpl _localStoreImpl = Get.find<LocalStoreImpl>();
+  final MiUpcLocalStoreImpl _localStoreImpl = Get.find<MiUpcLocalStoreImpl>();
 
   _verificaDatos() async {
     print("MENU: verificando datos");

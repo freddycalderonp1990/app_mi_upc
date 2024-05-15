@@ -1,7 +1,8 @@
 //Para Guardar informacion en local
 
 part of '../domain_repositories.dart';
-abstract class LocalStorageRepository{
+
+abstract class MiUpcLocalStorageRepository {
   //Se define que cosas quiero hacer
   //se definen los contartos
 
@@ -13,5 +14,4 @@ abstract class LocalStorageRepository{
 
   Future<String> getDatosMail();
   Future<bool> setDatosMail(String value);
-
 }

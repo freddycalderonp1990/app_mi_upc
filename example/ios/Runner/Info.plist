@@ -45,5 +45,14 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	    	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>
+    	<key>NSLocationAlwaysUsageDescription</key>
+    	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>
+    	<key>NSLocationUsageDescription</key>
+    	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>
+    	<key>NSLocationWhenInUseUsageDescription</key>
+    	<string>Necesitamos Acceder a tú ubicación para que puedas ver las Unidades de Policia Comunitaria</string>
 </dict>
 </plist>

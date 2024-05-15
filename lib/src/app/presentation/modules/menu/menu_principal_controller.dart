@@ -5,7 +5,8 @@ class MenuPrincipalController extends GetxController {
   late StreamSubscription connectionSubscription;
   final status = Rx<ConnectionStatus>(ConnectionStatus.online);
   final GpsController gpsController = Get.find<GpsController>();
-  final ModulosApiImpl _apiModulosRepository = Get.find<ModulosApiImpl>();
+  final MiUpcModulosApiImpl _apiModulosRepository =
+      Get.find<MiUpcModulosApiImpl>();
   Rx<Modulo> datosModulos = Modulo(
           descripcionModulo: '',
           imgBase64: '',
@@ -48,7 +49,7 @@ class MenuPrincipalController extends GetxController {
     print(Get.deviceLocale.toString());
   }
 
-  final LocalStoreImpl _localStoreImpl = Get.find<LocalStoreImpl>();
+  final MiUpcLocalStoreImpl _localStoreImpl = Get.find<MiUpcLocalStoreImpl>();
 
   _verificaDatos() async {
     print("SPLASH: verificando datos");

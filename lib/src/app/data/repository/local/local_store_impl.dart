@@ -1,7 +1,7 @@
 part of '../data_repositories.dart';
 
-class LocalStoreImpl extends LocalStorageRepository {
-  final LocalStoreProviderImpl _localStoreProviderImpl = Get.find();
+class MiUpcLocalStoreImpl extends MiUpcLocalStorageRepository {
+  final MiUpcLocalStoreProviderImpl _localStoreProviderImpl = Get.find();
 
   @override
   Future<String> getDatosAcuerdo() {
@@ -32,6 +32,4 @@ class LocalStoreImpl extends LocalStorageRepository {
   Future<bool> setDatosUsuario(String value) {
     return _localStoreProviderImpl.setDatosUsuario(value);
   }
-
-
 }

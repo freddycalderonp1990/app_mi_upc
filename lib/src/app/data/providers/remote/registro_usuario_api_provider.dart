@@ -1,12 +1,27 @@
 part of '../providers_impl.dart';
-class RegistroUsuarioApiProviderImpl extends RegistroUsuarioRepository {
+
+class MiUpcRegistroUsuarioApiProviderImpl
+    extends MiUpcRegistroUsuarioRepository {
   @override
-  Future<String> insertarUsuario({required String tipoUsuario, required double latitud, required double longitud,
-    required String mail, required String fechaRegistro, required String tipoConexion, required String ssIDConexion,
-    required String numCelular, required String versionAndroid, required String modeloCelular, required String cedula,
-    required String ip,required String primerNombre,required String primerApellido,required String segundoApellido}) async {
+  Future<String> insertarUsuario(
+      {required String tipoUsuario,
+      required double latitud,
+      required double longitud,
+      required String mail,
+      required String fechaRegistro,
+      required String tipoConexion,
+      required String ssIDConexion,
+      required String numCelular,
+      required String versionAndroid,
+      required String modeloCelular,
+      required String cedula,
+      required String ip,
+      required String primerNombre,
+      required String primerApellido,
+      required String segundoApellido}) async {
     try {
-      String segmento="polco/index.php?opc=82713fab56ccb1010531b972ba3f3c4d&modulo=ddced13c854fb2c03d6e01ce5bfd7e08"
+      String segmento =
+          "polco/index.php?opc=82713fab56ccb1010531b972ba3f3c4d&modulo=ddced13c854fb2c03d6e01ce5bfd7e08"
           "&latitud=${latitud}"
           "&longitud=${longitud}"
           "&tipoUsuario=${tipoUsuario}"
@@ -28,8 +43,4 @@ class RegistroUsuarioApiProviderImpl extends RegistroUsuarioRepository {
       throw ExceptionHelper.captureError(e);
     }
   }
-
-
-
-
 }

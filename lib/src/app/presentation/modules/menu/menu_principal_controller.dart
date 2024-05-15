@@ -4,7 +4,7 @@ class MenuPrincipalController extends GetxController {
   RxBool peticionServerState = false.obs;
   late StreamSubscription connectionSubscription;
   final status = Rx<ConnectionStatus>(ConnectionStatus.online);
-  final GpsController gpsController = Get.find<GpsController>();
+  final MiUpcGpsController gpsController = Get.find<MiUpcGpsController>();
   final MiUpcModulosApiImpl _apiModulosRepository =
       Get.find<MiUpcModulosApiImpl>();
   Rx<Modulo> datosModulos = Modulo(

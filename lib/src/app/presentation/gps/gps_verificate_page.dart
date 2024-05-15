@@ -12,14 +12,12 @@ part of 'gps_impl_helper.dart';
 //Si esta activo se muestra la pantalla que necesita usar el GPS
 //Caso contrario se redirecciona a la pantalla donde solicita los permisos o activar el GPS
 
-
-
-class GpsVerificatePage extends GetView<GpsController>  with WidgetsBindingObserver  {
+class GpsVerificatePage extends GetView<MiUpcGpsController>
+    with WidgetsBindingObserver {
   final String? pantalla;
   final bool btnAtras;
   final imgFondo;
   final Route<Object?>? pantallaIrAtras;
-
 
   final bool cerrarTodasPantallas;
 
@@ -35,8 +33,7 @@ class GpsVerificatePage extends GetView<GpsController>  with WidgetsBindingObser
   //CONFIGURACIONES
   final anchoContenedor = AppConfig.anchoContenedor;
 
-
-  RxString msj=''.obs;
+  RxString msj = ''.obs;
 
   @override
   void initState() {
@@ -52,7 +49,7 @@ class GpsVerificatePage extends GetView<GpsController>  with WidgetsBindingObser
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if(pantalla!=null) {
+    if (pantalla != null) {
       if (state == AppLifecycleState.resumed) {
         if (await myGeolocator.Geolocator.isLocationServiceEnabled()) {
           if (cerrarTodasPantallas) {
@@ -70,14 +67,13 @@ class GpsVerificatePage extends GetView<GpsController>  with WidgetsBindingObser
     final responsive = ResponsiveUtil();
 
     return Container();
-
   }
 
   Future<String> verificarGps() async {
     String result = await controller.checkPermisosGpsActivated();
     print("result ${result}");
     if (result == "true") {
-      if(pantalla==null){
+      if (pantalla == null) {
         return "Pagina no implementada";
       }
       Get.offAllNamed(pantalla!);
@@ -85,7 +81,5 @@ class GpsVerificatePage extends GetView<GpsController>  with WidgetsBindingObser
     } else {
       return result;
     }
-
-
   }
 }

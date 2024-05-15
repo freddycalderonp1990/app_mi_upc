@@ -3,7 +3,7 @@ part of '../controllers.dart';
 class MapaUpcController extends GetxController {
   RxBool peticionServerState = false.obs;
   final internetChecker = CheckInternetConnection();
-  final GpsController gpsController = Get.find<GpsController>();
+  final MiUpcGpsController gpsController = Get.find<MiUpcGpsController>();
   final MiUpcMapaUpcApiImpl _apiMapaUpcRepository =
       Get.find<MiUpcMapaUpcApiImpl>();
 

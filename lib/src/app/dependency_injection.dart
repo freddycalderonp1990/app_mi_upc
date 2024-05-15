@@ -33,7 +33,7 @@ class DependencyInjectionMiUpc extends Bindings {
         () =>
             MiUpcRegistroUsuarioApiImpl(MiUpcRegistroUsuarioApiProviderImpl()),
         fenix: true);
-    Get.put(GpsController());
+    Get.put(MiUpcGpsController());
   }
 
   @override

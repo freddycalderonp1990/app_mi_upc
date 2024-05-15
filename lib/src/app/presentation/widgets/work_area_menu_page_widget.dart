@@ -36,7 +36,7 @@ class WorkAreaMenuPageWidget extends StatefulWidget {
 }
 
 class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
-  GpsController gpsController = Get.find<GpsController>();
+  MiUpcGpsController gpsController = Get.find<MiUpcGpsController>();
   String ver = '';
   String userPref = '';
   String mailPref = '';

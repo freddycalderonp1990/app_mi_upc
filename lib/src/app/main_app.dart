@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
           bodyMedium: TextStyle(fontSize: 14.0, color: Colors.black),
         ),
         // Define el Brightness y Colores por defecto
-        backgroundColor: Colors.blueAccent,
+
         // Define la Familia de fuente por defecto
         fontFamily: 'Bookman Old Style',
         // Define el TextTheme por defecto. Usa esto para espicificar el estilo de texto por defecto

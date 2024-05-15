@@ -1,4 +1,3 @@
-
 part of 'custom_widgets.dart';
 
 Future<TimeOfDay?> _selectTime(BuildContext context,
@@ -25,12 +24,12 @@ Future<DateTime?> _selectDateTime(BuildContext context,
   );
 }
 
- Future  showDialogoFechaHoraWidget(
-    BuildContext context, {
-      required ValueChanged<DateTime> onSelectedDate,
-      required DateTime initialDate,
-      bool mostrarHora=true,
-    }) {
+Future showDialogoFechaHoraWidget(
+  BuildContext context, {
+  required ValueChanged<DateTime> onSelectedDate,
+  required DateTime initialDate,
+  bool mostrarHora = true,
+}) {
   final dialog = Dialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -43,11 +42,13 @@ Future<DateTime?> _selectDateTime(BuildContext context,
           ]),
       child: DialogoFechaHoraWidget(
           mostrarHora: mostrarHora,
-          onSelectedDate: onSelectedDate, initialDate: initialDate),
+          onSelectedDate: onSelectedDate,
+          initialDate: initialDate),
     ),
   );
 
-  return showDialog(context: context, builder: (BuildContext context) => dialog);
+  return showDialog(
+      context: context, builder: (BuildContext context) => dialog);
 }
 
 class DialogoFechaHoraWidget extends StatefulWidget {
@@ -58,7 +59,7 @@ class DialogoFechaHoraWidget extends StatefulWidget {
   const DialogoFechaHoraWidget({
     required this.onSelectedDate,
     required this.initialDate,
-     this.mostrarHora=true,
+    this.mostrarHora = true,
   }) : super();
 
   @override
@@ -85,7 +86,7 @@ class _DialogoFechaHoraWidgetState extends State<DialogoFechaHoraWidget> {
         children: <Widget>[
           Text(
             'Seleccione la Fecha',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 16),
           Row(
@@ -133,51 +134,52 @@ class _DialogoFechaHoraWidgetState extends State<DialogoFechaHoraWidget> {
                 ),
               ),
               const SizedBox(width: 8),
-              widget.mostrarHora? Material(
-                borderRadius: BorderRadius.circular(5),
-                elevation: 2,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(5),
-                  onTap: () async {
-                    final time =
-                    await _selectTime(context, initialDate: selectedDate);
-                    if (time == null) return;
+              widget.mostrarHora
+                  ? Material(
+                      borderRadius: BorderRadius.circular(5),
+                      elevation: 2,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(5),
+                        onTap: () async {
+                          final time = await _selectTime(context,
+                              initialDate: selectedDate);
+                          if (time == null) return;
 
-                    setState(() {
-                      selectedDate = DateTime(
-                        selectedDate.year,
-                        selectedDate.month,
-                        selectedDate.day,
-                        time.hour,
-                        time.minute,
-                      );
-                    });
+                          setState(() {
+                            selectedDate = DateTime(
+                              selectedDate.year,
+                              selectedDate.month,
+                              selectedDate.day,
+                              time.hour,
+                              time.minute,
+                            );
+                          });
 
-                    widget.onSelectedDate(selectedDate);
-                  },
-                  // handle your onTap here
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.update,
-                          color: Colors.black,
+                          widget.onSelectedDate(selectedDate);
+                        },
+                        // handle your onTap here
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.update,
+                                color: Colors.black,
+                              ),
+                              Text(DateFormat(AppConfig.formatoHora)
+                                  .format(selectedDate))
+                            ],
+                          ),
                         ),
-                        Text(DateFormat(AppConfig.formatoHora)
-                            .format(selectedDate))
-                      ],
-                    ),
-                  ),
-                ),
-              ):Container()
+                      ),
+                    )
+                  : Container()
             ],
           ),
           const SizedBox(height: 40),
           BotonesWidget(
-
             iconData: Icons.check,
             padding: EdgeInsets.all(0),
             title: 'Aceptar!',

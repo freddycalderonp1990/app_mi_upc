@@ -112,6 +112,7 @@ class DialogosAwesome {
 
   static getWarning(
       {String title = 'Advertencia',
+      String titleBtnOk = 'Ok',
       required String descripcion,
       Function()? btnOkOnPress}) {
     AwesomeDialog(
@@ -127,7 +128,7 @@ class DialogosAwesome {
             btnOkIcon: Icons.check_circle,
             btnCancelText: "No",
             btnOkColor: Colors.deepOrangeAccent,
-            btnOkText: "Ok",
+            btnOkText: titleBtnOk,
             btnOkOnPress: btnOkOnPress ??
                 () {
                   Get.back();

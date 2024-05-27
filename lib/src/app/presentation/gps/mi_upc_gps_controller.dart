@@ -21,20 +21,22 @@ class MiUpcGpsController extends GetxController {
 
     if (!permisoGPS) {
       String msj =
-          "Necesitamos acceder a la ubicación del Dispositivo.\n\n Para que puedas ver las Unidades de Policia Comunitaria";
-      DialogosAwesome.getWarning(
+          "Necesitamos acceder a la ubicación del Dispositivo.\n\n ¿Desea activar los Permisos de la Ubicación?";
+      DialogosAwesome.getWarningSiNo(
           descripcion: msj,
           btnOkOnPress: () async {
             permisoGPS = await checkGpsPermisoStatus2();
-          });
+          },
+          btnCancelOnPress: () {});
     }
 
     //verificamos que el GPS del dispositivo este encendido
     final gpsActivo = await myGeolocator.Geolocator.isLocationServiceEnabled();
     if (!gpsActivo) {
       String msj =
-          "Necesitamos acceder a la ubicación del Dispositivo.\n\n Para que puedas ver las Unidades de Policia Comunitaria";
-      DialogosAwesome.getWarning(descripcion: msj, btnOkOnPress: () {});
+          "Necesitamos acceder a la ubicación del Dispositivo.\n\n Por favor active el GPS - Ubicación  de su dispositivo";
+      DialogosAwesome.getWarning(
+          titleBtnOk: 'Continuar', descripcion: msj, btnOkOnPress: () {});
     }
 
     if (permisoGPS && gpsActivo) {
@@ -57,16 +59,17 @@ class MiUpcGpsController extends GetxController {
       return "true";
     } else if (!permisoGPS) {
       String msj =
-          "Necesitamos acceder a la ubicación del Dispositivo.\n\n Para que puedas ver las Unidades de Policia Comunitaria";
-      DialogosAwesome.getWarning(
+          "Necesitamos acceder a la ubicación del Dispositivo.\n\n ¿Desea activar los Permisos de la Ubicación?";
+      DialogosAwesome.getWarningSiNo(
           descripcion: msj,
           btnOkOnPress: () {
             checkGpsPermisoStatus("aaa");
-          });
+          },
+          btnCancelOnPress: () {});
       return msj;
     } else {
       String msj =
-          "Necesitamos acceder a la ubicación del Dispositivo.\n\n Para que puedas ver las Unidades de Policia Comunitaria";
+          "Necesitamos acceder a la ubicación del Dispositivo.\n\n Por favor active el GPS de su dispositivo";
       DialogosAwesome.getError(descripcion: msj);
       return msj;
     }

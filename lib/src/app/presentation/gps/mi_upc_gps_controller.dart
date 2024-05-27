@@ -22,12 +22,12 @@ class MiUpcGpsController extends GetxController {
     if (!permisoGPS) {
       String msj =
           "Necesitamos acceder a la ubicación del Dispositivo.\n\n ¿Desea activar los Permisos de la Ubicación?";
-      DialogosAwesome.getWarningSiNo(
-          descripcion: msj,
-          btnOkOnPress: () async {
-            permisoGPS = await checkGpsPermisoStatus2();
-          },
-          btnCancelOnPress: () {});
+
+      DialogosDesingWidget.getDialogo(contenido: DesingPermisosGps(
+        onPressed: () async {
+          permisoGPS = await checkGpsPermisoStatus2();
+        },
+      ));
     }
 
     //verificamos que el GPS del dispositivo este encendido

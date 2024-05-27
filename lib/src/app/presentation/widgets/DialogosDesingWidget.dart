@@ -24,8 +24,7 @@ class DialogosDesingWidget {
               decoration: new BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
-                borderRadius:
-                BorderRadius.circular(AppConfig.radioBordecajas),
+                borderRadius: BorderRadius.circular(AppConfig.radioBordecajas),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -73,7 +72,11 @@ class DialogosDesingWidget {
     );
   }
 
-  static getDialogoXClaveTemporal({String title = '', Widget? contenido, Widget? botones,required VoidCallback onPressedX}) {
+  static getDialogoXClaveTemporal(
+      {String title = '',
+      Widget? contenido,
+      Widget? botones,
+      required VoidCallback onPressedX}) {
     final responsive = ResponsiveUtil();
     return showDialog(
       context: Get.context!,
@@ -96,8 +99,7 @@ class DialogosDesingWidget {
               decoration: new BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
-                borderRadius:
-                BorderRadius.circular(AppConfig.radioBordecajas),
+                borderRadius: BorderRadius.circular(AppConfig.radioBordecajas),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -142,6 +144,7 @@ class DialogosDesingWidget {
       ),
     );
   }
+
   static getDialogoXImgMemory({String title = '', imgMemory}) {
     final responsive = ResponsiveUtil();
     Widget contenido = Container(
@@ -173,8 +176,7 @@ class DialogosDesingWidget {
               decoration: new BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
-                borderRadius:
-                BorderRadius.circular(AppConfig.radioBordecajas),
+                borderRadius: BorderRadius.circular(AppConfig.radioBordecajas),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -218,12 +220,10 @@ class DialogosDesingWidget {
     );
   }
 
-
-  static  selectPicture(BuildContext context,
+  static selectPicture(BuildContext context,
       {GestureTapCallback? onTapGalery, GestureTapCallback? onTapCamara}) {
     final responsive = ResponsiveUtil();
-    double radioBorder =AppConfig.radioBordecajas;
-
+    double radioBorder = AppConfig.radioBordecajas;
 
     final dialog = Dialog(
       shape: RoundedRectangleBorder(
@@ -233,7 +233,9 @@ class DialogosDesingWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(radioBorder),
               boxShadow: [
-                BoxShadow(color: AppColors.colorBordecajas, blurRadius: AppConfig.radioBordecajas)
+                BoxShadow(
+                    color: AppColors.colorBordecajas,
+                    blurRadius: AppConfig.radioBordecajas)
               ]),
           child: Padding(
             padding: const EdgeInsets.only(top: 0, bottom: 5),
@@ -319,4 +321,57 @@ class DialogosDesingWidget {
         builder: (BuildContext context) => dialog);
   }
 
+  static getDialogo({String title = '', Widget? contenido}) {
+    final responsive = ResponsiveUtil();
+    return showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) => new Dialog(
+        backgroundColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 0.0,
+        child: new Stack(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(
+                top: 5.0 + 16.0,
+                bottom: 16.0,
+                left: 16.0,
+                right: 16.0,
+              ),
+              margin: EdgeInsets.only(top: 0),
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(AppConfig.radioBordecajas),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 16.0,
+                    offset: const Offset(0.0, 16.0),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: responsive.diagonalP(2.5),
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blueAccent),
+                  ),
+                  SizedBox(height: responsive.altoP(1)),
+                  contenido != null ? contenido : Container(),
+                  SizedBox(height: responsive.altoP(1)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

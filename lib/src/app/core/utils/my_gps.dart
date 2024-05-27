@@ -1,11 +1,15 @@
 import 'dart:async';
 
+import 'package:app_mi_upc/src/app/core/utils/responsiveUtil.dart';
 import 'package:geolocator/geolocator.dart' as myGeolocator;
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:latlong2/latlong.dart';
 import '../../presentation/widgets/custom_widgets.dart';
 import '../app_config.dart';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MyGps {
   static myGeolocator.LocationSettings get getConfig {
@@ -27,12 +31,12 @@ class MyGps {
     if (!permisoGPS) {
       String msj =
           "Necesitamos acceder a la ubicación del Dispositivo.\n\n ¿Desea activar los Permisos de la Ubicación?";
-      DialogosAwesome.getWarningSiNo(
-          descripcion: msj,
-          btnOkOnPress: () async {
-            permisoGPS = await _checkGpsPermisoStatus2();
-          },
-          btnCancelOnPress: () {});
+      DialogosDesingWidget.getDialogo(contenido: DesingPermisosGps(
+        onPressed: () async {
+          permisoGPS = await _checkGpsPermisoStatus2();
+        },
+      ));
+
       return false;
     }
 
@@ -121,5 +125,121 @@ class MyGps {
   static void cancelarSeguimiento() {
     AppConfig.positionSubscription?.cancel();
     AppConfig.positionSubscription = null;
+  }
+}
+
+class DesingPermisosGps extends StatefulWidget {
+  final VoidCallback? onPressed;
+
+  const DesingPermisosGps({super.key, this.onPressed});
+
+  @override
+  State<DesingPermisosGps> createState() => _DesingPermisosGpsState();
+}
+
+class _DesingPermisosGpsState extends State<DesingPermisosGps> {
+  @override
+  Widget build(BuildContext context) {
+    return desing();
+  }
+
+  Widget desing() {
+    final responsive = ResponsiveUtil();
+    return Container(
+        margin: EdgeInsets.all(5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            getTitle(),
+            Icon(
+                size: responsive.diagonalP(4),
+                Icons.location_on,
+                color: Colors.red),
+            SizedBox(
+              height: 10,
+            ),
+            getDerscripcion(),
+            SizedBox(
+              height: 10,
+            ),
+            getIconText("Ver los puntos cercanos a tu ubicación"),
+            SizedBox(
+              height: 10,
+            ),
+            getIconText(
+                "Acceder a tu ubicación nos ayuda a mostrarte las Unidades de Policía Comunitaria más cercanas, lo que te permite acceder fácilmente a servicios de seguridad locales cuando los necesites."),
+            SizedBox(
+              height: responsive.altoP(6),
+            ),
+            BotonesWidget(
+              title: 'Continuar',
+              onPressed: widget.onPressed,
+            )
+          ],
+        ));
+  }
+
+  Widget getTitle() {
+    final responsive = ResponsiveUtil();
+    return getTextSombra("PERMISOS DE UBICACIÓN", responsive.diagonalP(2));
+  }
+
+  Widget getDerscripcion() {
+    final responsive = ResponsiveUtil();
+    return Text(
+      "Necesitamos acceder a la ubicación del Dispositivo.",
+      textAlign: TextAlign.justify,
+      style: TextStyle(
+        fontSize: responsive.diagonalP(1.5),
+      ),
+    );
+  }
+
+  Widget getTextSombra(String text, double size) {
+    Color colorTexto = Colors.black;
+    Color colorSombra = Colors.white;
+
+    return Text(
+      text,
+      style: TextStyle(
+          color: colorTexto,
+          shadows: [
+            Shadow(
+              blurRadius: 10,
+              color: colorSombra,
+              offset: Offset(2, 2),
+            ),
+            Shadow(
+              blurRadius: 10,
+              color: colorSombra,
+              offset: Offset(-2, 2),
+            ),
+          ],
+          fontWeight: FontWeight.bold,
+          fontSize: size),
+    );
+  }
+
+  Widget getIconText(String text) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Icon(
+            Icons.check_circle,
+            color: Color.fromRGBO(22, 73, 135, 1),
+          ),
+        ),
+        Expanded(
+            flex: 8,
+            child: Text(
+              text,
+              textAlign: TextAlign.justify,
+            ))
+      ],
+    );
   }
 }

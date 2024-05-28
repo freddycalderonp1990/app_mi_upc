@@ -26,19 +26,24 @@ class MiUpcGpsController extends GetxController {
       DialogosDesingWidget.getDialogo(contenido: DesingPermisosGps(
         onPressed: () async {
           permisoGPS = await checkGpsPermisoStatus2();
+          Get.back();
         },
       ));
     }
 
     //verificamos que el GPS del dispositivo este encendido
     final gpsActivo = await myGeolocator.Geolocator.isLocationServiceEnabled();
+
     if (!gpsActivo) {
       String msj =
           "Necesitamos acceder a la ubicación del Dispositivo.\n\n Por favor active el GPS - Ubicación  de su dispositivo";
       DialogosAwesome.getWarning(
-          titleBtnOk: 'Continuar', descripcion: msj, btnOkOnPress: () {});
+          descripcion: msj,
+          btnOkOnPress: () {
+            Get.back();
+          });
+      return false;
     }
-
     if (permisoGPS && gpsActivo) {
       return true;
     } else {

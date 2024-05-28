@@ -34,6 +34,7 @@ class MyGps {
       DialogosDesingWidget.getDialogo(contenido: DesingPermisosGps(
         onPressed: () async {
           permisoGPS = await _checkGpsPermisoStatus2();
+          Get.back();
         },
       ));
 

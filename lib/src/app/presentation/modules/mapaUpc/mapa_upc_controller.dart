@@ -114,12 +114,14 @@ class MapaUpcController extends GetxController {
           double.parse(datosUpc[i].longitudUpc));
       bounds.extend(location);
     }
+
+/*
     mapController.fitBounds(
       bounds,
       options: const FitBoundsOptions(
         padding: EdgeInsets.all(100),
       ),
-    );
+    );*/
   }
 
   connectionStatusController() {

@@ -83,6 +83,9 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
       itemCount:
           controller.listaModulo != null ? controller.listaModulo.length : 0,
       itemBuilder: (context, ind) {
+        if(ind==0){
+          return SizedBox(height: 20,);
+        }
         return Obx(() => InkWell(
               onTap: () => {muestraPantalla(ind, context)},
               child: Column(

@@ -18,7 +18,6 @@ dependencies:
   url_launcher: ^6.3.1
   package_info_plus: ^8.0.2 #obtener version code de la app
   connectivity_plus: ^6.0.3 # Verifica a que tipo de red esta conectado
-  device_information: ^0.0.4 #Obtener el IMEI, modelo .. (no incluye la programacion del permiso READ_PHONE_STATE)
   device_info_plus: ^11.1.0 #Informacion del cell,Version Sistema Operatvivo
   network_info_plus: ^6.1.0 #Obtener ip del celular (se deben asiganr permisos para IOS)
   cached_network_image: ^3.4.1 #Muestra imagenes desde internet y las guarda en cache

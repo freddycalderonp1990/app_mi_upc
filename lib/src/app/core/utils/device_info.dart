@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:device_information/device_information.dart'; //Imei
+
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -74,7 +74,7 @@ class DeviceInfo {
 
       print("ponhe permisos ${permiso}");
 
-      String imeiNo = await DeviceInformation.deviceIMEINumber;
+      String imeiNo = "NoIMEI";
 
       return imeiNo;
     } catch (e) {
@@ -84,7 +84,7 @@ class DeviceInfo {
 
   static Future<String> get getNameDevice async {
     try {
-      String imeiNo = await DeviceInformation.deviceModel;
+      String imeiNo = await "NoName";
 
       return imeiNo;
     } catch (e) {

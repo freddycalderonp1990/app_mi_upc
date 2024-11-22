@@ -216,7 +216,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
 
   muestraPantalla(index, BuildContext ctx) async {
     if (index == 0) {
-      controller.verificarGps();
+     // controller.verificarGps();
     }
 
     if (index == 1) {

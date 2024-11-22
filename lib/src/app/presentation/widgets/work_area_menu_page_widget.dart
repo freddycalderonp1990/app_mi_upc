@@ -36,7 +36,7 @@ class WorkAreaMenuPageWidget extends StatefulWidget {
 }
 
 class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
-  MiUpcGpsController gpsController = Get.find<MiUpcGpsController>();
+
   String ver = '';
   String userPref = '';
   String mailPref = '';
@@ -356,26 +356,6 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
     );
   }
 
-  verificarGps() async {
-    //se verifica si el GPS del dispositivo seta activo y tiene permisos
-    bool verificarGps = await gpsController.verificarGPS();
-
-
-    if (verificarGps) {
-    //  gpsController.iniciarSeguimiento();
-      // iniciarSeguimiento1();
-      if (!gpsController.ubicacionLista.value) {
-        DialogosAwesome.getInformation(
-            descripcion: "Las coordenas aun no estan lista vuelva a intentar");
-      } else {
-        if (acuerdoPref == "Aceptado") {
-          Get.toNamed(AppRoutesMiUpc.REGISTROUSUARIO);
-        } else {
-          Get.toNamed(AppRoutesMiUpc.ACUERDO);
-        }
-      }
-    }
-  }
 
   verificaTConexion() async {
     try {

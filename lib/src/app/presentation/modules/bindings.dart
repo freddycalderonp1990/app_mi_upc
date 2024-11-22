@@ -8,5 +8,5 @@ part 'splash/mi_upc_splash_binding.dart';
 part 'menu/menu_principal_binding.dart';
 part 'servicios/servicios_binding.dart';
 part 'acuerdo/acuerdo_binding.dart';
-part 'mapaUpc/mapa_upc_binding.dart';
+
 part 'registroUsuario/registro_usuario_binding.dart';

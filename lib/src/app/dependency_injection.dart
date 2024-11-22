@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 
-import '../app/presentation/gps/gps_impl_helper.dart';
+
 
 import 'data/providers/providers_impl.dart';
 import 'data/repository/data_repositories.dart';
@@ -33,7 +33,7 @@ class DependencyInjectionMiUpc extends Bindings {
         () =>
             MiUpcRegistroUsuarioApiImpl(MiUpcRegistroUsuarioApiProviderImpl()),
         fenix: true);
-    Get.put(MiUpcGpsController());
+
   }
 
   @override

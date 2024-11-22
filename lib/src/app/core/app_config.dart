@@ -2,10 +2,10 @@
 
 
 import 'dart:async';
-import 'package:geolocator/geolocator.dart' as myGeolocator;
+
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:latlong2/latlong.dart';
+
 
 import '../data/providers/providers_impl.dart';
 
@@ -49,8 +49,8 @@ class AppConfig {
   static const String SAVE_IMG='cb44971ce0346ab06aae3a677b94be3b';
   static const String MODULO='5b09aa57b4523823e827d8ccc74e26d5';
   static Color? colorBarras = Colors.blue[900];
-  static StreamSubscription<myGeolocator.Position>? positionSubscription;
-  static Rx<LatLng> ubicacion=new LatLng(0.0,0.0).obs;
+
+
   static RxBool errorUbicacion=true.obs;
   static RxBool ubicacionLista=false.obs;
   static const Color colorMarcadorMiUbicacion= Colors.red;

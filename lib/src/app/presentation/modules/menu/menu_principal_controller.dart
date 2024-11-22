@@ -4,7 +4,7 @@ class MenuPrincipalController extends GetxController {
   RxBool peticionServerState = false.obs;
   late StreamSubscription connectionSubscription;
   final status = Rx<ConnectionStatus>(ConnectionStatus.online);
-  final MiUpcGpsController gpsController = Get.find<MiUpcGpsController>();
+
   final MiUpcModulosApiImpl _apiModulosRepository =
       Get.find<MiUpcModulosApiImpl>();
   Rx<Modulo> datosModulos = Modulo(
@@ -57,21 +57,7 @@ class MenuPrincipalController extends GetxController {
     acuerdo = await _localStoreImpl.getDatosAcuerdo();
   }
 
-  verificarGps() async {
-    //se verifica si el GPS del dispositivo seta activo y tiene permisos
-    bool verificarGps = await gpsController.verificarGPS();
-    if (verificarGps) {
-      gpsController.iniciarSeguimiento();
-      // iniciarSeguimiento1();
-      if (AppConfig.ubicacion.value.latitude == 0.0) {
-        DialogosAwesome.getInformation(
-            descripcion: "Las coordenas aun no estan lista vuelva a intentar");
-      } else {
-        gpsController.cancelarSeguimiento();
-        Get.toNamed(AppRoutesMiUpc.MAPAUPC);
-      }
-    }
-  }
+
 
   connectionStatusController() {
     connectionSubscription = internetChecker

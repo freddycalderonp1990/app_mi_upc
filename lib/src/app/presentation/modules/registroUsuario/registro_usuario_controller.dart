@@ -3,7 +3,7 @@ part of '../controllers.dart';
 class RegistroUsuarioController extends GetxController {
   final MiUpcRegistroUsuarioApiImpl _apiRegistroUsuarioRepository =
       Get.find<MiUpcRegistroUsuarioApiImpl>();
-  final MiUpcGpsController gpsController = Get.find<MiUpcGpsController>();
+
   final MiUpcLocalStoreImpl _LocalStoreImpl = Get.find<MiUpcLocalStoreImpl>();
   RxBool cedulaLista = false.obs;
   String imeiCell = '';
@@ -28,7 +28,7 @@ class RegistroUsuarioController extends GetxController {
   String longitud = '';
   String estadoConex = 'N';
   String validaMail = 'N';
-  Geolocator geolocator = Geolocator();
+
 
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   var controllerPrimerNombre = new TextEditingController();
@@ -180,8 +180,8 @@ class RegistroUsuarioController extends GetxController {
       } else {
         String mensaje = await _apiRegistroUsuarioRepository.insertarUsuario(
             tipoUsuario: tipoUsuario,
-            latitud: AppConfig.ubicacion.value.latitude,
-            longitud: AppConfig.ubicacion.value.longitude,
+            latitud: 0.0,
+            longitud: 0.0,
             mail: controllerCorreo.text,
             fechaRegistro: MyDate.getFechaActual,
             tipoConexion: tConexion,

@@ -48,10 +48,7 @@ class AppPagesMiUpc {
         name: AppRoutesMiUpc.MENU,
         page: () => MenuPrincipalPage(),
         binding: MenuPrincipalBinding()),
-    getPageConfig(
-        name: AppRoutesMiUpc.MAPAUPC,
-        page: () => MapaUpcPage(),
-        binding: MapaUpcBinding()),
+
     getPageConfig(
         name: AppRoutesMiUpc.REGISTROUSUARIO,
         page: () => RegistroUsuarioPage(),

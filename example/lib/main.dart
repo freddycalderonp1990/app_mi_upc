@@ -1,6 +1,7 @@
 import 'dart:io';
 
 
+import 'package:app_mi_upc/app_mi_upc.dart';
 import 'package:flutter/material.dart';
 
 import '../app/dependency_injection_app.dart';
@@ -21,6 +22,9 @@ class MyHttpOverrides extends HttpOverrides{
 void main() {
   HttpOverrides.global = new MyHttpOverrides();
   DependencyInjectionApp();
+  AppRoutesMiUpc.setNameMenu(name: "Mi Menú");
+  //AppRoutesMiUpc.setPageInicio(AppRoutesMiUpc.ACUERDO);
+
   runApp(MyApp());
 }
 

@@ -323,10 +323,11 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
                   ),
 
                   const SizedBox(height: 30.0),
-                  _buildRow(Icons.home, "Inicio", onTap: () {
+                  _buildRow(Icons.home, AppRoutesMiUpc.nameMenuInit, onTap: () {
                     //oculta el drawer
                     _key.currentState?.openEndDrawer();
-                    Get.offAllNamed(AppRoutesMiUpc.SPLASH);
+
+                    Get.offAllNamed(AppRoutesMiUpc.pageMenuInit);
                   }),
                   _buildDivider(),
                   _buildRow(Icons.share, "Compartir Aplicación",
@@ -336,10 +337,10 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
                         "https://play.google.com/store/apps/details?id=mmeo.system.pne&hl=es");
                     _key.currentState?.openEndDrawer();
                   }),
-                  _buildDivider(),
+                 /* _buildDivider(),
                   _buildRow(Icons.person_pin, "Perfil", onTap: () {
                     verificaTConexion();
-                  }),
+                  }),*/
 
                   _buildDivider(),
                   Text(
@@ -358,8 +359,10 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
   verificarGps() async {
     //se verifica si el GPS del dispositivo seta activo y tiene permisos
     bool verificarGps = await gpsController.verificarGPS();
+
+
     if (verificarGps) {
-      gpsController.iniciarSeguimiento();
+    //  gpsController.iniciarSeguimiento();
       // iniciarSeguimiento1();
       if (!gpsController.ubicacionLista.value) {
         DialogosAwesome.getInformation(
@@ -380,7 +383,13 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         estadoConex = 'S';
         print('connected');
-        verificarGps();
+       // verificarGps();
+
+        if (acuerdoPref == "Aceptado") {
+          Get.toNamed(AppRoutesMiUpc.REGISTROUSUARIO);
+        } else {
+          Get.toNamed(AppRoutesMiUpc.ACUERDO);
+        }
       }
     } on SocketException catch (_) {
       DialogosAwesome.getError(descripcion: 'No tiene conexión a Internet');

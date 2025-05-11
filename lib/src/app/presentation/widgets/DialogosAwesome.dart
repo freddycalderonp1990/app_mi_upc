@@ -316,6 +316,7 @@ class DialogosAwesome {
             animType: AnimType.bottomSlide,
             btnOkIcon: Icons.check_circle,
             body: body,
+            btnOkColor: AppColors.colorBotones,
             btnOkText: "Ok",
             btnOkOnPress: btnOkOnPress ?? () {})
         .show();

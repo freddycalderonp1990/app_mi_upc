@@ -50,6 +50,7 @@ class _imgPerfilRedondaState extends State<imgPerfilRedonda> {
           : ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(65.0)),
         child: Image.asset(
+          package: AppConfig.namePackage,
           AppImages.imgEscpolicia,
         ),
       ),

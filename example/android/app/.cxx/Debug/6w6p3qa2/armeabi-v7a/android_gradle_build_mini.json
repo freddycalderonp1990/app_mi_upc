@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/policianacional/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/policianacional/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/policianacional/AndroidStudioProjects/app_mi_upc/example/android/app/.cxx/Debug/6w6p3qa2/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/policianacional/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/policianacional/AndroidStudioProjects/app_mi_upc/example/android/app/.cxx/Debug/6w6p3qa2/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

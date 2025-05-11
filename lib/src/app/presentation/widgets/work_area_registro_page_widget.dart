@@ -69,6 +69,7 @@ class _WorkAreaRegistroPageWidgetState
       height: responsive.alto,
       width: responsive.ancho,
       child: Image.asset(
+        package: AppConfig.namePackage,
         widget.imgFondo ?? AppImages.imgarea,
         fit: BoxFit.fill,
       ),
@@ -253,6 +254,7 @@ class _WorkAreaRegistroPageWidgetState
                 ],
               ))),
               Image.asset(
+                package: AppConfig.namePackage,
                 height: responsive.anchoP(25),
                 width: responsive.anchoP(25),
                 AppImages.imgEscpolicia,
@@ -558,6 +560,7 @@ class _WorkAreaRegistroPageWidgetState
                       Expanded(
                           child: Form(
                         child: Image.asset(
+                          package: AppConfig.namePackage,
                           height: responsive.anchoP(25),
                           width: responsive.anchoP(25),
                           AppImages.imgGuardar,
@@ -601,6 +604,7 @@ class _WorkAreaRegistroPageWidgetState
                       Expanded(
                           child: Form(
                         child: Image.asset(
+                          package: AppConfig.namePackage,
                           height: responsive.anchoP(25),
                           width: responsive.anchoP(25),
                           AppImages.imgAtras,

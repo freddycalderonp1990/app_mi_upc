@@ -70,7 +70,7 @@ class OpcionesUpcWidget {
                               Container(
                                   height: responsive.altoP(2),
                                   child:
-                                      Image.asset(AppImages.imgDireccionIco)),
+                                      Image.asset(    package: AppConfig.namePackage,AppImages.imgDireccionIco)),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -96,7 +96,7 @@ class OpcionesUpcWidget {
                             children: <Widget>[
                               Container(
                                   height: responsive.altoP(2),
-                                  child: Image.asset(AppImages.imgMailIco)),
+                                  child: Image.asset(AppImages.imgMailIco,    package: AppConfig.namePackage,)),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -122,7 +122,7 @@ class OpcionesUpcWidget {
                             children: <Widget>[
                               Container(
                                   height: responsive.altoP(2),
-                                  child: Image.asset(AppImages.imgTelefonoIco)),
+                                  child: Image.asset(AppImages.imgTelefonoIco,    package: AppConfig.namePackage,)),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -149,7 +149,7 @@ class OpcionesUpcWidget {
                               Container(
                                   height: responsive.altoP(2),
                                   child:
-                                      Image.asset(AppImages.imgDistanciaIco)),
+                                      Image.asset(AppImages.imgDistanciaIco,    package: AppConfig.namePackage,)),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -199,6 +199,7 @@ class OpcionesUpcWidget {
                           ),
                           // needed
                           child: Image.asset(
+                            package: AppConfig.namePackage,
                             AppImages.imgRuta,
                             width: responsive.altoP(10),
                             //   fit: BoxFit.cover,
@@ -209,6 +210,7 @@ class OpcionesUpcWidget {
                               llamarTelefonoUpc(telf: telf, ctx: context),
                           // needed
                           child: Image.asset(
+                            package: AppConfig.namePackage,
                             AppImages.imgTelefono,
                             width: responsive.altoP(10),
                             //   fit: BoxFit.cover,
@@ -294,13 +296,13 @@ Widget getCabecera() {
 
         Container(
             height: responsive.altoP(4),
-            child: Image.asset(AppImages.imgMarker_upc)),
+            child: Image.asset(AppImages.imgMarker_upc,    package: AppConfig.namePackage,)),
         const SizedBox(
           width: 6,
         ),
         SizedBox(
           width: responsive.altoP(12),
-          child: Image.asset(AppImages.imgCabecera2),
+          child: Image.asset(AppImages.imgCabecera2,    package: AppConfig.namePackage,),
         ),
       ]),
     ],

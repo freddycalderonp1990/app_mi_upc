@@ -59,6 +59,7 @@ class _WorkAreaItemsPageWidgetState extends State<WorkAreaItemsPageWidget> {
       height: responsive.alto,
       width: responsive.ancho,
       child: Image.asset(
+        package: AppConfig.namePackage,
         widget.imgFondo ?? AppImages.imgarea,
         fit: BoxFit.fill,
       ),
@@ -79,13 +80,14 @@ class _WorkAreaItemsPageWidgetState extends State<WorkAreaItemsPageWidget> {
             child:  SafeArea(child: Stack(
               children: [
                 wgImgFondo,
-                wgBtnAtras,
+
                 Column(
                   children: [
                     SizedBox(height: responsive.altoP(3.0),),
                     widget.contenido,
                   ],
                 ),
+                wgBtnAtras,
                 Obx(()=>  CargandoWidget(
                   mostrar: widget.peticionServer.value,
                 )
@@ -109,6 +111,7 @@ class _WorkAreaItemsPageWidgetState extends State<WorkAreaItemsPageWidget> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: Image.asset(
+                package: AppConfig.namePackage,
                 ruta,
               ),
             ),

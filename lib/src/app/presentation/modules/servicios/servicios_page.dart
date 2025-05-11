@@ -6,7 +6,11 @@ class ServiciosPage extends GetView<ServiciosController> {
   @override
   Widget build(BuildContext context) {
     return WorkAreaItemsPageWidget(
-      btnAtras: false,
+      btnAtras: true,
+      pantallaIrAtras: (){
+        print("#aaaa");
+        Get.back();
+      },
       peticionServer:  controller.peticionServerState, contenido: getContenido(),
     );
   }
@@ -15,11 +19,10 @@ class ServiciosPage extends GetView<ServiciosController> {
     return Column(
       children: [
         Stack(children: [
-
           Container(
-            decoration:  const BoxDecoration(
+            decoration:   BoxDecoration(
               image:  DecorationImage(
-                image:  AssetImage(AppImages.imgFondo),
+                image:  AssetImage(AppImages.imgFondo, package: AppConfig.namePackage),
                 fit: BoxFit.cover,
               ),
             ),
@@ -139,7 +142,7 @@ class ServiciosPage extends GetView<ServiciosController> {
               Center(
                 child: SizedBox(
                   width: responsive.altoP(20),
-                  child: Image.asset(AppImages.imgCabecera2),
+                  child: Image.asset(AppImages.imgCabecera2,    package: AppConfig.namePackage,),
                 ),
               ),
               Container(
@@ -278,6 +281,7 @@ class ServiciosPage extends GetView<ServiciosController> {
                     height: resposnsive.altoP(4),
                     width: resposnsive.anchoP(4),
                     AppImages.vineta,
+                    package: AppConfig.namePackage,
                   ),
                   SizedBox(
                     width: resposnsive.anchoP(2),

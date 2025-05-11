@@ -13,6 +13,8 @@ enum Ambiente { desarrollo, prueba, produccion }
 
 class AppConfig {
 
+  static  String namePackage =  'app_mi_upc';
+
   static  String formatoFecha =  'yyyy-MM-dd';
   static  String formatoHora =  'HH:mm';
   static  String formatoSoloHora =  'HH';

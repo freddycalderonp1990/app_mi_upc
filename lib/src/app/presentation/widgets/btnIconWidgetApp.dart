@@ -31,7 +31,7 @@ class BtnIconWidgetApp extends StatelessWidget {
                 color: Colors.white, fontSize: responsive.diagonalP(1.5))),
         icon: Container(
           height: responsive.diagonalP(3),
-          child:stringImg.length==0?Container(): Image.asset(stringImg),
+          child:stringImg.length==0?Container(): Image.asset(stringImg,    package: AppConfig.namePackage,),
         ),
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -54,7 +54,7 @@ class BtnIconWidgetApp extends StatelessWidget {
                   color: Colors.white, fontSize: responsive.diagonalP(1.5))),
           icon: Container(
             height: responsive.diagonalP(3),
-            child: stringImg.length==0?Container(): Image.asset(stringImg),
+            child: stringImg.length==0?Container(): Image.asset(stringImg,    package: AppConfig.namePackage,),
           ),
           style: TextButton.styleFrom(
             side: BorderSide(width: 2, color: Colors.white),

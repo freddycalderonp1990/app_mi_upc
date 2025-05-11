@@ -67,14 +67,18 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
     mailPref = await _localStoreImpl.getDatosMail();
   }
 
+
   @override
   Widget build(BuildContext context) {
+
     final responsive = ResponsiveUtil();
     Widget wgImgFondo = SingleChildScrollView(
       child: Container(
         height: responsive.alto,
         width: responsive.ancho,
         child: Image.asset(
+
+          package: AppConfig.namePackage,
           widget.imgFondo ?? AppImages.imgarea,
           fit: BoxFit.fill,
         ),
@@ -179,6 +183,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: Image.asset(
+                package: AppConfig.namePackage,
                 ruta,
               ),
             ),
@@ -299,9 +304,9 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
                             colors: [Colors.black54, Colors.blueAccent])),
-                    child: const CircleAvatar(
+                    child:  CircleAvatar(
                       radius: 80,
-                      backgroundImage: AssetImage(image),
+                      backgroundImage: AssetImage(image,package: AppConfig.namePackage),
                     ),
                   ),
                   const SizedBox(height: 5.0),

@@ -65,7 +65,7 @@ class _ImputTextWidgetState extends State<ImputTextWidget> {
             width: responsive.isVertical()
                 ? responsive.altoP(4.3)
                 : responsive.altoP(8),
-            child: Image.asset(widget.imgString),
+            child: Image.asset(widget.imgString,    package: AppConfig.namePackage,),
           ),
           SizedBox(
             width: responsive.anchoP(2),

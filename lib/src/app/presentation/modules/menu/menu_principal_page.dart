@@ -20,9 +20,9 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(AppImages.imgFondo),
+              image: AssetImage(AppImages.imgFondo, package: AppConfig.namePackage),
               fit: BoxFit.cover,
             ),
           ),
@@ -153,7 +153,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
             children: <Widget>[
               Center(
                 child: Container(
-                  child: Image.asset(AppImages.imgCabecera_menu_principal),
+                  child: Image.asset(AppImages.imgCabecera_menu_principal,    package: AppConfig.namePackage,),
                   width: responsive.altoP(40),
                 ),
               ),
@@ -313,7 +313,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
             ),
             Container(
               height: responsive.altoP(25),
-              child: Image.asset(AppImages.imgNoWifi),
+              child: Image.asset(AppImages.imgNoWifi,    package: AppConfig.namePackage,),
             ),
             SizedBox(
               height: responsive.altoP(5),
@@ -344,7 +344,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
         ),
         Container(
           height: responsive.altoP(25),
-          child: Image.asset(AppImages.imgSiWifi),
+          child: Image.asset(AppImages.imgSiWifi,    package: AppConfig.namePackage,),
         ),
         SizedBox(
           height: responsive.altoP(5),

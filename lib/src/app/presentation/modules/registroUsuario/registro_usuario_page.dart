@@ -19,9 +19,9 @@ class RegistroUsuarioPage extends GetView<RegistroUsuarioController> {
         Container(
           width: responsive.anchoP(100),
           height: responsive.altoP(100),
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(AppImages.imgarea),
+              image: AssetImage(AppImages.imgarea, package: AppConfig.namePackage),
               fit: BoxFit.fill,
             ),
           ),
@@ -32,7 +32,7 @@ class RegistroUsuarioPage extends GetView<RegistroUsuarioController> {
           children: <Widget>[
             Center(
               child: Container(
-                child: Image.asset(AppImages.imgCabecera),
+                child: Image.asset(AppImages.imgCabecera,    package: AppConfig.namePackage,),
 
               ),
             ),

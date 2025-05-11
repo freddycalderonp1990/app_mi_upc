@@ -16,9 +16,9 @@ class AcuerdoPage extends GetView<AcuerdoController> {
       child: Stack(
         children: <Widget>[
           Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(AppImages.imgarea),
+                image: AssetImage(AppImages.imgarea, package: AppConfig.namePackage),
                 fit: BoxFit.cover,
               ),
             ),
@@ -29,7 +29,7 @@ class AcuerdoPage extends GetView<AcuerdoController> {
               children: <Widget>[
                 Center(
                   child: Container(
-                    child: Image.asset(AppImages.imgCabecera),
+                    child: Image.asset(AppImages.imgCabecera,    package: AppConfig.namePackage,),
                     width: responsive.altoP(45),
                     color: Colors.transparent,
                   ),

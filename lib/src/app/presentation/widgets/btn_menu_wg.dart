@@ -62,8 +62,10 @@ class _BtnMenuWidgetState extends State<BtnMenuWidget> {
                     width: responsive.anchoP(15),
                     height: responsive.anchoP(15),
                     child: widget.img!=null? Image.asset(
+                      package: AppConfig.namePackage,
                       widget.img,
                     ):Image.asset(
+                      package: AppConfig.namePackage,
                       AppImages.noimagen,
                     ),
                   ),
@@ -129,8 +131,10 @@ class _BtnMenuWidgetState extends State<BtnMenuWidget> {
                   width: responsive.anchoP(18),
                   height: responsive.anchoP(18),
                   child: widget.img!=null? Image.asset(
+                    package: AppConfig.namePackage,
                     widget.img,
                   ):Image.asset(
+                    package: AppConfig.namePackage,
                     AppImages.noimagen,
                   ),
                 ),

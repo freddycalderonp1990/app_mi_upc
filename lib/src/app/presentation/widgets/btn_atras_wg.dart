@@ -23,7 +23,7 @@ class BtnAtrasWidget extends StatelessWidget {
                 : responsive.anchoP(5),
             padding: const EdgeInsets.all(3),
             borderRadius: BorderRadius.circular(35),
-            color: Colors.black26,
+            color: AppColors.colorBotones,
             onPressed:pantallaIrAtras ?? () =>
                 Get.back(),
             //volver atras

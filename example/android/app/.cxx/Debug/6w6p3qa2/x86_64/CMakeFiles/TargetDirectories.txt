@@ -1,0 +1,2 @@
+/Users/policianacional/AndroidStudioProjects/app_mi_upc/example/android/app/.cxx/Debug/6w6p3qa2/x86_64/CMakeFiles/edit_cache.dir
+/Users/policianacional/AndroidStudioProjects/app_mi_upc/example/android/app/.cxx/Debug/6w6p3qa2/x86_64/CMakeFiles/rebuild_cache.dir

@@ -1,5 +1,16 @@
+## actualiza las librerias
+
+flutter pub upgrade --major-versions
+
+## crear tags
+git tag -a 1.0.4 -m "Versión 1.0.4"
+
+## subir tags
+git push --tags
 
 Para implementar mi UPC
+
+
 
 ## Features
 

@@ -6,6 +6,7 @@ import 'dart:io';
 
 //NECESARIOS PARA SUBIR ARCHIVOS
 import 'package:async/async.dart'; //DelegatingStream
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -15,7 +16,7 @@ import '../models/modulos.dart';
 import '../models/upc.dart';
 import 'dart:io' as doc;
 
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 import '../../core/app_config.dart';
 import '../../core/exceptions/exception_helper.dart';

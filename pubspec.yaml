@@ -29,9 +29,9 @@ dependencies:
   #shared_preferences: ^2.5.5 #- en uso cuando se descragn el proyecto
   # intl: ^0.18.0 #Conversion de idiomas, enteros, fechas
 
-  connectivity_plus: ^7.3.0 # Verifica a que tipo de red esta conectado
+  connectivity_plus: ^7.3.1 # Verifica a que tipo de red esta conectado
 
-  permission_handler: ^12.0.3 # Solicita Permisos del dispositivo al usuario (Ubicacion,Galeria.....)
+  permission_handler: ^13.0.1 # Solicita Permisos del dispositivo al usuario (Ubicacion,Galeria.....)
 
   http: ^1.6.0 # Conectar con proveedor - Apis
   rxdart: ^0.28.0 # se usa en el check_internet_conexion.dart

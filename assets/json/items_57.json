@@ -1,0 +1,28 @@
+{
+  "upcServitems": {
+    "codeError": 0,
+    "msj": "existe",
+    "datos": [
+      {
+        "descripcion": "Policía Nacional",
+        "idUpcServitems": "193"
+      },
+      {
+        "descripcion": "Fiscalías",
+        "idUpcServitems": "194"
+      },
+      {
+        "descripcion": "Comisarías ",
+        "idUpcServitems": "195"
+      },
+      {
+        "descripcion": "Juntas cantonales de protección de derechos.",
+        "idUpcServitems": "196"
+      },
+      {
+        "descripcion": "Tenencias políticas",
+        "idUpcServitems": "197"
+      }
+    ]
+  }
+}

@@ -1,11 +1,11 @@
 part of '../../providers_impl.dart';
 
 class UrlApiProvider {
-  static int _secondsTimeout =
-      AppConfig.AmbienteUrl == Ambiente.produccion ? 8 : 30;
+  static int _secondsTimeout = AppConfig.AmbienteUrl == Ambiente.produccion
+      ? 8
+      : 30;
 
   static Future<Map<String, String>> getheaders() async {
-
     return {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -14,11 +14,12 @@ class UrlApiProvider {
     };
   }
 
-  static Future<String> post(
-      {String segmento = '',
-      Object? body,
-      bool isLogin = false,
-      bool onlyUrl = false}) async {
+  static Future<String> post({
+    String segmento = '',
+    Object? body,
+    bool isLogin = false,
+    bool onlyUrl = false,
+  }) async {
     try {
       http.Client client = http.Client();
 
@@ -38,7 +39,6 @@ class UrlApiProvider {
       print("post-body: ${body.toString()}");
 
       Map<String, String> headers = await getheaders();
-
 
       final response = await client
           .post(uri, body: jsonEncode(body), headers: headers)
@@ -81,15 +81,15 @@ class UrlApiProvider {
 
       print("la url: $url");
       Map<String, String> headers = await getheaders();
-      final response = await client.get(uri, headers: headers).timeout(
-            Duration(seconds: _secondsTimeout),
-          );
+      final response = await client
+          .get(uri, headers: headers)
+          .timeout(Duration(seconds: _secondsTimeout));
 
       print("response.statusCode: ${response.statusCode}");
 
       if (response.statusCode == 200) {
         print("bodyTrasnformeee ${response.body.toString()}");
-              return response.body;
+        return response.body;
       } else {
         throw ServerException.StatusCode(statusCode: response.statusCode);
       }
@@ -114,9 +114,7 @@ class UrlApiProvider {
       Map<String, String> headers = await getheaders();
       final response = await client
           .delete(uri, headers: headers, body: jsonEncode(body))
-          .timeout(
-            Duration(seconds: _secondsTimeout),
-          );
+          .timeout(Duration(seconds: _secondsTimeout));
 
       print("response.statusCode: ${response.statusCode}");
 
@@ -130,9 +128,12 @@ class UrlApiProvider {
     }
   }
 
-//Modifica toda la data
-  static Future<String> put(
-      {String segmento = '', Object? body, bool onlyUrl = false}) async {
+  //Modifica toda la data
+  static Future<String> put({
+    String segmento = '',
+    Object? body,
+    bool onlyUrl = false,
+  }) async {
     try {
       http.Client client = http.Client();
 
@@ -163,8 +164,11 @@ class UrlApiProvider {
   }
 
   //Modifica parte de la data
-  static Future<String> patch(
-      {String segmento = '', Object? body, bool onlyUrl = false}) async {
+  static Future<String> patch({
+    String segmento = '',
+    Object? body,
+    bool onlyUrl = false,
+  }) async {
     try {
       http.Client client = http.Client();
 
@@ -194,8 +198,10 @@ class UrlApiProvider {
     }
   }
 
-  static Future<String> postUploadFile(
-      {required doc.File file, required String segmento}) async {
+  static Future<String> postUploadFile({
+    required doc.File file,
+    required String segmento,
+  }) async {
     try {
       String? parsed = null;
 
@@ -214,9 +220,13 @@ class UrlApiProvider {
 
       var request = new http.MultipartRequest("POST", uri);
 
-      var multipartFile = new http.MultipartFile("file", stream, length,
-          filename: basename(file.path),
-          contentType: MediaType("text", "plain"));
+      var multipartFile = new http.MultipartFile(
+        "file",
+        stream,
+        length,
+        filename: basename(file.path),
+        contentType: MediaType("text", "plain"),
+      );
 
       request.files.add(multipartFile);
 
@@ -240,21 +250,33 @@ class UrlApiProvider {
       throw ExceptionHelper.captureError(e);
     }
   }
+
   static Future getUrlUploadFile({required File file}) async {
     try {
       String? parsed = null;
       String url = Host.gethost();
-      Uri uri = await Uri.parse(url + "comandoGeneral/index.php?opc=" + AppConfig.SAVE_IMG + "&modulo="+AppConfig.MODULO);
+      Uri uri = await Uri.parse(
+        url +
+            "comandoGeneral/index.php?opc=" +
+            AppConfig.SAVE_IMG +
+            "&modulo=" +
+            AppConfig.MODULO,
+      );
       print("uriuriuriuriuriuriuriuri ${uri}");
-    //  Uri uri = await Uri.parse(url);
+      //  Uri uri = await Uri.parse(url);
 
       var stream = new http.ByteStream(DelegatingStream.typed(file.openRead()));
       var length = await file.length();
       var request = new http.MultipartRequest("POST", uri);
-      request.fields['opc'] = AppConfig.SAVE_IMG ;
-      request.fields['modulo'] = AppConfig.MODULO ;
-      var multipartFile = new http.MultipartFile("file", stream, length,
-          filename: basename(file.path),contentType: MediaType("text","plain") );
+      request.fields['opc'] = AppConfig.SAVE_IMG;
+      request.fields['modulo'] = AppConfig.MODULO;
+      var multipartFile = new http.MultipartFile(
+        "file",
+        stream,
+        length,
+        filename: basename(file.path),
+        contentType: MediaType("text", "plain"),
+      );
       request.files.add(multipartFile);
       http.StreamedResponse response = await request.send();
       parsed = await response.stream.transform(utf8.decoder).first;
@@ -262,6 +284,22 @@ class UrlApiProvider {
       return parsed;
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  static Future<String> leerJsonLocal(String archivo) async {
+    try {
+      print("leer desde el Json= ${archivo}");
+
+
+      final delay = 1 + Random().nextInt(1);
+      await Future.delayed(Duration(seconds: delay));
+      final dato= await rootBundle.loadString(archivo);
+      print("listo datos correctos desde json= ${archivo}");
+      return dato;
+    } catch (e) {
+      print("error leer json= ${e.toString()}");
+      throw ExceptionHelper.captureError(e);
     }
   }
 }

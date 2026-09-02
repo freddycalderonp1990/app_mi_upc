@@ -1,0 +1,24 @@
+{
+  "upcServitems": {
+    "codeError": 0,
+    "msj": "existe",
+    "datos": [
+      {
+        "descripcion": "Llama al ECU 911.",
+        "idUpcServitems": "189"
+      },
+      {
+        "descripcion": "Acude a tu UPC más cercano.",
+        "idUpcServitems": "190"
+      },
+      {
+        "descripcion": "Activación del botón de seguridad.",
+        "idUpcServitems": "191"
+      },
+      {
+        "descripcion": "Acompañamiento policial hasta la autoridad competente a fin de obtener medidas de protección inmediatas.",
+        "idUpcServitems": "192"
+      }
+    ]
+  }
+}

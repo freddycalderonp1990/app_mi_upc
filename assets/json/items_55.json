@@ -1,0 +1,36 @@
+{
+  "upcServitems": {
+    "codeError": 0,
+    "msj": "existe",
+    "datos": [
+      {
+        "descripcion": "Mayor comunicación dentro del núcleo familiar.",
+        "idUpcServitems": "182"
+      },
+      {
+        "descripcion": "Si en casa sufres maltrato a diario, es importante que recuperes tu círculo social (los maltratadores tienden a aislar a sus víctimas).\t",
+        "idUpcServitems": "183"
+      },
+      {
+        "descripcion": "Manten una relación sana con tu pareja.",
+        "idUpcServitems": "184"
+      },
+      {
+        "descripcion": "Usa un lenguaje respetuoso, alejado de insultos.",
+        "idUpcServitems": "185"
+      },
+      {
+        "descripcion": "No consientas la violencia física y psicológica.",
+        "idUpcServitems": "186"
+      },
+      {
+        "descripcion": "No ocultes la violencia si eres testigo denuncia.",
+        "idUpcServitems": "187"
+      },
+      {
+        "descripcion": "No permitas que el acoso y la violencia continúen",
+        "idUpcServitems": "188"
+      }
+    ]
+  }
+}

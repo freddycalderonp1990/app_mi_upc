@@ -104,6 +104,7 @@ class DialogosAwesome {
         ),
         child: Center(
           child: Image.asset(
+            package: AppConfig.namePackage,
             imgString,
             width: 60, // Ajusta el tamaño para que no se recorte
             height: 60,
@@ -225,6 +226,7 @@ class DialogosAwesome {
                           ),
                           child: Center(
                             child: Image.asset(
+                              package: AppConfig.namePackage,
                               AppImages.escudopolicia,
                               width: 60, // Ajusta el tamaño para que no se recorte
                               height: 60,

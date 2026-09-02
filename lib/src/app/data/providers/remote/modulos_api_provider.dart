@@ -1,8 +1,10 @@
 part of '../providers_impl.dart';
 
 class MiUpcModulosApiProviderImpl extends MiUpcModulosRepository {
+
+
   @override
-  Future<List<Modulo>> buscaListaModulos() async {
+  Future<List<Modulo>> buscaListaModulosWeb() async {
     try {
       String segmento =
           "polco/index.php?opc=9206073e6ac2a05d16b18901f8fa3a8eb386b176&modulo=ddced13c854fb2c03d6e01ce5bfd7e08";
@@ -12,6 +14,16 @@ class MiUpcModulosApiProviderImpl extends MiUpcModulosRepository {
       return data;
     } catch (e) {
       throw ExceptionHelper.captureError(e);
+    }
+  }
+
+  @override
+  Future<List<Modulo>> buscaListaModulos() async {
+    try {
+      final json = await UrlApiProvider.leerJsonLocal(AppJson.JSONbuscaListaModulos);
+      return modulosMiupcFromJson(json).upcModulosMovil.modulos;
+    } catch (e) {
+      return buscaListaModulosWeb();
     }
   }
 }

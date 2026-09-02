@@ -82,16 +82,13 @@ class MenuPrincipalController extends GetxController {
   }
 
   cargarDatosLista() async {
-    try {
+
       listaModulo.clear();
       peticionServerState(true);
       listaModulo.value = await _apiModulosRepository.buscaListaModulos();
       print('----------------------*$listaModulo');
       if (listaModulo.isNotEmpty) {}
       peticionServerState(false);
-    } on ServerException catch (e) {
-      peticionServerState(false);
-      DialogosAwesome.getError(descripcion: e.cause);
-    }
+
   }
 }

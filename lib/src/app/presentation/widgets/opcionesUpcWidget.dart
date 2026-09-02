@@ -199,6 +199,7 @@ class OpcionesUpcWidget {
                           ),
                           // needed
                           child: Image.asset(
+
                             package: AppConfig.namePackage,
                             AppImages.imgRuta,
                             width: responsive.altoP(10),

@@ -2,13 +2,7 @@ class AppImages {
 
 
 
-
-
   static const _rutaImg = "assets/img/img/";
-  static const _rutaIcon = "assets/img/icon/";
-
-
-  //-*********************** AUDIO *******************************
 
 
   //-*********************** IMAGENES *******************************
@@ -42,37 +36,11 @@ class AppImages {
 
   static const imgGuardar = _rutaImg + "guardar.png";
 
-  static const escudopolicia = _rutaImg + "escudo_policia.png";
+  static const escudopolicia = _rutaImg + "escpolicia.png";
 
 
   //-*********************** ICONOS *******************************
 
 
 
-
-/*
-  static const imgCamara = _rutaImg + "camara.png";
-   static const imgVisto = _rutaImg + "visto.png";
-  static const imgLinea = _rutaImg + "linea.png";
-  static const img1800 = _rutaImg + "1800.png";
-  static const imgTitulo = _rutaImg + "titulo.png";
-  static const imgSirena = _rutaImg + "sirena.gif";
-
-    static const imgPaquitoCovid = _rutaImg + "paquitocovid.png";
-    static const imgMarker_persona = _rutaImg + "marker_persona.png";
-    static const imgUpc_edificio = _rutaImg + "upc_edificio.png";
-  static const imgFlechaDerecha = _rutaImg + "flecha_derecha.png";
-  static const imgEcu911 = _rutaImg + "ecu911.png";
-  static const imgCovid = _rutaImg + "covid.png";
-  static const imgVineta = _rutaImg + "vineta.png";
-  static const imgPaquito = _rutaImg + "paquito.png";
-  static const imgInformate = _rutaImg + "informate.png";
-    static const imgMis_notificaciones = "${_rutaImg}mis_notificaciones.png";
-  static const imgIcon_app = "${_rutaImg}icon_app.png";
-    static const imgRegistrardesaparecido =
-      _rutaImg + "registrardesaparecido.png";
-  static const imgShared = _rutaImg + "shared.png";
-    static const iconIdentificacion = _rutaIcon + "ic_identificacion.png";
-
-  */
 }

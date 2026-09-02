@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:ffi';
+import 'dart:math' hide log;
 import 'dart:typed_data';
 import 'dart:io';
 
 //NECESARIOS PARA SUBIR ARCHIVOS
+import 'package:app_mi_upc/src/app/core/values/app_json.dart';
 import 'package:async/async.dart'; //DelegatingStream
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,7 @@ import '../models/modulos.dart';
 
 import '../models/upc.dart';
 import 'dart:io' as doc;
-
+import 'package:flutter/services.dart';
 
 
 import '../../core/app_config.dart';

@@ -572,7 +572,7 @@ class _WorkAreaRegistroPageWidgetState extends State<WorkAreaRegistroPageWidget>
                 ),
               ),
               child: InkWell(
-                onTap: ()=>{Get.offAllNamed(AppRoutes.MENU)},
+                onTap: ()=>{Get.offAllNamed(AppRoutesMiUpc.MENU)},
                 child: Container(
                   width: responsive.anchoP(35),
                   height: responsive.anchoP(12),

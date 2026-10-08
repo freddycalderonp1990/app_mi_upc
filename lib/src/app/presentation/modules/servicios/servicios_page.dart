@@ -179,7 +179,7 @@ class ServiciosPage extends GetView<ServiciosController> {
         "imagen": img,
         "nombreModulo": 'Registro Evento',
       };
-      Get.toNamed(AppRoutes.REGISTRAR_EVENTO, parameters: data);
+      Get.toNamed(AppRoutesMiUpc.REGISTRAR_EVENTO, parameters: data);
     } else {
       DialogosAwesome.getAlertDetalleServicios(
         title: servicio.toUpperCase(),
@@ -287,7 +287,7 @@ class ServiciosPage extends GetView<ServiciosController> {
             onTapDown: (_) => presionado.value = true,
             onTapUp: (_) => presionado.value = false,
             onTapCancel: () => presionado.value = false,
-            onTap: () => Get.toNamed(AppRoutes.DETALLEALERTAS),
+            onTap: () => Get.toNamed(AppRoutesMiUpc.DETALLEALERTAS),
             child: AnimatedScale(
               duration: const Duration(milliseconds: 120),
               scale: presionado.value ? 0.97 : 1.0,

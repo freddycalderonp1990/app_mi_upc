@@ -438,7 +438,7 @@ class AlertasDelitosController extends GetxController {
           if (Get.isDialogOpen == true) {
             Get.back();
           }
-          Get.offAllNamed(AppRoutes.MENU);
+          Get.offAllNamed(AppRoutesMiUpc.MENU);
         },
       );
 

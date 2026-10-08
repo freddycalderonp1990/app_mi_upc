@@ -481,7 +481,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
             "imagen": controller.listaModulo[1].imgBase64,
             "nombreModulo": 'Violencia de Género',
           };
-          Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+          Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
         } else {
           DialogosAwesome.getError(
             descripcion: "No tiene Conexión a Internet para registrar un evento",
@@ -495,7 +495,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
           "imagen": controller.listaModulo[2].imgBase64,
           "nombreModulo": 'Servicio Policía Comunitaria',
         };
-        Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
       }
       if (index == 3) {
         Map<String, String> data = {
@@ -503,7 +503,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
           "imagen": controller.listaModulo[3].imgBase64,
           "nombreModulo": 'Medidas de Autoprotección',
         };
-        Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
       }
 
     }else{
@@ -521,7 +521,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
             "imagen": controller.listaModulo[0].imgBase64,
             "nombreModulo": controller.listaModulo[0].tituloModulo,
           };
-          Get.toNamed(AppRoutes.ALERTASDELITOS, parameters: data);
+          Get.toNamed(AppRoutesMiUpc.ALERTASDELITOS, parameters: data);
 
         } else {
           DialogosAwesome.getError(
@@ -536,7 +536,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
             "imagen": controller.listaModulo[2].imgBase64,
             "nombreModulo": 'Violencia de Género',
           };
-          Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+          Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
         } else {
           DialogosAwesome.getError(
             descripcion: "No tiene Conexión a Internet para registrar un evento",
@@ -550,7 +550,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
           "imagen": controller.listaModulo[3].imgBase64,
           "nombreModulo": 'Servicio Policía Comunitaria',
         };
-        Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
       }
       if (index == 4) {
         Map<String, String> data = {
@@ -558,7 +558,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
           "imagen": controller.listaModulo[4].imgBase64,
           "nombreModulo": 'Medidas de Autoprotección',
         };
-        Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
       }
     }
   }
@@ -578,7 +578,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
           "imagen": controller.listaModulo[0].imgBase64,
           "nombreModulo": controller.listaModulo[0].descripcionModulo,
         };
-        Get.toNamed(AppRoutes.ALERTASDELITOS, parameters: data);
+        Get.toNamed(AppRoutesMiUpc.ALERTASDELITOS, parameters: data);
 
       } else {
         DialogosAwesome.getError(
@@ -595,14 +595,14 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
             "imagen": controller.listaModulo[0].imgBase64,
             "nombreModulo": 'Alertas 1800-DELITO',
           };
-          Get.toNamed(AppRoutes.ALERTASDELITOS, parameters: data);
+          Get.toNamed(AppRoutesMiUpc.ALERTASDELITOS, parameters: data);
         }else{
           Map<String, String> data = {
             "id": "3",
             "imagen": controller.listaModulo[1].imgBase64,
             "nombreModulo": 'Violencia de Género',
           };
-          Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+          Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
         }
 
       } else {
@@ -618,7 +618,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
           "imagen": controller.listaModulo[2].imgBase64,
           "nombreModulo": 'Violencia de Género',
         };
-        Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
       } else {
         DialogosAwesome.getError(
           descripcion: "No tiene Conexión a Internet para registrar un evento",
@@ -632,7 +632,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
         "imagen": controller.listaModulo[3].imgBase64,
         "nombreModulo": 'Servicio Policía Comunitaria',
       };
-      Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+      Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
     }
     if (index == 4) {
       Map<String, String> data = {
@@ -640,7 +640,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
         "imagen": controller.listaModulo[4].imgBase64,
         "nombreModulo": 'Medidas de Autoprotección',
       };
-      Get.toNamed(AppRoutes.SERVICIOS, parameters: data);
+      Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
     }
   }*/
 }

@@ -25,8 +25,8 @@ void main() async {
 
   HttpOverrides.global = new MyHttpOverrides();
   DependencyInjectionApp();
-  //AppRoutesMiUpc.setNameMenu(name: "Mi Menú");
-  //AppRoutesMiUpc.setPageInicio(AppRoutesMiUpc.ACUERDO);
+  AppRoutesMiUpc.setNameMenu(name: "JAJAJAJAAJAJ");
+  AppRoutesMiUpc.setPageInicio(AppRoutesMiUpc.ACUERDO);
 
   runApp(MyApp());
 }

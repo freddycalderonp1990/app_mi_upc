@@ -117,7 +117,7 @@ class AcuerdoPage extends GetView<AcuerdoController> {
   void ingresar(bool c) async {
     if (c == true) {
       controller.verificaAcuerdo();
-      Get.offAllNamed(AppRoutes.REGISTROUSUARIO);
+      Get.offAllNamed(AppRoutesMiUpc.REGISTROUSUARIO);
     } else {
       DialogosAwesome.getError(
           descripcion:

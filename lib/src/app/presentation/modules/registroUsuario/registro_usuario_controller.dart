@@ -5,8 +5,7 @@ class RegistroUsuarioController extends GetxController {
   Get.find<RegistroUsuarioRepository>();
   final GpsController gpsController = Get.find<GpsController>();
   final LocalStoreImpl _localStoreImpl = Get.find<LocalStoreImpl>();
-  final GoogleAuthService _googleAuthService =
-  Get.find<GoogleAuthService>();
+
 
   Rx<GaleryCameraModel?> mGaleryCameraModel = Rx<GaleryCameraModel?>(null);
   RxBool peticionServerState = false.obs;
@@ -176,67 +175,7 @@ class RegistroUsuarioController extends GetxController {
     return null;
   }
 
-  Future<void> registrarConGoogle() async {
-    try {
-      cargandoSocialLogin.value = true;
 
-      final credential = await _googleAuthService.signInWithGoogle();
-      final user = credential.user;
-
-      if (user == null) {
-        throw Exception(
-          'No fue posible obtener la cuenta autenticada de Google.',
-        );
-      }
-
-      limpiarFormulario();
-
-      await _aplicarDatosSociales(
-        metodo: 'google',
-        id: user.uid,
-        token: user.refreshToken ?? '',
-        nombres: user.displayName ?? '',
-        apellidos: '',
-        correo: user.email ?? '',
-        fotoUrl: user.photoURL,
-      );
-
-      _repartirDisplayName(user.displayName ?? '');
-
-      await _guardarDatosLocales(fotoBytes: fotoPerfilBytes.value);
-      await _localStoreImpl.setMetodoRegistro('google');
-
-      datosCargados.value = true;
-      mostrarFormulario.value = true;
-      cedulaLista.value = controllerCedula.text.trim().isNotEmpty;
-
-      DialogosAwesome.getSucess(
-        title: "Mi UPC",
-        descripcion: "Datos cargados desde Google correctamente.",
-        btnOkOnPress: () async {
-          Get.back();
-          Get.offAllNamed(AppRoutes.MENU)?.then((_) async {
-            final menuCtrl = Get.find<MenuPrincipalController>();
-            await menuCtrl._verificaDatos();
-            await menuCtrl._cargarFotoPerfil();
-          });
-        },
-      );
-    } on FirebaseAuthException catch (e) {
-      DialogosAwesome.getError(
-        descripcion:
-        "Error de autenticación con Google: ${e.message ?? e.code}",
-        btnOkOnPress: () => Get.back(),
-      );
-    } catch (e) {
-      DialogosAwesome.getError(
-        descripcion: "No fue posible iniciar sesión con Google: $e",
-        btnOkOnPress: () => Get.back(),
-      );
-    } finally {
-      cargandoSocialLogin.value = false;
-    }
-  }
 
   Future<void> registrarConFacebook() async {
     try {
@@ -268,7 +207,7 @@ class RegistroUsuarioController extends GetxController {
         descripcion: "Datos cargados desde Facebook correctamente.",
         btnOkOnPress: () async {
           Get.back();
-          Get.offAllNamed(AppRoutes.MENU)?.then((_) async {
+          Get.offAllNamed(AppRoutesMiUpc.MENU)?.then((_) async {
             final menuCtrl = Get.find<MenuPrincipalController>();
             await menuCtrl._verificaDatos();
             await menuCtrl._cargarFotoPerfil();
@@ -461,7 +400,7 @@ class RegistroUsuarioController extends GetxController {
             ? "Datos sociales guardados correctamente."
             : "Datos actualizados correctamente.",
         btnOkOnPress: () async {
-          Get.offAllNamed(AppRoutes.MENU)?.then((_) async {
+          Get.offAllNamed(AppRoutesMiUpc.MENU)?.then((_) async {
             final menuCtrl = Get.find<MenuPrincipalController>();
             await menuCtrl._verificaDatos();
             await menuCtrl._cargarFotoPerfil();

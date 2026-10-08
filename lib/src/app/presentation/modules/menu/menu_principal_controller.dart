@@ -264,7 +264,7 @@ class MenuPrincipalController extends GetxController {
       "imagen": listaModulo.isNotEmpty ? listaModulo[0].imgBase64 : "",
     };
 
-    Get.toNamed(AppRoutes.MAPAUPC, parameters: data);
+    Get.toNamed(AppRoutesMiUpc.MAPAUPC, parameters: data);
   }
 
   // =============================================================

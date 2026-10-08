@@ -39,9 +39,9 @@ class MainApp extends StatelessWidget {
       ],
 
       fallbackLocale: window.locale,
-      initialRoute:  AppRoutes.SPLASH,
+      initialRoute: AppRoutesMiUpc.SPLASH,
       initialBinding: DependencyInjectionMiUpc(),
-      getPages: AppRoutesMiUpc.pages,
+      getPages: AppPagesMiUpc.pages,
       home: const Scaffold(
         backgroundColor:Colors.blueAccent,
         body: SafeArea(

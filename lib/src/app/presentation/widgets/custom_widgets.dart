@@ -16,6 +16,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../app_mi_upc.dart';
 import '../../core/app_config.dart';
 import '../../core/utils/check_internet_conexion.dart';
 import '../../core/utils/photo_helper.dart';

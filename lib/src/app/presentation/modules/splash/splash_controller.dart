@@ -28,6 +28,6 @@ class SplashController extends GetxController {
   _cargarPantallaLogin_InicioRapido() async {
     await Future.delayed(const Duration(seconds: 2)).then((_) {
     });
-      Get.offAllNamed(AppRoutes.MENU);
+      Get.offAllNamed(AppRoutesMiUpc.MENU);
   }
 }

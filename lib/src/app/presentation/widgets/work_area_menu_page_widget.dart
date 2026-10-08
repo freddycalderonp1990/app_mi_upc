@@ -223,7 +223,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
                 IconButton(
                   icon: const Icon(Icons.notifications_none, size: 40),
                   color: Colors.white,
-                  onPressed: () => Get.toNamed(AppRoutes.DETALLEALERTAS),
+                  onPressed: () => Get.toNamed(AppRoutesMiUpc.DETALLEALERTAS),
                 ),
                 if (total > 0)
                   Positioned(
@@ -525,11 +525,13 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
                         children: [
                           _drawerItem(
                             icon: Icons.home_rounded,
-                            label: "Inicio",
+                            label:  AppRoutesMiUpc.nameMenuInit,
+
                             subtitle: "Volver a la pantalla principal",
                             onTap: () {
-                              Navigator.of(context).pop();
-                              Get.offAllNamed(AppRoutes.SPLASH);
+                              //oculta el drawer
+                              _key.currentState?.openEndDrawer();
+                              Get.offAllNamed(AppRoutesMiUpc.pageMenuInit);
                             },
                           ),
                           const SizedBox(height: 10),
@@ -673,7 +675,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
         DialogosAwesome.getInformation(
             descripcion: "Las coordenadas aún no están listas. Intente nuevamente.");
       } else {
-        Get.toNamed(AppRoutes.REGISTROUSUARIO);
+        Get.toNamed(AppRoutesMiUpc.REGISTROUSUARIO);
       }
     }
   }

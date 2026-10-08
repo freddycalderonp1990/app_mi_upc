@@ -129,7 +129,7 @@ ResponsiveUtil responsiveUtil=new ResponsiveUtil();
                       onTap: () {
                         controller.modalSeleccionMostrado.value = false;
                         Get.back();
-                        Get.offAllNamed(AppRoutes.MENU);
+                        Get.offAllNamed(AppRoutesMiUpc.MENU);
                       },
                       child: Container(
                         width: 35,
@@ -183,19 +183,8 @@ ResponsiveUtil responsiveUtil=new ResponsiveUtil();
                     height: 1.35,
                   ),
                 ),
-                const SizedBox(height: 18),
-                _buildBotonModalRegistro(
-                  texto: 'Continuar con Google',
-                  icono: Icons.g_mobiledata_rounded,
-                  colorFondo: Colors.white,
-                  colorTexto: const Color(0xFFEC0606),
-                  colorBorde: Colors.grey,
-                  onTap: () async {
-                    Get.back();
-                    controller.modalSeleccionMostrado.value = false;
-                    await controller.registrarConGoogle();
-                  },
-                ),
+
+
                 const SizedBox(height: 10),
                 _buildBotonModalRegistro(
                   texto: 'Completar manualmente',

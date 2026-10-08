@@ -5,7 +5,7 @@ import '../modules/bindings.dart';
 import '../modules/pages.dart';
 import '../routes/app_routes.dart';
 
-class AppRoutesMiUpc {
+class AppPagesMiUpc {
   static final _transition = Transition.rightToLeft;
   static final _transitionDuration = const Duration(milliseconds: 400);
   static final _curve = Curves.fastOutSlowIn;
@@ -22,53 +22,53 @@ class AppRoutesMiUpc {
 
   static final List<GetPage> pages = [
     getPageConfig(
-        name: AppRoutes.SPLASH,
+        name: AppRoutesMiUpc.SPLASH,
         page: () => SplashPage(),
         binding: SplashBinding()),
 
     getPageConfig(
-        name: AppRoutes.SERVICIOS,
+        name:AppRoutesMiUpc.SERVICIOS,
         page: () => ServiciosPage(),
         binding: ServiciosBinding()),
     getPageConfig(
-        name: AppRoutes.ITEMSSERVICIOS,
+        name:AppRoutesMiUpc.ITEMSSERVICIOS,
         page: () => MenuPrincipalPage(),
         binding: MenuPrincipalBinding()),
     getPageConfig(
-        name: AppRoutes.ACUERDO,
+        name:AppRoutesMiUpc.ACUERDO,
         page: () => AcuerdoPage(),
         binding: AcuerdoBinding()),
     getPageConfig(
-        name: AppRoutes.ITEMSTIPS,
+        name:AppRoutesMiUpc.ITEMSTIPS,
         page: () => MenuPrincipalPage(),
         binding: MenuPrincipalBinding()),
     getPageConfig(
-        name: AppRoutes.MENU,
+        name:AppRoutesMiUpc.MENU,
         page: () => MenuPrincipalPage(),
         binding: MenuPrincipalBinding()),
     getPageConfig(
-        name: AppRoutes.MAPAUPC,
+        name:AppRoutesMiUpc.MAPAUPC,
         page: () => MapaUpcPage(),
         binding: MapaUpcBinding()),
     getPageConfig(
-        name: AppRoutes.REGISTROUSUARIO,
+        name:AppRoutesMiUpc.REGISTROUSUARIO,
         page: () => RegistroUsuarioPage(),
         binding: RegistroUsuarioBinding()),
 
     getPageConfig(
-        name: AppRoutes.REGISTRAR_EVENTO,
+        name:AppRoutesMiUpc.REGISTRAR_EVENTO,
         page: () => EventosPage(),
         binding: EventosBinding()),
     getPageConfig(
-        name: AppRoutes.CONSULTAVEHICULO,
+        name:AppRoutesMiUpc.CONSULTAVEHICULO,
         page: () => VehiculosPage(),
         binding: VehiculosBinding()),
     getPageConfig(
-        name: AppRoutes.DETALLEALERTAS,
+        name:AppRoutesMiUpc.DETALLEALERTAS,
         page: () => DetalleAlertasPage(),
         binding: DetalleAlertasBinding()),
     getPageConfig(
-        name: AppRoutes.ALERTASDELITOS,
+        name:AppRoutesMiUpc.ALERTASDELITOS,
         page: () => AlertasDelitosPage(),
         binding: AlertasDelitosBinding()),
   ];

@@ -1,4 +1,3 @@
-
 part of 'custom_widgets.dart';
 
 class Loading extends StatefulWidget {
@@ -11,12 +10,14 @@ class Loading extends StatefulWidget {
   _LoadingState createState() => _LoadingState();
 }
 
-class _LoadingState extends State<Loading>
-    with SingleTickerProviderStateMixin {
+class _LoadingState extends State<Loading> with TickerProviderStateMixin {
   late Animation<double> animation_rotation;
   late Animation<double> animation_radius_in;
   late Animation<double> animation_radius_out;
   late AnimationController controller;
+
+  late AnimationController scaleController;
+  late Animation<double> scaleAnimation;
 
   late double radius;
   late double dotRadius;
@@ -28,33 +29,22 @@ class _LoadingState extends State<Loading>
     radius = widget.radius;
     dotRadius = widget.dotRadius;
 
-    print(dotRadius);
-
+    // Animación de rotación para los dots
     controller = AnimationController(
-        lowerBound: 0.0,
-        upperBound: 1.0,
-        duration: const Duration(milliseconds: 3000),
-        vsync: this);
+      duration: const Duration(milliseconds: 3000),
+      vsync: this,
+    );
 
     animation_rotation = Tween(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.0, 1.0, curve: Curves.linear),
-      ),
+      CurvedAnimation(parent: controller, curve: Curves.linear),
     );
 
     animation_radius_in = Tween(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.75, 1.0, curve: Curves.elasticIn),
-      ),
+      CurvedAnimation(parent: controller, curve: Interval(0.75, 1.0, curve: Curves.elasticIn)),
     );
 
     animation_radius_out = Tween(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.0, 0.25, curve: Curves.elasticOut),
-      ),
+      CurvedAnimation(parent: controller, curve: Interval(0.0, 0.25, curve: Curves.elasticOut)),
     );
 
     controller.addListener(() {
@@ -66,157 +56,78 @@ class _LoadingState extends State<Loading>
       });
     });
 
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {}
-    });
-
     controller.repeat();
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    final responsive =ResponsiveUtil();
-    return SizedBox(
-      width: 100.0,
-      height: 100.0,
-      //color: Colors.black12,
-      child: Center(
-        child: RotationTransition(
-          turns: animation_rotation,
-          child: Container(
-            //color: Colors.limeAccent,
-            child: Center(
-              child: Stack(
-                children: <Widget>[
-                  Transform.translate(
-                    offset: const Offset(0.0, 0.0),
-                    child: Dot(
-                      radius: radius,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0),
-                      radius * sin(0.0),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 1 * pi / 4),
-                      radius * sin(0.0 + 1 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 2 * pi / 4),
-                      radius * sin(0.0 + 2 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 3 * pi / 4),
-                      radius * sin(0.0 + 3 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 4 * pi / 4),
-                      radius * sin(0.0 + 4 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 5 * pi / 4),
-                      radius * sin(0.0 + 5 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 6 * pi / 4),
-                      radius * sin(0.0 + 6 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 7 * pi / 4),
-                      radius * sin(0.0 + 7 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 6 * pi / 4),
-                      radius * sin(0.0 + 6 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(
-                      radius * cos(0.0 + 7 * pi / 4),
-                      radius * sin(0.0 + 7 * pi / 4),
-                    ),
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+    // Animación de scale (latido) para la imagen central
+    scaleController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    scaleAnimation = Tween(begin: 0.85, end: 1.1).animate(
+      CurvedAnimation(parent: scaleController, curve: Curves.easeInOut),
     );
   }
 
   @override
   void dispose() {
-
     controller.dispose();
+    scaleController.dispose();
     super.dispose();
   }
-}
 
-class Dot extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100.0,
+      height: 100.0,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Dots girando alrededor
+          RotationTransition(
+            turns: animation_rotation,
+            child: Stack(
+              alignment: Alignment.center,
+              children: List.generate(8, (i) {
+                final angle = i * pi / 4;
+                final color = i % 2 == 0 ? Colors.blueAccent : Colors.grey;
+                return Transform.translate(
+                  offset: Offset(
+                    radius * cos(angle),
+                    radius * sin(angle),
+                  ),
+                  child: Dot(
+                    radius: dotRadius,
+                    color: color,
+                  ),
+                );
+              }),
+            ),
+          ),
+
+          // Imagen central con animación tipo latido
+          ScaleTransition(
+            scale: scaleAnimation,
+            child: SizedBox(
+              width: 20,
+              height: 20,
+              child: Image.asset(
+                AppImages.imgEdificio,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+  class Dot extends StatelessWidget {
   final double radius;
   final Color color;
 
-  Dot({required this.radius, required this.color});
+  const Dot({required this.radius, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -224,117 +135,11 @@ class Dot extends StatelessWidget {
       child: Container(
         width: radius,
         height: radius,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
       ),
     );
   }
 }
-
-/*    return Container(
-      width: 100.0,
-      height: 100.0,
-      //color: Colors.black12,
-      child: new Center(
-        child: new RotationTransition(
-          turns: animation_rotation,
-          child: new Container(
-            //color: Colors.limeAccent,
-            child: new Center(
-              child: Stack(
-                children: <Widget>[
-                  new Transform.translate(
-                    offset: Offset(0.0, 0.0),
-                    child: Dot(
-                      radius: radius,
-                      color: Colors.black12,
-                    ),
-                  ),
-                  new Transform.translate(
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.amber,
-                    ),
-                    offset: Offset(
-                      radius * cos(0.0),
-                      radius * sin(0.0),
-                    ),
-                  ),
-                  new Transform.translate(
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.deepOrangeAccent,
-                    ),
-                    offset: Offset(
-                      radius * cos(0.0 + 1 * pi / 4),
-                      radius * sin(0.0 + 1 * pi / 4),
-                    ),
-                  ),
-                  new Transform.translate(
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.pinkAccent,
-                    ),
-                    offset: Offset(
-                      radius * cos(0.0 + 2 * pi / 4),
-                      radius * sin(0.0 + 2 * pi / 4),
-                    ),
-                  ),
-                  new Transform.translate(
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.purple,
-                    ),
-                    offset: Offset(
-                      radius * cos(0.0 + 3 * pi / 4),
-                      radius * sin(0.0 + 3 * pi / 4),
-                    ),
-                  ),
-                  new Transform.translate(
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.yellow,
-                    ),
-                    offset: Offset(
-                      radius * cos(0.0 + 4 * pi / 4),
-                      radius * sin(0.0 + 4 * pi / 4),
-                    ),
-                  ),
-                  new Transform.translate(
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.lightGreen,
-                    ),
-                    offset: Offset(
-                      radius * cos(0.0 + 5 * pi / 4),
-                      radius * sin(0.0 + 5 * pi / 4),
-                    ),
-                  ),
-                  new Transform.translate(
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.orangeAccent,
-                    ),
-                    offset: Offset(
-                      radius * cos(0.0 + 6 * pi / 4),
-                      radius * sin(0.0 + 6 * pi / 4),
-                    ),
-                  ),
-                  new Transform.translate(
-                    child: Dot(
-                      radius: dotRadius,
-                      color: Colors.blueAccent,
-                    ),
-                    offset: Offset(
-                      radius * cos(0.0 + 7 * pi / 4),
-                      radius * sin(0.0 + 7 * pi / 4),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-* */

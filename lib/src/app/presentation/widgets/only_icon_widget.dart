@@ -10,7 +10,6 @@ class OnlyIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final responsive = ResponsiveUtil();
     return InkWell(child: Image.asset(
-      package: AppConfig.namePackage,
       nameStringImg,
       height: responsive.diagonalP(size),
     ),onTap:onTap,);

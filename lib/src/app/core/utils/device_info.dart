@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -74,7 +73,7 @@ class DeviceInfo {
 
       print("ponhe permisos ${permiso}");
 
-      String imeiNo = "NoIMEI";
+      String imeiNo = await DeviceInfo.getNameDevice ;
 
       return imeiNo;
     } catch (e) {
@@ -84,7 +83,7 @@ class DeviceInfo {
 
   static Future<String> get getNameDevice async {
     try {
-      String imeiNo = await "NoName";
+      String imeiNo = await DeviceInfo.getImei;
 
       return imeiNo;
     } catch (e) {
@@ -135,7 +134,7 @@ class DeviceInfo {
         };
 
 
-        result = "ANDROID: "+ build.version.release;
+        result = "ANDROID: "+ build.version.release!;
       } else {
         IosDeviceInfo data = await deviceInfo.iosInfo;
 
@@ -181,20 +180,42 @@ class DeviceInfo {
     return detalle;
   }
 
+
   static Future<String> get getIp async {
-    final info = NetworkInfo();
+    try {
+      final info = NetworkInfo();
 
-    String ipAddress = "0.0.0.0";
-    var wifiIP = await info.getWifiIP(); // 192.168.1.43
+      String ipAddress = "0.0.0.0";
+      String fuente = "desconocida";
 
-    if (wifiIP != null) {
-      ipAddress = wifiIP.toString();
+      // Intentar obtener IP de Wi-Fi
+      String? wifiIP = await info.getWifiIP();
+      if (wifiIP != null && wifiIP.isNotEmpty) {
+        ipAddress = wifiIP;
+        fuente = "Wi-Fi";
+      } else {
+        // Si no hay Wi-Fi, buscar IP de la red celular
+        for (var interface in await NetworkInterface.list()) {
+          for (var addr in interface.addresses) {
+            if (addr.type == InternetAddressType.IPv4 &&
+                !addr.isLoopback &&
+                !addr.isLinkLocal) {
+              ipAddress = addr.address;
+              fuente = "Red móvil";
+              break;
+            }
+          }
+          if (ipAddress != "0.0.0.0") break;
+        }
+      }
+
+      String plataforma = getPlataforma; // tu método para detectar plataforma
+      return "$plataforma IP ($fuente): $ipAddress";
+    } catch (e) {
+      String plataforma = getPlataforma;
+      return "$plataforma IP: no disponible";
     }
-
-    String plataforma = getPlataforma;
-    return plataforma + " IP: " + ipAddress;
   }
-
   static Future<String> get getSSID async {
     final info = NetworkInfo();
 

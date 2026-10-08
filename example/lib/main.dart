@@ -22,7 +22,7 @@ class MyHttpOverrides extends HttpOverrides{
 void main() {
   HttpOverrides.global = new MyHttpOverrides();
   DependencyInjectionApp();
-  AppRoutesMiUpc.setNameMenu(name: "Mi Menú");
+  //AppRoutesMiUpc.setNameMenu(name: "Mi Menú");
   //AppRoutesMiUpc.setPageInicio(AppRoutesMiUpc.ACUERDO);
 
   runApp(MyApp());

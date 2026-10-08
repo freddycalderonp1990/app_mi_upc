@@ -11,13 +11,16 @@ class WorkAreaMenuPageWidget extends StatefulWidget {
   final EdgeInsetsGeometry? paddin;
   final FloatingActionButtonLocation ubicacionBtnFinal;
   final imgFondo;
+  final bool mostrarNotificacion;
   final double sizeTittle;
   final bool mostrarVersion;
   final foto64;
+  final RxInt numNotificacion;
 
   const WorkAreaMenuPageWidget({
     required this.peticionServer,
     this.title = '',
+    required this.mostrarNotificacion,
     required this.contenido,
     this.btnAtras = false,
     this.widgetBtnFinal,
@@ -29,6 +32,7 @@ class WorkAreaMenuPageWidget extends StatefulWidget {
     this.pantallaIrAtras,
     this.name = '',
     this.foto64,
+    required this.numNotificacion,
   });
 
   @override
@@ -36,326 +40,544 @@ class WorkAreaMenuPageWidget extends StatefulWidget {
 }
 
 class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
+  final GpsController gpsController = Get.find<GpsController>();
+  final MenuPrincipalController menuController = Get.find<MenuPrincipalController>();
+  final LocalStoreImpl _localStoreImpl = Get.find<LocalStoreImpl>();
 
   String ver = '';
-  String userPref = '';
-  String mailPref = '';
-  String acuerdoPref = '';
-  String estadoConex = "";
+  String estadoConex = '';
 
   @override
   void initState() {
-    // TODO: implement initState
-    _verificaDatos();
-    _loadVersion();
+    super.initState();
   }
 
-  _loadVersion() async {
-    String _version = await UtilidadesUtil.getVersionCodeNameApp();
-    setState(() {
-      ver = _version;
-    });
-  }
-
-  final MiUpcLocalStoreImpl _localStoreImpl = Get.find<MiUpcLocalStoreImpl>();
-
-  _verificaDatos() async {
-    print("MENU: verificando datos");
-
-    userPref = await _localStoreImpl.getDatosUsuario();
-    acuerdoPref = await _localStoreImpl.getDatosAcuerdo();
-    mailPref = await _localStoreImpl.getDatosMail();
-  }
 
 
   @override
   Widget build(BuildContext context) {
-
     final responsive = ResponsiveUtil();
-    Widget wgImgFondo = SingleChildScrollView(
-      child: Container(
-        height: responsive.alto,
-        width: responsive.ancho,
-        child: Image.asset(
 
-          package: AppConfig.namePackage,
-          widget.imgFondo ?? AppImages.imgarea,
-          fit: BoxFit.fill,
-        ),
-      ),
-    );
-
-    return Scaffold(
-        bottomNavigationBar: bannerInferior(responsive),
+    return SafeArea(
+      child: Scaffold(
         key: _key,
+        bottomNavigationBar: bannerInferior(responsive),
         drawer: _buildDrawer(context),
         appBar: getAppBar(),
         body: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
-            child: SafeArea(
-              child: SingleChildScrollView(
-                child: Stack(
-                  children: [
-                    wgImgFondo,
-                    Column(
-                      children: [
-                        widget.title == ''
-                            ? Container()
-                            : Text(
-                                widget.title,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: responsive.anchoP(7),
-                                  color: const Color(0xFF06245B),
-                                ),
-                              ),
-                        widget.foto64 == null
-                            ? Container()
-                            : Container(
-                                width: responsive.ancho,
-                                margin: EdgeInsets.only(
-                                  top: responsive.altoP(2.0),
-                                ),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        AppConfig.radioBordecajas),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.blue.withOpacity(0.1),
-                                          blurRadius: 20)
-                                    ]),
-                                child: Center(
-                                  child: Column(
-                                    children: <Widget>[
-                                      imgPerfilRedonda(
-                                        size: 30,
-                                        img: widget.foto64,
-                                      ),
-                                      SizedBox(
-                                        height: responsive.altoP(1.0),
-                                      ),
-                                      Text(
-                                        widget.name,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: responsive.anchoP(4.5),
-                                            color:
-                                                Colors.black.withOpacity(0.8)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                        widget.foto64 == null
-                            ? Container()
-                            : SizedBox(
-                                height: responsive.altoP(2),
-                              ),
-                        widget.contenido,
-                        SizedBox(
-                          height: MediaQuery.of(context).padding.bottom,
-                        ),
-
-                      ],
-                    ),
-                    Obx(() => CargandoWidget(
-                          mostrar: widget.peticionServer.value,
-                        ))
-                  ],
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  widget.imgFondo ?? AppImages.imgarea,
+                  fit: BoxFit.cover,
                 ),
               ),
-            )));
-  }
 
-  Widget imgBanner(
-      {required GestureTapCallback onTap,
-      required String ruta,
-      required ResponsiveUtil responsive}) {
-    double size =
-        responsive.isVertical() ? responsive.altoP(8) : responsive.anchoP(8);
-    return Container(
-        height: size,
-        width: size,
-        child: InkWell(
-          onTap: onTap,
-          child: Container(
-            color: Colors.transparent,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: Image.asset(
-                package: AppConfig.namePackage,
-                ruta,
+              // ✅ El contenido ya no va dentro de SingleChildScrollView
+              Column(
+                children: [
+                  if (widget.title.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Text(
+                        widget.title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: responsive.anchoP(7),
+                          color: const Color(0xFF06245B),
+                        ),
+                      ),
+                    ),
+
+                  if (widget.foto64 != null)
+                    Column(
+                      children: [
+                        SizedBox(height: responsive.altoP(2.0)),
+                        imgPerfilRedonda(size: 30, img: widget.foto64),
+                        SizedBox(height: responsive.altoP(1.0)),
+                        Text(
+                          widget.name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: responsive.anchoP(4.5),
+                            color: Colors.black.withOpacity(0.8),
+                          ),
+                        ),
+                        SizedBox(height: responsive.altoP(2)),
+                      ],
+                    ),
+
+                  // ✅ Esto permite que el contenido use Expanded/GridView sin romper
+                  Expanded(
+                    child: widget.contenido,
+                  ),
+                ],
               ),
-            ),
+
+              Obx(() => CargandoWidget(mostrar: widget.peticionServer.value)),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
+  // =======================================================
+  // 🔹 BANNER INFERIOR SOCIAL
+  // =======================================================
   Widget bannerInferior(ResponsiveUtil responsive) {
     return Container(
-      height: responsive.altoP(5),
-      color: Colors.blue[900],
-      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.grey, Color(0xFF06245B)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        boxShadow: [
+          BoxShadow(color: Colors.black45, blurRadius: 8, offset: Offset(0, -2)),
+        ],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(22),
+          topRight: Radius.circular(22),
+        ),
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          imgBanner(
-              onTap: launchURLFace,
-              ruta: AppImages.imgFacebook,
-              responsive: responsive),
-          imgBanner(
-              onTap: launchURLTwitter,
-              ruta: AppImages.imgTwitter,
-              responsive: responsive),
-          imgBanner(
-              onTap: launchURLInsta,
-              ruta: AppImages.imgInstagran,
-              responsive: responsive),
-          imgBanner(
-              onTap: launchURLYou,
-              ruta: AppImages.imgYoutube,
-              responsive: responsive),
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          socialIconButton(iconPath: AppImages.imgFacebook, onTap: launchURLFace),
+          socialIconButton(iconPath: AppImages.imgTwitter, onTap: launchURLTwitter),
+          socialIconButton(iconPath: AppImages.imgInstagran, onTap: launchURLInsta),
+          socialIconButton(iconPath: AppImages.imgYoutube, onTap: launchURLYou),
         ],
       ),
     );
   }
 
-  getAppBar() {
-    return AppBar(
-      backgroundColor: Colors.blue[900],
-      title: const Text(
-        textAlign: TextAlign.justify,
-        "MI UPC",
-        style: TextStyle(
-            fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white),
-      ),
-      leading: Builder(
-        builder: (BuildContext context) {
-          return IconButton(
-            icon: const Icon(Icons.menu),
-            color: Colors.white,
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-          );
-        },
+  Widget socialIconButton({
+    required String iconPath,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white30, width: 1),
+        ),
+        child: Image.asset(iconPath, width: 24, height: 24),
       ),
     );
   }
 
-  // Drawer
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  final Color primary = Colors.white;
-  final Color active = Colors.grey.shade800;
-  final Color divider = Colors.grey.shade600;
-
-  _buildDrawer(BuildContext context) {
-    const String image = AppImages.imgEscpolicia;
-    return ClipPath(
-      /// ---------------------------
-      /// Building Shape for drawer .
-      /// ---------------------------
-      // clipper: OvalRightBorderClipper(),
-
-      /// ---------------------------
-      /// Building drawer widget .
-      /// ---------------------------
-      child: Drawer(
-        child: Container(
-          padding: const EdgeInsets.only(left: 16.0, right: 40),
-          decoration: BoxDecoration(
-              color: primary,
-              boxShadow: const [BoxShadow(color: Colors.black45)]),
-          width: 300,
-          child: SafeArea(
-            /// ---------------------------
-            /// Building scrolling  content for drawer .
-            /// ---------------------------
-
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.power_settings_new,
+  // =======================================================
+  // 🔹 APPBAR
+  // =======================================================
+  AppBar getAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: true,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [const Color(0xFF06245B), Colors.grey.shade600],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
+        ),
+      ),
+      title: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(AppImages.imgEdificio, height: 32),
+          const SizedBox(width: 8),
+          const Text(
+            'MI UPC',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white),
+          ),
+        ],
+      ),
+      leading: Builder(
+        builder: (context) => IconButton(
+          icon: const Icon(Icons.menu, size: 28, color: Colors.white),
+          onPressed: () => Scaffold.of(context).openDrawer(),
+        ),
+      ),
+      actions: [
+       /* if (widget.mostrarNotificacion)
+          Obx(() {
+            final int total = widget.numNotificacion.value;
+            return Stack(
+              clipBehavior: Clip.none,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.notifications_none, size: 40),
+                  color: Colors.white,
+                  onPressed: () => Get.toNamed(AppRoutes.DETALLEALERTAS),
+                ),
+                if (total > 0)
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
                         color: Colors.red,
-                      ),
-                      onPressed: () {
-                        // _localStoreImpl.setDatosMail('');
-                        //_localStoreImpl.setDatosUsuario('');
-                        //_localStoreImpl.setDatosAcuerdo('No Aceptado');
-                        Get.back();
-                        exit(0);
-                      },
-                    ),
-                  ),
-
-                  /// ---------------------------
-                  /// Building header for drawer .
-                  /// ---------------------------
-                  Container(
-                    height: 180,
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                            colors: [Colors.black54, Colors.blueAccent])),
-                    child:  CircleAvatar(
-                      radius: 80,
-                      backgroundImage: AssetImage(image,package: AppConfig.namePackage),
+                      ),
+                      constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
+                      child: Center(
+                        child: Text(
+                          total.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 5.0),
+              ],
+            );
+          }),*/
+      ],
+    );
+  }
+  Widget _buildDrawerHeader({
+    required ResponsiveUtil responsive,
+    required Uint8List? bytes,
+    required String nombre,
+  }) {
+    return FutureBuilder<String>(
+      future: _localStoreImpl.getDatosMail(),
+      builder: (context, snapshot) {
+        final correo = (snapshot.data ?? '').trim();
 
-                  /// ---------------------------
-                  /// Building header title for drawer .
-                  /// ---------------------------
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.10),
+            borderRadius: BorderRadius.circular(26),
+            border: Border.all(color: Colors.white24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.14),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white.withOpacity(0.95),
+                          Colors.white.withOpacity(0.58),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.18),
+                          blurRadius: 8,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: CircleAvatar(
+                      radius: responsive.altoP(5.2),
+                      backgroundColor: Colors.grey[200],
+                      backgroundImage:
+                      bytes != null ? MemoryImage(bytes, scale: 1) : null,
+                      child: bytes == null
+                          ? Icon(
+                        Icons.person_rounded,
+                        size: responsive.altoP(4.6),
+                        color: Colors.grey,
+                      )
+                          : null,
+                    ),
+                  ),
+                  Container(
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF35C759),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                  ),
+                ],
+              ),
 
+              const SizedBox(height: 12),
+
+              Text(
+                nombre.isNotEmpty ? nombre : "Usuario",
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: responsive.diagonalP(1.24),
+                  height: 1.1,
+                ),
+              ),
+
+              const SizedBox(height: 6),
+
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.10),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: Colors.white12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.email_outlined,
+                      color: Colors.white70,
+                      size: 14,
+                    ),
+                    const SizedBox(width: 6),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 180),
+                      child: Text(
+                        correo.isNotEmpty ? correo : "email@dominio.com",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: responsive.diagonalP(0.82),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildQuickStatusChip(
+                    icon: Icons.verified_user_rounded,
+                    text: 'Activo',
+                  ),
+                  const SizedBox(width: 8),
+                  _buildQuickStatusChip(
+                    icon: Icons.security_rounded,
+                    text: 'Seguro',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+  // =======================================================
+  // 🔹 DRAWER LATERAL
+  // =======================================================
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
+  Widget _buildDrawer(BuildContext context) {
+    final responsive = ResponsiveUtil();
+
+    return ClipRRect(
+      borderRadius: const BorderRadius.horizontal(right: Radius.circular(32)),
+      child: Drawer(
+        backgroundColor: Colors.transparent,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF0A2747).withOpacity(0.96),
+                  const Color(0xFF11457F).withOpacity(0.92),
+                  const Color(0xFF5D7286).withOpacity(0.86),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 12,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 10, 0),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 7,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.10),
+                            borderRadius: BorderRadius.circular(18),
+                            border: Border.all(color: Colors.white24),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.dashboard_customize_rounded,
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                'Menú principal',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: responsive.diagonalP(0.82),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Spacer(),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.redAccent.withOpacity(0.14),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.redAccent.withOpacity(0.35),
+                            ),
+                          ),
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.power_settings_new_rounded,
+                              color: Colors.white,
+                            ),
+                            tooltip: 'Salir',
+                            onPressed: () => exit(0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  Obx(() {
+                    final bytes = menuController.fotoPerfilBytes.value;
+                    final nombre = menuController.userPref.value.trim();
+
+                    return _buildDrawerHeader(
+                      responsive: responsive,
+                      bytes: bytes,
+                      nombre: nombre,
+                    );
+                  }),
+
+                  const SizedBox(height: 18),
+
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.07),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color: Colors.white12),
+                      ),
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        children: [
+                          _drawerItem(
+                            icon: Icons.home_rounded,
+                            label: "Inicio",
+                            subtitle: "Volver a la pantalla principal",
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              Get.offAllNamed(AppRoutes.SPLASH);
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          _drawerItem(
+                            icon: Icons.share_rounded,
+                            label: "Compartir App",
+                            subtitle: "Enviar enlace de descarga",
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              Share.share(
+                                "https://play.google.com/store/apps/details?id=com.miupc",
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          _drawerItem(
+                            icon: Icons.person_rounded,
+                            label: "Registrar / Editar Datos",
+                            subtitle: "Actualizar información del usuario",
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              verificaTConexion();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        socialIconButtonD(AppImages.imgFacebook, launchURLFace),
+                        socialIconButtonD(AppImages.imgTwitter, launchURLTwitter),
+                        socialIconButtonD(AppImages.imgInstagran, launchURLInsta),
+                        socialIconButtonD(AppImages.imgYoutube, launchURLYou),
+                      ],
+                    ),
+                  ),
                   Text(
-                    userPref != '' ? userPref : "Policia Nacional del Ecuador",
+                    'v$ver ${AppConfig.ambiente}',
                     style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600),
+                      color: Colors.white54,
+                      fontSize: 12,
+                    ),
                   ),
-                  Text(
-                    mailPref != '' ? mailPref : "www.policia.gob.ec",
-                    style: TextStyle(color: active, fontSize: 12.0),
-                  ),
-
-                  const SizedBox(height: 30.0),
-                  _buildRow(Icons.home, AppRoutesMiUpc.nameMenuInit, onTap: () {
-                    //oculta el drawer
-                    _key.currentState?.openEndDrawer();
-
-                    Get.offAllNamed(AppRoutesMiUpc.pageMenuInit);
-                  }),
-                  _buildDivider(),
-                  _buildRow(Icons.share, "Compartir Aplicación",
-                      showBadge: true, numNotificaciones: 0, onTap: () {
-                    //oculta el drawer
-                    Share.share(
-                        "https://play.google.com/store/apps/details?id=mmeo.system.pne&hl=es");
-                    _key.currentState?.openEndDrawer();
-                  }),
-                 /* _buildDivider(),
-                  _buildRow(Icons.person_pin, "Perfil", onTap: () {
-                    verificaTConexion();
-                  }),*/
-
-                  _buildDivider(),
-                  Text(
-                    'Versión: ' + ver + ' ' + AppConfig.ambiente,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
@@ -364,149 +586,166 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
       ),
     );
   }
-
+  Widget _drawerItem({
+    required IconData icon,
+    required String label,
+    required String subtitle,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(18),
+        onTap: onTap,
+        child: Ink(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Row(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 180),
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.10),
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  icon,
+                  color: Colors.white,
+                  size: 22,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      label,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.72),
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.white.withOpacity(0.64),
+                size: 15,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  // =======================================================
+  // 🔹 GPS / CONEXIÓN / URLS
+  // =======================================================
+  verificarGps() async {
+    bool verificarGps = await gpsController.verificarGPS();
+    if (verificarGps) {
+      gpsController.iniciarSeguimiento();
+      if (!gpsController.ubicacionLista.value) {
+        DialogosAwesome.getInformation(
+            descripcion: "Las coordenadas aún no están listas. Intente nuevamente.");
+      } else {
+        Get.toNamed(AppRoutes.REGISTROUSUARIO);
+      }
+    }
+  }
 
   verificaTConexion() async {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         estadoConex = 'S';
-        print('connected');
-       // verificarGps();
-
-        if (acuerdoPref == "Aceptado") {
-          Get.toNamed(AppRoutesMiUpc.REGISTROUSUARIO);
-        } else {
-          Get.toNamed(AppRoutesMiUpc.ACUERDO);
-        }
+        verificarGps();
       }
-    } on SocketException catch (_) {
+    } on SocketException {
       DialogosAwesome.getError(descripcion: 'No tiene conexión a Internet');
     }
   }
 
-  /// ---------------------------
-  /// Building divider for drawer .
-  /// ---------------------------
+  static Future<void> launchURLFace() async =>
+      launchUrl(Uri.parse('https://www.facebook.com/policia.ecuador'),
+          mode: LaunchMode.inAppBrowserView);
 
-  Divider _buildDivider() {
-    return Divider(
-      color: divider,
-    );
-  }
+  static Future<void> launchURLTwitter() async =>
+      launchUrl(Uri.parse('https://twitter.com/PoliciaEcuador'),
+          mode: LaunchMode.inAppBrowserView);
 
-  /// ---------------------------
-  /// Building item  for drawer .
-  /// ---------------------------
+  static Future<void> launchURLInsta() async =>
+      launchUrl(Uri.parse('https://www.instagram.com/policiaecuadoroficial'),
+          mode: LaunchMode.inAppBrowserView);
 
-  Widget _buildRow(IconData icon, String title,
-      {bool showBadge = false,
-      int numNotificaciones = 0,
-      required GestureTapCallback onTap}) {
-    final TextStyle tStyle = TextStyle(color: active, fontSize: 16.0);
-    return InkWell(
+  static Future<void> launchURLYou() async =>
+      launchUrl(Uri.parse('https://www.youtube.com/user/policiaecuador2'),
+          mode: LaunchMode.inAppBrowserView);
+
+  Widget socialIconButtonD(String assetPath, VoidCallback onTap) {
+    return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              color: active,
-            ),
-            SizedBox(width: 10.0),
-            Text(
-              title,
-              style: tStyle,
-            ),
-            Spacer(),
-            // se dibuja las notificaciones
-            if (showBadge && numNotificaciones > 0)
-              Material(
-                color: Colors.deepOrange,
-                elevation: 5.0,
-                shadowColor: Colors.red,
-                borderRadius: BorderRadius.circular(5.0),
-                child: Container(
-                  width: 25,
-                  height: 25,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.deepOrange,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Text(
-                    numNotificaciones.toString(),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-          ],
+        width: 40,
+        height: 40,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.15),
+          shape: BoxShape.circle,
         ),
+        child: Image.asset(assetPath),
       ),
     );
   }
-
-  launchURLFace() async {
-    final url = Uri.parse('https://www.facebook.com/policia.ecuador');
-    if (await canLaunchUrl(url)) {
-      launchUrl(url);
-    } else {
-      print("Can't launch $url");
-    }
-  }
-
-  launchURLTwitter() async {
-    final url = Uri.parse('https://twitter.com/PoliciaEcuador');
-    if (await canLaunchUrl(url)) {
-      launchUrl(url);
-    } else {
-      print("Can't launch $url");
-    }
-  }
-
-  launchURLInsta() async {
-    final url = Uri.parse('https://www.instagram.com/policiaecuadoroficial');
-    if (await canLaunchUrl(url)) {
-      launchUrl(url);
-    } else {
-      print("Can't launch $url");
-    }
-  }
-
-  launchURLYou() async {
-    final url = Uri.parse('https://www.youtube.com/user/policiaecuador2');
-    if (await canLaunchUrl(url)) {
-      launchUrl(url);
-    } else {
-      print("Can't launch $url");
-    }
+  Widget _buildQuickStatusChip({
+    required IconData icon,
+    required String text,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.10),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white12),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: Colors.white),
+          const SizedBox(width: 5),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
-
-
-/// ------------------
-/// for shaping the drawer. You can customize it as your own
-/// ------------------
-/*class OvalRightBorderClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, 0);
-    path.lineTo(size.width - 50, 0);
-    path.quadraticBezierTo(
-        size.width, size.height / 4, size.width, size.height / 2);
-    path.quadraticBezierTo(size.width, size.height - (size.height / 4),
-        size.width - 60, size.height);
-    path.lineTo(0, size.height);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return true;
-  }
-}*/

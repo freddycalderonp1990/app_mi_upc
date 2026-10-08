@@ -14,6 +14,34 @@ dependencies:
   get: ^4.7.3  #manejador de estados - en uso cuando se descragn el proyecto
   local_auth: ^3.0.2    # Acceso Biometrico - en uso cuando se descragn el proyecto
 
+  dropdown_search: ^7.0.0 #Combo con busqueda
+  mime: ^2.1.0
+  file_picker: ^13.1.0
+  image_picker: ^1.2.4
+  flutter_dotenv: ^6.0.1 #leer .env
+  flutter_svg: ^2.3.0
+  shared_preferences: ^2.5.6
+
+
+  firebase_core: ^4.15.0
+  firebase_auth: ^6.7.0
+  firebase_messaging: ^16.7.0
+  firebase_in_app_messaging: ^0.9.4
+  google_sign_in: ^7.2.0
+  flutter_facebook_auth: ^7.2.0
+  flutter_map_location_marker: ^10.3.0
+
+
+
+  # LIBREARIAS GPS
+  flutter_bloc: ^9.1.1 #Mapas
+  bloc: ^9.2.1
+  equatable: ^2.1.0
+  #permission_handler: ^12.0.0 # Solicita Permisos del dispositivo al usuario (Ubicacion,Galeria.....) - lo trae desde el paquete de mi upp
+  geolocator: ^14.0.3 #ubicacion Gps, del dispositivo
+  flutter_map: ^8.3.1 #0.9.0 #mapas openstreetmap (TRAE latlong)
+  flutter_map_marker_popup: ^8.1.1
+  # END LIBREARIAS GPS
 
   #Utilidades - device_info.dart
   device_info_plus: ^13.2.0  #Informacion del cell,Version Sistema Operatvivo - en uso cuando se descragn el proyecto
@@ -25,7 +53,7 @@ dependencies:
   share_plus: ^13.2.1 #Compartir aplicacion- en uso cuando se descragn el proyecto
   awesome_dialog: ^3.3.0 #Dialogos- en uso cuando se descragn el proyecto
   image: ^4.9.1 #Para trabajar con imagenes de la galeria - en uso cuando se descragn el proyecto
-  flutter_secure_storage: ^11.0.0 #reemplaza SharedPreferences
+  flutter_secure_storage: ^10.3.1 #reemplaza SharedPreferences
   #shared_preferences: ^2.5.5 #- en uso cuando se descragn el proyecto
   # intl: ^0.18.0 #Conversion de idiomas, enteros, fechas
 

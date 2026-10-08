@@ -84,7 +84,7 @@ class TextoColorParser {
         return Colors.red;
 
       case 'azul':
-        return AppColors.colorAzulTitle;
+        return Colors.blueAccent;
 
       case 'verde':
         return Colors.green;

@@ -1,5 +1,7 @@
 part of '../../domain_repositories.dart';
 
-abstract class MiUpcItemsRepository {
-  Future<List<Item>> buscaDatosItem(int id);
+abstract class ItemsRepository {
+  Future<List<Item>> buscaDatosItem(int id) ;
+  Future<List<ItemOffLine>> buscaDatosItemsOffline() ;
+
 }

@@ -61,7 +61,6 @@ class _WorkAreaPageWidgetState extends State<WorkAreaPageWidget> {
       height: responsive.alto,
       width: responsive.ancho,
       child: Image.asset(
-        package: AppConfig.namePackage,
         widget.imgFondo == null
             ? AppImages.imgarea
             : widget.imgFondo,

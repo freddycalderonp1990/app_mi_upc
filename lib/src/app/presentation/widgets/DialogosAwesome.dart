@@ -1,493 +1,818 @@
 part of 'custom_widgets.dart';
 
-
-
-
+/// 🎯 Diálogos institucionales profesionales — versión mejorada
 class DialogosAwesome {
-
-  static  bool isDiaslogoShow= false;
-
-  static Color colorWarning=Color(0xFFF46B40);
-  static Color colorInformacion=AppColors.colorAzul;
-  static Color colorError=Color(0xFFEA4236);
-  static Color colorSucess=Color(0xFF10C26E);
-
-  static String imgDefault=AppImages.escudopolicia;
-
-  static getAlertDetalleServicios(
-      {String title = 'INFORMACIÓN',
-        required body,
-        required imagen,
-        Function()? btnOkOnPress,
-        Function()? btnCancelOnPress}) {
+//=======================================================
+// ✅ DIALOGO DE ERROR (Versión Institucional Mejorada)
+// ============================================================
+  static getError({
+    String title = 'ERROR',
+    required String descripcion,
+    Function()? btnOkOnPress,
+  }) {
     AwesomeDialog(
-        dismissOnTouchOutside: false,
-        dismissOnBackKeyPress: false,
-        context: Get.context!,
-        customHeader: imgPerfilRedonda(
-          size: 20,
-          img: imagen == '' ? null : imagen,
-        ),
-        headerAnimationLoop: true,
-        animType: AnimType.bottomSlide,
-        btnOkIcon: Icons.check_circle,
-        body: body,
-        btnOkColor: AppColors.colorBotones,
-        btnOkText: "Ok",
-        btnOkOnPress: btnOkOnPress ?? () {})
-        .show();
-  }
-
-  static showIconPolicia(
-      {
-        bool mostrarSegungoBtn=true,
-        Color colorBtnSi=AppColors.colorBotones,
-        Color colorTitle=AppColors.colorAzul,
-        Color colorCircleImg=AppColors.colorAzul,
-        String imgString=AppImages.escudopolicia,
-
-        required String title ,
-
-        IconData iconBtnSi= Icons.check_circle_outline,
-        IconData iconBtnNo= Icons.cancel_outlined,
-
-        String titleBtnSi = 'Aceptar',
-        String titleBtnNo = 'Cancelar',
-        required String descripcion,
-        required Function() btnOkOnPress,Function()? btnCancelOnPress}) {
-    return _getIconPolicia(mostrarSegungoBtn: mostrarSegungoBtn, colorBtnSi: colorBtnSi, colorTitle: colorTitle,
-        colorCircleImg:colorCircleImg,
-
-        imgString: imgString, title: title, iconBtnSi: iconBtnSi,
-        iconBtnNo:iconBtnNo,
-
-        titleBtnSi: titleBtnSi, titleBtnNo: titleBtnNo, descripcion: descripcion,
-        btnOkOnPress:btnOkOnPress, btnCancelOnPress:btnCancelOnPress
-    );
-  }
-
-  static _getIconPolicia(
-      {
-        bool mostrarSegungoBtn=true,
-        Color colorBtnSi=AppColors.colorBotones,
-        Color colorTitle=AppColors.colorAzul,
-        Color colorCircleImg=AppColors.colorAzul,
-        String imgString=AppImages.escudopolicia,
-
-        required String title ,
-
-        IconData iconBtnSi= Icons.check_circle_outline,
-        IconData iconBtnNo= Icons.cancel_outlined,
-
-        String titleBtnSi = 'Aceptar',
-        String titleBtnNo = 'Cancelar',
-        required String descripcion,
-        required Function() btnOkOnPress,Function()? btnCancelOnPress}) {
-
-    if(isDiaslogoShow){
-      return;
-    }
-    AwesomeDialog(
-      dismissOnTouchOutside: false,
-
-      dismissOnBackKeyPress: false,
       context: Get.context!,
-      dialogType: DialogType.info,
-
-      headerAnimationLoop: true,
-      customHeader: Container(
-        width: 80,
-        height: 80,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: colorCircleImg, width: 3),
-        ),
-        child: Center(
-          child: Image.asset(
-            package: AppConfig.namePackage,
-            imgString,
-            width: 60, // Ajusta el tamaño para que no se recorte
-            height: 60,
-            fit: BoxFit.contain, // Mantiene proporciones
-          ),
-        ),
-      ),
+      dialogType: DialogType.noHeader, // Eliminamos header estándar para diseño personalizado
       animType: AnimType.scale,
-      title: title,
-      titleTextStyle: TextStyle(color: colorTitle,fontWeight: FontWeight.bold,fontSize: 18),
+      dismissOnTouchOutside: false,
+      dismissOnBackKeyPress: false,
+      headerAnimationLoop: false,
+      padding: const EdgeInsets.all(20),
+      dialogBorderRadius: BorderRadius.circular(16),
+      dialogBackgroundColor: Colors.white,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 🔴 Ícono circular con gradiente
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Color(0xFFB00020), Color(0xFFE53935)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.error_outline_rounded,
+              color: Colors.white,
+              size: 46,
+            ),
+          ),
+          const SizedBox(height: 18),
 
-      btnCancel: BtnIconWidget(
-        colorBtn: colorBtnSi,
-        icon: iconBtnSi,
-        onPressed: (){
-          isDiaslogoShow=false;
-          Get.back();
-          if(btnOkOnPress!=null){
-            btnOkOnPress();
-          }
+          // 🔹 Título
+          Text(
+            title.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xFFB00020),
+              fontWeight: FontWeight.w900,
+              fontSize: 19,
+              letterSpacing: 0.8,
+            ),
+          ),
+          const SizedBox(height: 10),
 
-        },
-        titulo: titleBtnSi,
+          // 🔸 Descripción
+          Text(
+            descripcion,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15.5,
+              height: 1.45,
+              color: Color(0xFF3E4A59),
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // 🔘 Botón institucional
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: btnOkOnPress ?? () => Get.back(),
+              icon: const Icon(Icons.close_rounded, color: Colors.white),
+              label: const Text(
+                "ACEPTAR",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 0.8,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFB00020),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 5,
+                shadowColor: const Color(0xFFB00020).withOpacity(0.4),
+              ),
+            ),
+          ),
+        ],
       ),
-
-      btnOk:!mostrarSegungoBtn?null: BtnIconWidget(
-
-        colorBtn: AppColors.colorRojo_60,
-        icon: iconBtnNo,
-        onPressed: () {
-          if (btnCancelOnPress != null) {
-            isDiaslogoShow = false;
-            Get.back();
-            btnCancelOnPress(); // Ejecuta la función si está definida
-          } else {
-            isDiaslogoShow = false;
-            Get.back();
-          }
-        },
-        titulo: titleBtnNo,
-      ),
-      desc: descripcion,
-
     ).show();
   }
 
 
-  static getWarning(
-      {String title = 'ADVERTENCIA',
-        String titleBtnOk = 'Ok',
-        required String descripcion,
-        Function()? btnOkOnPress}) {
+//===========================================================
+// ✅ DIALOGO DE ÉXITO (Versión Institucional Mejorada)
+// ============================================================
+  static getSucess({
+    String title = 'ÉXITO',
+    required String descripcion,
+    Function()? btnOkOnPress,
+  }) {
+    AwesomeDialog(
+      context: Get.context!,
+      dialogType: DialogType.noHeader, // diseño moderno sin header estándar
+      animType: AnimType.scale,
+      dismissOnTouchOutside: false,
+      dismissOnBackKeyPress: false,
+      headerAnimationLoop: false,
+      padding: const EdgeInsets.all(20),
+      dialogBorderRadius: BorderRadius.circular(16),
+      dialogBackgroundColor: Colors.white,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 🟢 Ícono circular con gradiente institucional
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Color(0xFF167D42), Color(0xFF43A047)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.check_circle_outline_rounded,
+              color: Colors.white,
+              size: 46,
+            ),
+          ),
+          const SizedBox(height: 18),
 
-    return       DialogosAwesome._getIconPolicia(
-      colorBtnSi: colorWarning,
-      colorCircleImg: colorWarning,
-      colorTitle: colorWarning,
-      title: title,
-      descripcion: descripcion,
-      btnOkOnPress:  btnOkOnPress == null
-          ? () {
+          // 🔹 Título
+          Text(
+            title.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 19,
+              fontWeight: FontWeight.w900,
+              color: Color(0xFF167D42),
+              letterSpacing: 0.8,
+            ),
+          ),
+          const SizedBox(height: 10),
 
-      }:btnOkOnPress,
-      titleBtnSi: "ACEPTAR",
-      mostrarSegungoBtn: false,
-    );
+          // 🔸 Descripción
+          Text(
+            descripcion,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15.5,
+              color: Color(0xFF2E384D),
+              height: 1.45,
+            ),
+          ),
+          const SizedBox(height: 24),
 
+          // 🔘 Botón institucional
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: btnOkOnPress ?? () => Get.back(),
+              icon: const Icon(Icons.check_circle_rounded, color: Colors.white),
+              label: const Text(
+                "ACEPTAR",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 0.8,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF167D42),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 5,
+                shadowColor: const Color(0xFF167D42).withOpacity(0.4),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ).show();
   }
 
 
-  static getWarningSiNoContador({
+  // ============================================================
+// ⚠️ DIALOGO DE ADVERTENCIA SIMPLE (Versión Institucional Mejorada)
+// ============================================================
+  static getWarning({
     String title = 'ADVERTENCIA',
+    required String descripcion,
+    Function()? btnOkOnPress,
+  }) {
+    AwesomeDialog(
+      context: Get.context!,
+      dialogType: DialogType.noHeader, // diseño limpio sin header estándar
+      animType: AnimType.scale,
+      headerAnimationLoop: false,
+      dismissOnTouchOutside: false,
+      dismissOnBackKeyPress: false,
+      dialogBackgroundColor: Colors.white,
+      padding: const EdgeInsets.all(20),
+      dialogBorderRadius: BorderRadius.circular(16),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 🟡 Ícono circular con gradiente cálido institucional
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Color(0xFFFFB74D), Color(0xFFFF9800)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.white,
+              size: 46,
+            ),
+          ),
+          const SizedBox(height: 18),
+
+          // 🔹 Título
+          Text(
+            title.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: Color(0xFFF57C00),
+              letterSpacing: 0.8,
+            ),
+          ),
+          const SizedBox(height: 10),
+
+          // 🔸 Descripción
+          Text(
+            descripcion,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15.5,
+              color: Color(0xFF3E4A59),
+              height: 1.45,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // 🔘 Botón institucional
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: btnOkOnPress ?? () {Get.back();},
+              icon: const Icon(Icons.warning_amber_rounded, color: Colors.white),
+              label: const Text(
+                "ACEPTAR",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 0.8,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFF9800),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 5,
+                shadowColor: const Color(0xFFFF9800).withOpacity(0.4),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ).show();
+  }
+
+
+  // ============================================================
+// ⚠️ DIALOGO CONFIRMAR SI / NO (Versión Institucional Mejorada)
+// ============================================================
+  static getWarningSiNo({
+    String title = 'CONFIRMAR ACCIÓN',
     required String descripcion,
     Function()? btnOkOnPress,
     Function()? btnCancelOnPress,
   }) {
-    return showDialog(
-      context: Get.context!,
-      barrierDismissible: false,
-      builder: (context) {
-        int segundos = 5;
-        bool botonesHabilitados = false;
-        Timer? timer;
-
-        return StatefulBuilder(
-          builder: (context, setState) {
-            // Inicia el temporizador solo una vez
-            timer ??= Timer.periodic(const Duration(seconds: 1), (t) {
-              if (segundos > 1) {
-                setState(() => segundos--);
-              } else {
-                setState(() {
-                  botonesHabilitados = true;
-                  segundos = 0;
-                });
-                t.cancel();
-              }
-            });
-
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
-              backgroundColor: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // 🔹 Encabezado
-                    Column(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.red, width: 3),
-                          ),
-                          child: Center(
-                            child: Image.asset(
-                              package: AppConfig.namePackage,
-                              AppImages.escudopolicia,
-                              width: 60, // Ajusta el tamaño para que no se recorte
-                              height: 60,
-                              fit: BoxFit.contain, // Mantiene proporciones
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          title,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.red.shade700,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-
-                    // 🔹 Descripción
-                    /*   Text(
-                      descripcion,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.black87,
-                      ),
-                    ),*/
-
-
-                    TextoColorParser.textoConColores(
-                      descripcion,
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    // 🔹 Contador
-                    if (!botonesHabilitados)
-                      Column(
-                        children: [
-                          Text(
-                            "Espere $segundos segundos...",
-                            style: const TextStyle(
-                              color: AppColors.colorAzul,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          const CircularProgressIndicator(color: AppColors.colorAzul,),
-                        ],
-                      ),
-
-                    if (botonesHabilitados)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // Botón Sí
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.check_circle_outline),
-                            label: const Text("Sí"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.colorBotones,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            onPressed: btnOkOnPress==null ?
-                                () {
-                              Navigator.of(context).pop(true);
-                            }:(){
-                              Navigator.of(context).pop(true);
-                              btnOkOnPress();
-                            },
-                          ),
-
-                          // Botón No
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.cancel_outlined),
-                            label: const Text("No"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red.shade400,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            onPressed: btnCancelOnPress ??
-                                    () {
-                                  Navigator.of(context).pop(false);
-                                },
-                          ),
-                        ],
-                      ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-
-  static getWarningSiNo(
-      {String title = 'ADVERTENCIA',
-        required String descripcion,
-        Function()? btnOkOnPress,Function()? btnCancelOnPress}) {
-
-    return       DialogosAwesome._getIconPolicia(
-      colorBtnSi: colorInformacion,
-      colorCircleImg: colorWarning,
-      colorTitle: colorWarning,
-      title: title,
-      descripcion: descripcion,
-      btnOkOnPress:  btnOkOnPress == null
-          ? () {
-
-      }:btnOkOnPress,
-      titleBtnSi: "Si",
-      mostrarSegungoBtn: true,
-      titleBtnNo: "No",
-      btnCancelOnPress: btnCancelOnPress == null
-          ? () {
-
-      }:btnCancelOnPress,
-    );
-
-  }
-
-
-
-  static getError(
-      {String title = 'ERROR',
-        required String descripcion,
-        Function()? btnOkOnPress}) {
-
-
-
-    return       DialogosAwesome._getIconPolicia(
-      colorBtnSi: colorError,
-      colorCircleImg: colorError,
-      colorTitle: colorError,
-      title: title,
-      descripcion: descripcion,
-      btnOkOnPress:  btnOkOnPress == null
-          ? () {
-
-      }:btnOkOnPress,
-      titleBtnSi: "ACEPTAR",
-      mostrarSegungoBtn: false,
-    );
-
-  }
-
-  static getSucess(
-      {String title = 'ÉXITO',
-        required String descripcion,
-        Function()? btnOkOnPress}) {
-    return       DialogosAwesome._getIconPolicia(
-      colorBtnSi: colorSucess,
-      colorCircleImg: colorSucess,
-      colorTitle: colorSucess,
-      title: title,
-      descripcion: descripcion,
-      btnOkOnPress:  btnOkOnPress == null
-          ? () {
-
-      }:btnOkOnPress,
-      titleBtnSi: "ACEPTAR",
-      mostrarSegungoBtn: false,
-    );
-  }
-
-
-
-  static getInformation(
-      {String title = 'INFORMACIÓN', required String descripcion,  Function()? btnOkOnPress,}) {
-
-
-    return       DialogosAwesome._getIconPolicia(
-      colorBtnSi: colorInformacion,
-      colorCircleImg: colorInformacion,
-      colorTitle: colorInformacion,
-      title: title,
-      descripcion: descripcion,
-      btnOkOnPress:  btnOkOnPress == null
-          ? () {
-
-      }:btnOkOnPress,
-      titleBtnSi: "Ok",
-      mostrarSegungoBtn: false,
-    );
-
-
-  }
-
-
-
-  static getInformationSiNo(
-      {String title = 'INFORMACIÓN',
-        required String descripcion,
-        Function()? btnOkOnPress,
-        Function()? btnCancelOnPress}) {
-
-    return       DialogosAwesome._getIconPolicia(
-      colorBtnSi: colorInformacion,
-      colorCircleImg: colorInformacion,
-      colorTitle: colorInformacion,
-      title: title,
-      descripcion: descripcion,
-      btnOkOnPress:  btnOkOnPress == null
-          ? () {
-
-      }:btnOkOnPress,
-      titleBtnNo: "No",
-      titleBtnSi: "SI",
-      mostrarSegungoBtn: true,
-      btnCancelOnPress: btnCancelOnPress == null
-          ? () {
-
-      }:btnCancelOnPress,
-    );
-  }
-
-
-
-
-
-  static getPersonalizado(
-      {String title = 'Información', required String descripcion}) {
     AwesomeDialog(
+      context: Get.context!,
+      dialogType: DialogType.noHeader,
+      animType: AnimType.scale,
       dismissOnTouchOutside: false,
       dismissOnBackKeyPress: false,
+      padding: const EdgeInsets.all(20),
+      dialogBorderRadius: BorderRadius.circular(16),
+      dialogBackgroundColor: Colors.white,
+      borderSide: const BorderSide(color: Color(0xFFE0E0E0), width: 0.9),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 🟠 Ícono circular con gradiente institucional de advertencia
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Color(0xFFFFB74D), Color(0xFFFF9800)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFFFF9800),
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.help_outline_rounded,
+              color: Colors.white,
+              size: 46,
+            ),
+          ),
+          const SizedBox(height: 18),
+
+          // 🔹 Título
+          Text(
+            title.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xFF06245B),
+              fontWeight: FontWeight.w900,
+              fontSize: 18,
+              letterSpacing: 0.8,
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // 🔸 Descripción
+          Text(
+            descripcion,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xFF3E4A59),
+              fontSize: 15.5,
+              height: 1.45,
+            ),
+          ),
+          const SizedBox(height: 26),
+
+          // 🔘 Botones
+          Row(
+            children: [
+              // ❌ BOTÓN NO
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: btnCancelOnPress ?? () => Get.back(),
+                  icon: const Icon(Icons.close_rounded, color: Colors.white),
+                  label: const Text(
+                    "NO",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 0.6,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF6C757D),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 4,
+                    shadowColor: const Color(0xFF6C757D).withOpacity(0.4),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+
+              // ✅ BOTÓN SÍ
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: btnOkOnPress,
+                  icon:
+                  const Icon(Icons.check_circle_rounded, color: Colors.white),
+                  label: const Text(
+                    "SÍ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 0.6,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF195BA6),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 5,
+                    shadowColor: const Color(0xFF195BA6).withOpacity(0.4),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ).show();
+  }
+
+
+  // ============================================================
+// ℹ️ DIALOGO DE INFORMACIÓN (Versión Institucional Mejorada)
+// ============================================================
+  static getInformation({
+    String title = 'INFORMACIÓN',
+    required String descripcion,
+    Function()? btnOkOnPress,
+  }) {
+    AwesomeDialog(
       context: Get.context!,
+      dialogType: DialogType.noHeader, // diseño limpio y moderno
       animType: AnimType.scale,
-      customHeader: Icon(
-        Icons.face,
-        size: 50,
-        color: Colors.black,
+      dismissOnTouchOutside: false,
+      dismissOnBackKeyPress: false,
+      headerAnimationLoop: false,
+      dialogBackgroundColor: Colors.white,
+      dialogBorderRadius: BorderRadius.circular(16),
+      padding: const EdgeInsets.all(20),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 🔵 Ícono circular institucional
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Color(0xFF195BA6), Color(0xFF06245B)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.info_outline_rounded,
+              color: Colors.white,
+              size: 46,
+            ),
+          ),
+          const SizedBox(height: 18),
+
+          // 🔹 Título
+          Text(
+            title.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: Color(0xFF06245B),
+              letterSpacing: 0.8,
+            ),
+          ),
+          const SizedBox(height: 10),
+
+          // 🔸 Descripción
+          Text(
+            descripcion,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15.5,
+              color: Color(0xFF3E4A59),
+              height: 1.45,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // 🔘 Botón institucional azul
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: btnOkOnPress ?? () => Get.back(),
+              icon: const Icon(Icons.check_circle_outline_rounded,
+                  color: Colors.white),
+              label: const Text(
+                "ACEPTAR",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 0.8,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF195BA6),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 5,
+                shadowColor: const Color(0xFF195BA6).withOpacity(0.4),
+              ),
+            ),
+          ),
+        ],
       ),
-      title: 'This is Custom Dialod',
-      desc: 'Confirm or cancel the deletion process',
-      btnOk: TextButton(
-        child: Text('Cancel Button'),
-        onPressed: () {
-          Get.back();
-        },
+    ).show();
+  }
+
+
+  // ============================================================
+  // 📋 ALERTA DETALLE SERVICIOS (MEJORADA)
+  // ============================================================
+  static getAlertDetalleServicios({
+    required String title,
+    required Widget body,
+    required String imagen,
+    Function()? btnOkOnPress,
+    Function()? btnCancelOnPress,
+  }) {
+    AwesomeDialog(
+      context: Get.context!,
+      dialogType: DialogType.noHeader,
+      animType: AnimType.bottomSlide,
+      dismissOnTouchOutside: false,
+      dismissOnBackKeyPress: false,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12.withOpacity(0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          border: Border.all(color: Colors.grey.shade300, width: 0.8),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header institucional
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF06245B), Color(0xFF195BA6)],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+              ),
+              child: Row(
+                children: [
+                  imgPerfilRedonda(size: 12, img: imagen.isEmpty ? null : imagen),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      title.toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15,
+                        letterSpacing: 0.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Cuerpo
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(14),
+              color: const Color(0xFFF9FAFB),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  body,
+                  const SizedBox(height: 20),
+                  Divider(
+                    color: Colors.grey.shade300,
+                    thickness: 0.7,
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if (btnCancelOnPress != null)
+                        TextButton(
+                          onPressed: btnCancelOnPress,
+                          style: TextButton.styleFrom(
+                              foregroundColor: Colors.grey.shade700),
+                          child: const Text("CANCELAR",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 0.4)),
+                        ),
+                      ElevatedButton(
+                        onPressed: btnOkOnPress ?? () => Get.back(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF195BA6),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 18, vertical: 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        child: const Text("ACEPTAR",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-      //this is ignored
-      btnOkOnPress: () {},
+    ).show();
+  }
+
+  // ============================================================
+  // 🌀 DIALOGO DE CARGA MODERNO
+  // ============================================================
+  static void getLoading({String descripcion = "Procesando..."}) {
+    Get.dialog(
+      Center(
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black12.withOpacity(0.2),
+                  blurRadius: 15,
+                  offset: const Offset(0, 6))
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(
+                color: Color(0xFF195BA6),
+                strokeWidth: 3,
+              ),
+              const SizedBox(height: 18),
+              Text(
+                descripcion,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF06245B),
+                  letterSpacing: 0.3,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
+  // ============================================================
+  // ℹ️ INFORMACIÓN CON BOTÓN ACEPTAR PERSONALIZADO
+  // ============================================================
+  static getInformationAceptar({
+    String title = 'INFORMACIÓN',
+    required String descripcion,
+    required Function() btnOkOnPress,
+  }) {
+    AwesomeDialog(
+      context: Get.context!,
+      dialogType: DialogType.noHeader, // sin header para un look más moderno
+      animType: AnimType.scale,
+      dismissOnTouchOutside: false,
+      dismissOnBackKeyPress: false,
+      dialogBorderRadius: BorderRadius.circular(16),
+      padding: const EdgeInsets.all(20),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 🔷 Icono principal institucional
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Color(0xFF195BA6), Color(0xFF06245B)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.info_outline_rounded,
+              color: Colors.white,
+              size: 45,
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // 🔹 Título
+          Text(
+            title.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: Color(0xFF06245B),
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // 🔹 Descripción
+          Text(
+            descripcion,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15,
+              color: Color(0xFF3E4A59),
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // 🔹 Botón Aceptar
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: btnOkOnPress,
+              icon: const Icon(Icons.check_circle_outline_rounded,
+                  color: Colors.white, size: 22),
+              label: const Text(
+                "ACEPTAR",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 0.8,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF195BA6),
+                padding:
+                const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 4,
+              ),
+            ),
+          ),
+        ],
+      ),
+      dialogBackgroundColor: Colors.white,
+      borderSide: const BorderSide(color: Color(0xFFE0E0E0), width: 1),
     ).show();
   }
 
 }
-
-
-
-
-

@@ -1,15 +1,10 @@
 
 import 'dart:convert';
-
 import 'models.dart';
-
 ItemsServiciosMiupc itemsServiciosMiupcFromJson(String str) => ItemsServiciosMiupc.fromJson(json.decode(str));
-
 String itemsServiciosMiupcToJson(ItemsServiciosMiupc data) => json.encode(data.toJson());
-
 class ItemsServiciosMiupc {
   final UpcServitems upcServitems;
-
   ItemsServiciosMiupc({
     required this.upcServitems,
   });

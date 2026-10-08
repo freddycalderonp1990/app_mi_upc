@@ -1,18 +1,11 @@
 part of '../../providers_impl.dart';
 
 class Host {
-  //se utiliza el onlyUrl para no incluir el segmento
-  // api/v1/siipne-movil/
-
-
-
-
   static gethost({bool onlyUrl = false})  {
     String url = '';
      switch (AppConfig.AmbienteUrl) {
       case Ambiente.desarrollo:
          url="https://siipne3wv2.policia.gob.ec/appmovil/";
-       // url="https://siipne3wv2.policia.gob.ec/appmovil/siipneMovil/index.php";
         url=_setSegmentoApp(url,onlyUrl);
         break;
       case Ambiente.prueba:
@@ -22,6 +15,24 @@ class Host {
       case Ambiente.produccion:
         url="https://siipne.policia.gob.ec/appmovil/";
         url=_setSegmentoApp(url,onlyUrl);
+        break;
+    }
+    return url;
+  }
+  static gethostApis({bool onlyUrl = false})  {
+    String url = '';
+    switch (AppConfig.AmbienteUrl) {
+      case Ambiente.desarrollo:
+        url="https://backendtest.policia.gob.ec/";
+        url=_setSegmentoAppApis(url,onlyUrl);
+        break;
+      case Ambiente.prueba:
+        url="https://apisTest.policia.gob.ec/";//Pruebas
+        url=_setSegmentoAppApis(url,onlyUrl);
+        break;
+      case Ambiente.produccion:
+        url="https://apis.policia.gob.ec/";
+        url=_setSegmentoAppApis(url,onlyUrl);
         break;
     }
     return url;
@@ -48,4 +59,7 @@ class Host {
     return url;
   }
 
+  static  _setSegmentoAppApis(String url, onlyUrl) {
+    return url;
+  }
 }

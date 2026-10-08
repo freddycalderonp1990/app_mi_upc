@@ -1,84 +1,90 @@
 
 part of 'custom_widgets.dart';
+class BtnIconWidget extends StatefulWidget {
+  final IconData iconData;
+  final String title;
+  final Color color;
+  final Color colorTextoIcon;
+  final Future<void> Function() onTap;
+  final double elevation;
+  final double size;
+  final double paddinHorizontal;
 
-class BtnIconWidget extends StatelessWidget {
-  final String? titulo;
+  const BtnIconWidget({
+    required this.onTap,
+    required this.iconData,
+    this.title = "",
+    required this.color,
+    this.colorTextoIcon = Colors.white,
+    this.elevation = 2.0,
+    this.size = 16.0,
+    this.paddinHorizontal = 8.0,
+  });
 
-  final VoidCallback? onPressed;
+  @override
+  State<BtnIconWidget> createState() => _BtnIconWidgetState();
+}
 
-  final Color colorTxt;
-  final Color colorLineas;
-  final IconData? icon;
-  final Color colorIcon;
-  final Color colorBtn;
-  final  double sizeTexto;
-  final  double sizeIcon;
+class _BtnIconWidgetState extends State<BtnIconWidget> {
+  bool _loading = false;
 
-  const BtnIconWidget(
-      {Key? key,
-        this.titulo,
-
-        required this.onPressed,
-        this.colorTxt = Colors.white,
-        this.colorLineas = Colors.black,
-        this.icon,
-        this.colorIcon = Colors.white,
-        this.colorBtn=AppColors.colorBotones,  this.sizeTexto=AppConfig.tamTexto,  this.sizeIcon=AppConfig.tamIcons})
-      : super(key: key);
+  void _handleTap() async {
+    if (_loading) return;
+    setState(() => _loading = true);
+    try {
+      await widget.onTap();
+    } finally {
+      setState(() => _loading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    double radius = 10.0;
-    final responsive = ResponsiveUtil();
-    Widget wg = Container();
-
-    Widget iconWd = icon == null
-        ? Container()
-        : Icon(
-      icon,
-      color: colorIcon,
-    );
-
-
-    Widget iconButton=Container(
-      decoration: BoxDecoration(
-        color: colorBtn, // Fondo azul
-        shape: BoxShape.circle, // Forma circular
-      ),
-      child: IconButton(
-        icon: iconWd, // Ícono blanco
-        onPressed: onPressed,
-      ),
-    );
-
-    wg = Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
-      ),
-      child:titulo==null?iconButton:
-
-      TextButton.icon(
-        label: Text(titulo!,
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-                color: colorTxt,
-                fontSize: responsive.diagonalP(sizeTexto))),
-        icon: Container(
-            height: responsive.diagonalP(sizeIcon), child: iconWd),
-        style: TextButton.styleFrom(
-          backgroundColor: colorBtn,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radius),
-              side: BorderSide(color: colorLineas)),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: widget.paddinHorizontal),
+      child: Material(
+        color: widget.color,
+        borderRadius: BorderRadius.circular(30),
+        elevation: widget.elevation,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(30),
+          onTap: _loading ? null : _handleTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (_loading)
+                  SizedBox(
+                    height: widget.size,
+                    width: widget.size,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(widget.colorTextoIcon),
+                    ),
+                  )
+                else
+                  Icon(
+                    widget.iconData,
+                    size: widget.size,
+                    color: widget.colorTextoIcon,
+                  ),
+                if (widget.title.isNotEmpty) ...[
+                  const SizedBox(width: 8),
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                      fontSize: widget.size,
+                      color: widget.colorTextoIcon,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
-        onPressed: onPressed,
       ),
     );
-
-
-    return wg;
-
-
   }
 }
-

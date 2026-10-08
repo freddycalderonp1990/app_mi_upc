@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
       locale: Locale('es'),
       // translations will be displayed in that locale
       fallbackLocale: Locale('es'),
-      initialRoute: AppRoutesMiUpc.SPLASH,
+      initialRoute: AppRoutes.SPLASH,
       initialBinding: DependencyInjectionApp(),
       getPages: AppPages.getPages(),
       home: Scaffold(

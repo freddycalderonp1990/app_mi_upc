@@ -23,7 +23,7 @@ class TituloTextWidget extends StatelessWidget {
         style: TextStyle(
             color: colorTitulo,
             fontWeight: FontWeight.bold,
-            fontSize: responsive.anchoP(AppConfig.tamTextoTitulo)),
+            fontSize: responsive.diagonalP(AppConfig.tamTextoTitulo)),
       );
     }
     else{

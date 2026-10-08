@@ -16,9 +16,9 @@ class AcuerdoPage extends GetView<AcuerdoController> {
       child: Stack(
         children: <Widget>[
           Container(
-            decoration:  BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(AppImages.imgarea, package: AppConfig.namePackage),
+                image: AssetImage(AppImages.imgarea),
                 fit: BoxFit.cover,
               ),
             ),
@@ -29,7 +29,7 @@ class AcuerdoPage extends GetView<AcuerdoController> {
               children: <Widget>[
                 Center(
                   child: Container(
-                    child: Image.asset(AppImages.imgCabecera,    package: AppConfig.namePackage,),
+                    child: Image.asset(AppImages.imgCabecera),
                     width: responsive.altoP(45),
                     color: Colors.transparent,
                   ),
@@ -115,7 +115,7 @@ class AcuerdoPage extends GetView<AcuerdoController> {
   void ingresar(bool c) async {
     if (c == true) {
       controller.verificaAcuerdo();
-      Get.offAllNamed(AppRoutesMiUpc.REGISTROUSUARIO);
+      Get.offAllNamed(AppRoutes.REGISTROUSUARIO);
     } else {
       DialogosAwesome.getError(
           descripcion:

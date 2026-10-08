@@ -19,7 +19,10 @@ class MyHttpOverrides extends HttpOverrides{
 }
 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+
   HttpOverrides.global = new MyHttpOverrides();
   DependencyInjectionApp();
   //AppRoutesMiUpc.setNameMenu(name: "Mi Menú");

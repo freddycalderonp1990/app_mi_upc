@@ -15,6 +15,7 @@ class SplashPage extends GetView<SplashController> {
                  height: responsive.alto,
                  width: responsive.ancho,
                  child:       Image.asset(
+                   package: AppConfig.namePackage,
                    AppImages.imgSplash,
                    fit: BoxFit.fill,
                  ),

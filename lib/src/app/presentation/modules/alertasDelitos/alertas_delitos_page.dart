@@ -64,6 +64,7 @@ class AlertasDelitosPage extends GetView<AlertasDelitosController> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(
+            package: AppConfig.namePackage,
             'assets/img/escpolicia.png', // cambia por tu ruta real
             height: responsive.altoP(10),
             fit: BoxFit.contain,

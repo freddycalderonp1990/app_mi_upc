@@ -98,6 +98,7 @@ class _WorkAreaItemsPageWidgetState extends State<WorkAreaItemsPageWidget> {
       height: responsive.alto,
       width: responsive.ancho,
       child: Image.asset(
+        package: AppConfig.namePackage,
         widget.imgFondo ?? AppImages.imgarea,
         fit: BoxFit.none,
       ),
@@ -119,7 +120,7 @@ class _WorkAreaItemsPageWidgetState extends State<WorkAreaItemsPageWidget> {
         onTap: onTap,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20.0),
-          child: Image.asset(ruta),
+          child: Image.asset(ruta, package: AppConfig.namePackage,),
         ),
       ),
     );
@@ -272,6 +273,7 @@ class _WorkAreaItemsPageWidgetState extends State<WorkAreaItemsPageWidget> {
           ],
         ),
         child: Image.asset(
+          package: AppConfig.namePackage,
           iconPath,
           width: 24,
           height: 24,

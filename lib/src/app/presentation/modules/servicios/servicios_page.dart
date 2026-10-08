@@ -101,6 +101,7 @@ class ServiciosPage extends GetView<ServiciosController> {
                               borderRadius: BorderRadius.circular(10),
                               child: servicio.imgBase64.isEmpty
                                   ? Image.asset(
+                                package: AppConfig.namePackage,
                                 AppImages.vineta,
                                 height: responsive.altoP(9),
                                 width: responsive.altoP(9),
@@ -318,6 +319,7 @@ class ServiciosPage extends GetView<ServiciosController> {
                       ),
                       padding: EdgeInsets.all(responsive.anchoP(2)),
                       child: Image.asset(
+                        package: AppConfig.namePackage,
                         AppImages.imgVerificaAlerta,
                         height: responsive.altoP(5),
                         width: responsive.altoP(5),
@@ -412,6 +414,7 @@ class ServiciosPage extends GetView<ServiciosController> {
                   ),
                   padding: EdgeInsets.all(responsive.anchoP(2)),
                   child: Image.asset(
+                    package: AppConfig.namePackage,
                     AppImages.imgIniciaServicio,
                     height: responsive.altoP(5),
                     width: responsive.altoP(5),

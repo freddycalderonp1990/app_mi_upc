@@ -29,7 +29,9 @@ class AcuerdoPage extends GetView<AcuerdoController> {
               children: <Widget>[
                 Center(
                   child: Container(
-                    child: Image.asset(AppImages.imgCabecera),
+                    child: Image.asset(AppImages.imgCabecera,
+                      package: AppConfig.namePackage,
+                    ),
                     width: responsive.altoP(45),
                     color: Colors.transparent,
                   ),

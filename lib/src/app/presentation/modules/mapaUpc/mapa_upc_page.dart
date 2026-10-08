@@ -227,7 +227,7 @@ class MapaUpcPage extends GetView<MapaUpcController> {
     return Container(
       key: key,
       child: IconButton(
-        icon: Image.asset(icon),
+        icon: Image.asset(icon, package: AppConfig.namePackage,),
         color: Colors.blue,
         iconSize: 20.0,
         onPressed: () {
@@ -287,7 +287,7 @@ class MapaUpcPage extends GetView<MapaUpcController> {
     return Marker(
       point:
       LatLng(AppConfig.ubicacion.value.latitude, AppConfig.ubicacion.value.longitude,),
-      child: Image.asset(AppImages.imgMarker_persona),
+      child: Image.asset(AppImages.imgMarker_persona, package: AppConfig.namePackage,),
       height: 55,
       width: 55,
     );
@@ -414,6 +414,7 @@ class MapaUpcPage extends GetView<MapaUpcController> {
           ],
         ),
         child: Image.asset(
+          package: AppConfig.namePackage,
           iconPath,
           width: 24,
           height: 24,

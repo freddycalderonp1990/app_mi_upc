@@ -56,8 +56,8 @@ class MenuPrincipalController extends GetxController {
     _verificaDatos();
     _cargarFotoPerfil();
     connectionStatusController();
-    initPermisosNotificaciones();
-    _initNotificaciones();
+
+
   }
 
   @override
@@ -79,7 +79,7 @@ class MenuPrincipalController extends GetxController {
   // =============================================================
   Future<void> _init() async {
     await consultaPermisosPolicia();
-    await generaToken();
+
     metodoRegistro.value = (await _localStoreImpl.getMetodoRegistro())!;
     print("🌎 Locale actual: ${Get.deviceLocale}");
   }
@@ -217,7 +217,7 @@ class MenuPrincipalController extends GetxController {
         AppConfig.servicio.value = false;
       }
 
-      await generaToken();
+
     } on ServerException {
       await _cargarModulosOffline();
     } finally {
@@ -270,71 +270,12 @@ class MenuPrincipalController extends GetxController {
   // =============================================================
   // 🔔 NOTIFICACIONES (FCM)
   // =============================================================
-  Future<void> initPermisosNotificaciones() async {
-    final messaging = FirebaseMessaging.instance;
-    final settings = await messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
 
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print("✅ Permisos de notificación concedidos");
-      await generaToken();
-    } else {
-      print("❌ Permisos de notificación denegados");
-    }
-  }
 
-  Future<void> generaToken() async {
-    try {
-      final settings = await FirebaseMessaging.instance.requestPermission();
 
-      if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-        print("❌ Permisos de notificaciones no autorizados por el usuario.");
-        return;
-      }
 
-      final token = await FirebaseMessaging.instance.getToken();
-      if (token == null) {
-        print("⚠️ No se pudo obtener el token FCM.");
-        return;
-      }
 
-      print("✅ TOKEN FCM: $token");
 
-      if (listaPermiso.isNotEmpty) {
-        final idDinUsuariosApp = listaPermiso[0].idDinUsuariosApp;
-        await _apiAlertaViolenciaRepository.actualizaTokenUsuario(
-          idDinUsuariosApp: idDinUsuariosApp,
-          tokenNotificacion: token,
-        );
-      }
-    } catch (e, s) {
-      print("🚨 Error generando token FCM: $e\n$s");
-    }
-  }
-
-  void _initNotificaciones() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      final titulo = message.notification?.title ?? "Notificación";
-      final cuerpo = message.notification?.body ?? "Nuevo mensaje";
-      final data = message.data;
-
-      DialogosAwesome.getSucess(
-        btnOkOnPress: () {
-          Get.back();
-          if (data["tipo"] == "NUEVO_EVENTO") {
-            Get.toNamed(AppRoutes.DETALLEALERTAS, parameters: {
-              "id": data["idEvento"].toString(),
-            });
-          }
-        },
-        title: titulo,
-        descripcion: cuerpo,
-      );
-    });
-  }
   String obtenerSaludo() {
     final hora = DateTime.now().hour;
 

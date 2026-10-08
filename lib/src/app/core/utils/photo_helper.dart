@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 
+import '../app_config.dart';
 import '../values/app_images.dart';
 
 class PhotoHelper {
@@ -88,6 +89,7 @@ class PhotoHelper {
         color: const Color(0xFF195BA6).withOpacity(0.1),
       ),
       child: Image.asset(
+        package: AppConfig.namePackage,
         AppImages.imgEdificio, // Reemplaza por un ícono elegante tipo 📷
         height: 65,
         fit: BoxFit.contain,
@@ -167,6 +169,7 @@ class PhotoHelper {
                 scale: 1.0,
                 duration: const Duration(milliseconds: 200),
                 child: Image.asset(
+                  package: AppConfig.namePackage,
                   imageAsset,
                   height: 50,
                   width: 50,

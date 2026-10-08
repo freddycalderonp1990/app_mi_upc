@@ -214,7 +214,7 @@ class ServiciosController extends GetxController {
       }
       peticionServerState(true);
       String ip= await DeviceInfo.getIp;
-      await generaTokenUsuario();
+
       int idDinUsuariosApp= menuPrincipalController.listaPermiso[0].idDinUsuariosApp;
 
       DinUsuarioTurnosApp turnosApp= await _apiAlertaViolenciaRepository.inicioServicio(
@@ -230,7 +230,7 @@ class ServiciosController extends GetxController {
         peticionServerState(false);
       }else{
         AppConfig.servicio.value=true;
-       await generaTokenUsuario();
+
         DialogosAwesome.getSucess(descripcion: "Servicio Iniciado Correctamente\n Recuerde en su TURNO, "
             "usted será el responsable de atender las notificaciones que se registren en el aplicativo");
       }
@@ -240,21 +240,5 @@ class ServiciosController extends GetxController {
       peticionServerState(false);
     }
   }
-  Future<void> generaTokenUsuario() async {
-    try {
-      final settings = await FirebaseMessaging.instance.requestPermission();
-      if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-        print("❌ Permisos de notificaciones no autorizados por el usuario.");
-        return;
-      }
-       token = await FirebaseMessaging.instance.getToken();
-      if (token == null) {
-        print("⚠️ No se pudo obtener el token FCM.");
-        return;
-      }
-      print("✅ TOKEN FCM: $token");
-    } catch (e, s) {
-      print("🚨 Error generando token FCM: $e\n$s");
-    }
-  }
+
 }

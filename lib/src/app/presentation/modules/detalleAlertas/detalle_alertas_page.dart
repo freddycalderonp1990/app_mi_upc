@@ -74,7 +74,7 @@ class DetalleAlertasPage extends GetView<DetalleAlertasController> {
   Widget _cardAlerta(ListaAlerta alerta, ResponsiveUtil responsive, int index) {
     final foto = (alerta.imgBase64 != null && alerta.imgBase64.toString().isNotEmpty)
         ? Image.memory(base64Decode(alerta.imgBase64), fit: BoxFit.contain)
-        : Image.asset(AppImages.noimagen, fit: BoxFit.contain);
+        : Image.asset(AppImages.noimagen, fit: BoxFit.contain, package: AppConfig.namePackage,);
 
     final bool esActiva = alerta.estadoAlerta.toUpperCase().contains("GENERADA");
     final Color estadoColor = esActiva ? const Color(0xFF28A745) : const Color(0xFF6C757D);

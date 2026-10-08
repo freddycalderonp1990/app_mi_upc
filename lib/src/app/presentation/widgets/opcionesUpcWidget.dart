@@ -92,9 +92,9 @@ class OpcionesUpcWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(AppImages.imgEdificio, height: responsive.altoP(3)),
+              Image.asset(AppImages.imgEdificio, height: responsive.altoP(3), package: AppConfig.namePackage,),
               const SizedBox(width: 8),
-              Image.asset(AppImages.imgCabecera2, height: responsive.altoP(3.5)),
+              Image.asset(AppImages.imgCabecera2, height: responsive.altoP(3.5), package: AppConfig.namePackage,),
             ],
           ),
         ),
@@ -119,7 +119,7 @@ class OpcionesUpcWidget {
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Row(
         children: [
-          Image.asset(icono, height: 10, color: Colors.white),
+          Image.asset(icono, height: 10, color: Colors.white, package: AppConfig.namePackage,),
           const SizedBox(width: 8),
           Text(
             '$label:',
@@ -158,7 +158,7 @@ class OpcionesUpcWidget {
               color: Colors.white.withOpacity(0.2),
               shape: BoxShape.circle,
             ),
-            child: Image.asset(icono, width: 40),
+            child: Image.asset(icono, width: 40, package: AppConfig.namePackage,),
           ),
         ),
         const SizedBox(height: 6),

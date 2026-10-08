@@ -96,7 +96,7 @@ class CustomMap {
                   border: Border.all(color: Colors.transparent, width: 0.5),
                   borderRadius: BorderRadius.circular(50)),
               child: Container(
-                child: Image.asset(icon),
+                child: Image.asset(icon, package: AppConfig.namePackage,),
                 margin: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                    borderRadius: BorderRadius.circular(50)),
@@ -117,7 +117,7 @@ class CustomMap {
                   border: Border.all(color: Colors.transparent, width: 0.5),
                   borderRadius: BorderRadius.circular(50)),
               child: Container(
-                child: Image.asset(icon),
+                child: Image.asset(icon, package: AppConfig.namePackage,),
                 margin: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50)),

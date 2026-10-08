@@ -119,7 +119,9 @@ ResponsiveUtil responsiveUtil=new ResponsiveUtil();
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset('assets/img/cabecera2.png',height: responsiveUtil.diagonalP(4),),
+                Image.asset('assets/img/cabecera2.png',height: responsiveUtil.diagonalP(4),
+                  package: AppConfig.namePackage,
+                ),
                 Row(
                   children: [
                     const Spacer(),

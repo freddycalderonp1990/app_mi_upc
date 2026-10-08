@@ -13,6 +13,7 @@ enum Ambiente { desarrollo, prueba, produccion }
 
 class AppConfig {
 
+  static  String namePackage =  'app_mi_upc';
   static  Ambiente AmbienteUrl=Ambiente.desarrollo;
 
   static  String formatoFecha =  'yyyy-MM-dd';

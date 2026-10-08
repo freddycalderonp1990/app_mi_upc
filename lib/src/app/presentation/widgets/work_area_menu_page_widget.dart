@@ -70,6 +70,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
             children: [
               Positioned.fill(
                 child: Image.asset(
+                  package: AppConfig.namePackage,
                   widget.imgFondo ?? AppImages.imgarea,
                   fit: BoxFit.cover,
                 ),
@@ -172,7 +173,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.white30, width: 1),
         ),
-        child: Image.asset(iconPath, width: 24, height: 24),
+        child: Image.asset(iconPath, width: 24, height: 24, package: AppConfig.namePackage,),
       ),
     );
   }
@@ -198,7 +199,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(AppImages.imgEdificio, height: 32),
+          Image.asset(AppImages.imgEdificio, height: 32, package: AppConfig.namePackage,),
           const SizedBox(width: 8),
           const Text(
             'MI UPC',
@@ -716,7 +717,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
           color: Colors.white.withOpacity(0.15),
           shape: BoxShape.circle,
         ),
-        child: Image.asset(assetPath),
+        child: Image.asset(assetPath, package: AppConfig.namePackage,),
       ),
     );
   }

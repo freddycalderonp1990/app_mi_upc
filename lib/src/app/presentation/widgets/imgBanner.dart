@@ -48,6 +48,7 @@ class _imgBannerState extends State<imgBanner> with SingleTickerProviderStateMix
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.asset(
+              package: AppConfig.namePackage,
               widget.ruta,
               fit: BoxFit.cover,
             ),

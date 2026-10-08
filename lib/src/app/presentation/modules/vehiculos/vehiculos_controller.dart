@@ -72,7 +72,7 @@ class VehiculosController extends GetxController {
   @override
   void onReady() {
     _init();
-    _initNotificaciones(); // si deseas mantener notificaciones
+
   }
 
   _init() async {}
@@ -200,37 +200,7 @@ class VehiculosController extends GetxController {
 
   // ---- Notificaciones (opcional, mantengo tu lógica) ----
   bool _notificacionesIniciadas = false;
-  void _initNotificaciones() async {
-    if (_notificacionesIniciadas) return;
-    _notificacionesIniciadas = true;
 
-    final messaging = FirebaseMessaging.instance;
-    await messaging.requestPermission();
-    await messaging.subscribeToTopic('upceventos1');
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      final titulo = message.notification?.title ?? "Sin título";
-      final cuerpo = message.notification?.body ?? "Sin cuerpo";
-
-      if (titulo.toString() == "WEB") {
-        mostrarSnackbarConEstilo(
-          titulo: titulo,
-          mensaje: cuerpo,
-          icono: Icons.notifications_active_sharp,
-          colorFondo: Colors.red,
-          colorTexto: Colors.white,
-        );
-      } else if (titulo.toString() == "SEGUIMIENTO") {
-        mostrarSnackbarConEstilo(
-          titulo: titulo,
-          mensaje: cuerpo,
-          icono: Icons.notification_add_outlined,
-          colorFondo: Colors.amber,
-          colorTexto: Colors.black,
-        );
-      }
-    });
-  }
 
   void mostrarSnackbarConEstilo({
     required String titulo,

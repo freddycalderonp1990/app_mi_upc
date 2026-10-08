@@ -113,6 +113,7 @@ class _LoadingState extends State<Loading> with TickerProviderStateMixin {
               width: 20,
               height: 20,
               child: Image.asset(
+                package: AppConfig.namePackage,
                 AppImages.imgEdificio,
                 fit: BoxFit.contain,
               ),

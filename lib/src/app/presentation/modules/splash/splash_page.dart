@@ -1,12 +1,11 @@
 part of '../pages.dart';
 
-class SplashPage extends GetView<SplashController> {
+class SplashPage extends GetView<SplashControllerMiUpc> {
   const SplashPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final responsive = ResponsiveUtil();
-    return GetBuilder<SplashController>(
+    return GetBuilder<SplashControllerMiUpc>(
         builder: (_) => Scaffold(
           body:
              SingleChildScrollView(child:

@@ -1,6 +1,6 @@
 part of '../controllers.dart';
 
-class SplashController extends GetxController {
+class SplashControllerMiUpc extends GetxController {
 
 
 // ...

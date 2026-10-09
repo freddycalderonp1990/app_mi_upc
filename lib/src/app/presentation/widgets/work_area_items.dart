@@ -100,7 +100,7 @@ class _WorkAreaItemsPageWidgetState extends State<WorkAreaItemsPageWidget> {
       child: Image.asset(
         package: AppConfig.namePackage,
         widget.imgFondo ?? AppImages.imgarea,
-        fit: BoxFit.none,
+        fit: BoxFit.fill,
       ),
     );
   }

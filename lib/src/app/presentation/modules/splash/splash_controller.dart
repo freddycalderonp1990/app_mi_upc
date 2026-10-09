@@ -20,6 +20,7 @@ class SplashControllerMiUpc extends GetxController {
 
   }
 
+
   _init() async {
 
     print(Get.deviceLocale.toString());

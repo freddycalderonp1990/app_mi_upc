@@ -23,9 +23,11 @@ class AppImages{
   static const imgTitulo = _rutaImg+ "titulo.png";
   static const imgSirena = _rutaImg+ "sirena.gif";
   static const vineta = _rutaImg+ "vineta.png";
+  static const imgloginPoliciaEcuador = _rutaImg + "policia_ecuador.png";
 
 
   static const imgSplash = _rutaImg+ "splash.jpg";
+  static const imgLoginHeader = _rutaImg + "header.png";
   static const imgGuardar = _rutaImg+ "guardar.png";
   static const imgVisto = _rutaImg+ "visto.png";
 

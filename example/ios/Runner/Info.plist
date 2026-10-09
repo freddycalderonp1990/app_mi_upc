@@ -26,7 +26,25 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIApplicationSceneManifest</key>
+
+    <key>NSCameraUsageDescription</key>
+    <string>SIIPNE Móvil necesita acceder a la cámara para tomar fotografías y registrar novedades durante los operativos.</string>
+    <key>NSFaceIDUsageDescription</key>
+    <string>SIIPNE Móvil utiliza Face ID para verificar la identidad del usuario y brindar mayor seguridad en el acceso al sistema.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>SIIPNE Móvil necesita acceder a su ubicación para georreferenciar los operativos, registrar el lugar donde se realizan las actividades.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>SIIPNE Móvil necesita acceder a su ubicación para georreferenciar los operativos y registrar la ubicación de las actividades realizadas.</string>
+    <key>NSLocationUsageDescription</key>
+    <string>SIIPNE Móvil necesita acceder a su ubicación para georreferenciar los operativos y registrar la ubicación de las actividades realizadas.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>SIIPNE Móvil necesita acceder a su ubicación para georreferenciar los operativos y registrar la ubicación de las actividades realizadas.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>SIIPNE Móvil necesita acceder a la galería para seleccionar fotografías y registrarlas como parte de las novedades durante los operativos.</string>
+
+
+
+    <key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>

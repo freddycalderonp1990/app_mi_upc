@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+
+
+
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +21,7 @@ import '../../core/utils/check_internet_conexion.dart';
 import '../../core/utils/photo_helper.dart';
 import '../../core/utils/responsiveUtil.dart';
 import '../../core/utils/utilidadesUtil.dart';
+import '../../core/values/app_colors.dart';
 import '../../core/values/app_images.dart';
 import '../../data/models/models.dart';
 import '../../data/models/modulos.dart';

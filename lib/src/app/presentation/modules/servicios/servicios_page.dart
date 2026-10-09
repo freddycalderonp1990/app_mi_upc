@@ -32,7 +32,7 @@ class ServiciosPage extends GetView<ServiciosController> {
 
                 // 🔹 Grid de servicios
                 SizedBox(
-                  child: Obx(() => getGridServicios()),
+                  child: getGridServicios(),
                 ),
               ],
             ),
@@ -45,112 +45,117 @@ class ServiciosPage extends GetView<ServiciosController> {
   /// 🧩 GRID PRINCIPAL DE SERVICIOS
   Widget getGridServicios() {
     final responsive = ResponsiveUtil();
-    return Column(
-      children: [
-        // 📋 GRID
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(
-            horizontal: responsive.anchoP(2),
-            vertical: responsive.altoP(1),
-          ),
-          itemCount: controller.listaServicios?.length ?? 0,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: responsive.anchoP(8),
-            mainAxisSpacing: responsive.altoP(2),
-            childAspectRatio: 0.9,
-          ),
-          itemBuilder: (context, ind) {
-            final servicio = controller.listaServicios[ind];
-            return TweenAnimationBuilder<double>(
-              tween: Tween(begin: 1.0, end: 1.0),
-              duration: const Duration(milliseconds: 200),
-              builder: (context, scale, child) {
-                return GestureDetector(
-                  onTapDown: (_) => controller.selectedIndex.value = ind,
-                  onTapUp: (_) async {
-                    await Future.delayed(const Duration(milliseconds: 80));
-                    getDatosServicio(ind);
-                  },
-                  onTapCancel: () => controller.selectedIndex.value = -1,
-                  child: Obx(() {
-                    final isSelected = controller.selectedIndex.value == ind;
-                    return AnimatedScale(
-                      scale: isSelected ? 0.94 : 1.0,
-                      duration: const Duration(milliseconds: 100),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(color: Colors.grey.shade300),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12.withOpacity(0.05),
-                              blurRadius: 4,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // Imagen centrada
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: servicio.imgBase64.isEmpty
-                                  ? Image.asset(
-                                package: AppConfig.namePackage,
-                                AppImages.vineta,
-                                height: responsive.altoP(9),
-                                width: responsive.altoP(9),
-                                fit: BoxFit.contain,
-                              )
-                                  : Image.memory(
-                                base64Decode(servicio.imgBase64),
-                                height: responsive.altoP(9),
-                                width: responsive.altoP(9),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            SizedBox(height: responsive.altoP(1)),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: responsive.anchoP(2),
-                              ),
-                              child: Text(
-                                servicio.descripcion.toUpperCase(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: responsive.diagonalP(1.3),
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xFF06245B),
-                                  height: 1.2,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
+
+    return Obx(() {
+      final servicios = controller.listaServicios;
+      final int cantidad = servicios.length;
+
+      return Column(
+        children: [
+          if (cantidad == 0)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 30),
+              child: Center(
+                child: Text(
+                  'No existen servicios disponibles',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            )
+          else
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final double ancho = constraints.maxWidth;
+
+                int columnas;
+                if (ancho < 600) {
+                  columnas = 2;
+                } else if (ancho < 900) {
+                  columnas = 3;
+                } else {
+                  columnas = 4;
+                }
+
+                if (columnas > cantidad) columnas = cantidad;
+                if (columnas < 1) columnas = 1;
+
+                final double paddingHorizontal =
+                (ancho * 0.025).clamp(10.0, 28.0).toDouble();
+
+                final double espacioHorizontal =
+                (ancho * 0.018).clamp(10.0, 22.0).toDouble();
+
+                final double espacioVertical =
+                (ancho * 0.018).clamp(12.0, 22.0).toDouble();
+
+                final double anchoDisponible =
+                    ancho -
+                        (paddingHorizontal * 2) -
+                        (espacioHorizontal * (columnas - 1));
+
+                final double anchoTarjeta =
+                    anchoDisponible / columnas;
+
+                final double altoTarjeta =
+                (anchoTarjeta * 0.95)
+                    .clamp(165.0, 225.0)
+                    .toDouble();
+
+                return GridView.builder(
+                  key: ValueKey(
+                    '${cantidad}_${servicios.map((e) => e.idUpcServicio).join("_")}',
+                  ),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.fromLTRB(
+                    paddingHorizontal,
+                    8,
+                    paddingHorizontal,
+                    18,
+                  ),
+                  itemCount: cantidad,
+                  gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: columnas,
+                    crossAxisSpacing: espacioHorizontal,
+                    mainAxisSpacing: espacioVertical,
+                    mainAxisExtent: altoTarjeta,
+                  ),
+                  itemBuilder: (context, ind) {
+                    final servicio = servicios[ind];
+
+                    return ModuleCard(
+                      key: ValueKey(
+                        '${servicio.idUpcServicio}_${servicio.descripcion}_${servicio.imgBase64.hashCode}',
                       ),
+                      title: servicio.descripcion,
+                      base64Img: servicio.imgBase64.isEmpty
+                          ? null
+                          : servicio.imgBase64,
+                      onTap: () async {
+                        await getDatosServicio(ind);
+                      },
                     );
-                  }),
+                  },
                 );
               },
-            );
-          },
-        ),
+            ),
 
-        // 🔹 Botones finales
-        if (controller.id == 3 &&
-            controller.menuPrincipalController.listaPermiso.isNotEmpty)
-          _botonVerificalaerta(responsive),
-        _botonInicioServicio(responsive),
-      ],
-    );
+          if (controller.id == 3 &&
+              controller.menuPrincipalController.listaPermiso.isNotEmpty)
+            _botonVerificalaerta(responsive),
+
+          _botonInicioServicio(responsive),
+        ],
+      );
+    });
   }
+
+
 
   /// 🔍 Acción al tocar un servicio
   Future<void> getDatosServicio(int ind) async {

@@ -199,12 +199,8 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(AppImages.imgEdificio, height: 32, package: AppConfig.namePackage,),
-          const SizedBox(width: 8),
-          const Text(
-            'MI UPC',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white),
-          ),
+          Image.asset(AppImages.imgloginPoliciaEcuador, height: 42, package: AppConfig.namePackage,),
+
         ],
       ),
       leading: Builder(
@@ -679,6 +675,7 @@ class _WorkAreaMenuPageWidgetState extends State<WorkAreaMenuPageWidget> {
       }
     }
   }
+
 
   verificaTConexion() async {
     try {

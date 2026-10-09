@@ -4,6 +4,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Obx(() =>
         WorkAreaMenuPageWidget(
           btnAtras: false,
@@ -52,12 +53,10 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
     );
   }
 
-  Widget getListaDatosModulos() {
-    final responsive = ResponsiveUtil();
 
+  Widget getListaDatosModulos() {
     return Obx(() {
       final mods = controller.listaModulo;
-
       if (mods.isEmpty) {
         return const Center(
           child: Text(
@@ -71,30 +70,64 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
         );
       }
 
-      final bool modoHorizontal = mods.length <= 2;
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final double ancho = constraints.maxWidth;
+          int columnas;
 
-      return GridView.builder(
-        padding: EdgeInsets.fromLTRB(
-          responsive.anchoP(1),
-          responsive.altoP(0.6),
-          responsive.anchoP(1),
-          responsive.altoP(2.6),
-        ),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: modoHorizontal ? 1 : 2,
-          crossAxisSpacing: responsive.anchoP(4),
-          mainAxisSpacing: responsive.altoP(2),
-          childAspectRatio: modoHorizontal ? 2.95 : 0.95,
-        ),
-        itemCount: mods.length,
-        itemBuilder: (context, i) {
-          final m = mods[i];
+          if (mods.length <= 2) {
+            // Mantiene el comportamiento compacto en teléfonos,
+            // pero en pantallas grandes coloca las tarjetas lado a lado.
+            columnas = ancho >= 600 ? 2 : 1;
+          } else if (ancho < 600) {
+            columnas = 2;
+          } else if (ancho < 900) {
+            columnas = 3;
+          } else {
+            columnas = 4;
+          }
 
-          return ModuleCard(
-            title: m.tituloModulo,
-            base64Img: m.imgBase64.isEmpty ? null : m.imgBase64,
-            destacado: i == 0,
-            onTap: () => muestraPantalla(i, context),
+          // Nunca crear más columnas que módulos disponibles.
+          if (columnas > mods.length) columnas = mods.length;
+          if (columnas < 1) columnas = 1;
+
+          final double paddingHorizontal = (ancho * 0.025).clamp(10.0, 28.0).toDouble();
+          final double separacionHorizontal = (ancho * 0.018).clamp(10.0, 22.0).toDouble();
+          final double separacionVertical = (ancho * 0.018).clamp(12.0, 22.0).toDouble();
+
+          double altoTarjeta;
+          if (columnas == 1) {
+            altoTarjeta = (ancho * 0.34).clamp(125.0, 165.0).toDouble();
+          } else {
+            final double anchoDisponible = ancho - (paddingHorizontal * 2) - (separacionHorizontal * (columnas - 1));
+            final double anchoTarjeta = anchoDisponible / columnas;
+            altoTarjeta = (anchoTarjeta * 0.88).clamp(165.0, 225.0).toDouble();
+          }
+
+          return GridView.builder(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.fromLTRB(
+              paddingHorizontal,
+              8,
+              paddingHorizontal,
+              24,
+            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: columnas,
+              crossAxisSpacing: separacionHorizontal,
+              mainAxisSpacing: separacionVertical,
+              mainAxisExtent: altoTarjeta,
+            ),
+            itemCount: mods.length,
+            itemBuilder: (context, i) {
+              final m = mods[i];
+              return ModuleCard(
+                title: m.tituloModulo,
+                base64Img: m.imgBase64.isEmpty ? null : m.imgBase64,
+                destacado: i == 0,
+                onTap: () => muestraPantalla(i, context),
+              );
+            },
           );
         },
       );

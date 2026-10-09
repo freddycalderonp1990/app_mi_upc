@@ -25,7 +25,7 @@ class ServerException implements Exception {
     String mesage = 'No es posible conectar con el servidor. Contacte con el administrador';
 
     if (AppConfig.AmbienteUrl != Ambiente.produccion) {
-      mesage = mesage + ' Exception: ' + msjException;
+     // mesage = mesage + ' Exception: ' + msjException;
     }
 
     return ServerException(cause:mesage);

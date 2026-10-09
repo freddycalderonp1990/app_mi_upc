@@ -47,21 +47,13 @@ class _ModuleCardState extends State<ModuleCard> {
             borderRadius: BorderRadius.circular(24),
             gradient: LinearGradient(
               colors: widget.destacado
-                  ? [
-                const Color(0xFFFFFBFB),
-                const Color(0xFFF8FAFD),
-              ]
-                  : [
-                Colors.white,
-                const Color(0xFFF7FAFD),
-              ],
+                  ? [const Color(0xFFFFFBFB), const Color(0xFFF8FAFD)]
+                  : [Colors.white, const Color(0xFFF7FAFD)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             border: Border.all(
-              color: widget.destacado
-                  ? const Color(0xFFD94B4B)
-                  : const Color(0xFF092443),
+              color: widget.destacado ? const Color(0xFFD94B4B) : const Color(0xFF092443),
               width: widget.destacado ? 1.8 : 1.0,
             ),
             boxShadow: [
@@ -83,16 +75,19 @@ class _ModuleCardState extends State<ModuleCard> {
             borderRadius: BorderRadius.circular(24),
             child: LayoutBuilder(
               builder: (context, constraints) {
-                final bool esHorizontal =
-                    constraints.maxWidth > constraints.maxHeight * 1.3;
+                final double w = constraints.maxWidth;
+                final double h = constraints.maxHeight;
+                final bool esHorizontal = w > h * 1.55;
+
                 return Stack(
+                  fit: StackFit.expand,
                   children: [
                     Positioned(
                       bottom: -26,
                       left: -20,
                       child: Container(
-                        width: 86,
-                        height: 86,
+                        width: _valorResponsivo(w * 0.20, 70, 95),
+                        height: _valorResponsivo(w * 0.20, 70, 95),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: const Color(0xFF6C757D).withOpacity(0.05),
@@ -101,14 +96,13 @@ class _ModuleCardState extends State<ModuleCard> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: esHorizontal ? 16 : 12,
-                        vertical: esHorizontal ? 14 : 14,
+                        horizontal: _valorResponsivo(w * 0.045, 10, 22),
+                        vertical: _valorResponsivo(h * 0.045, 10, 22),
                       ),
                       child: esHorizontal
-                          ? _buildHorizontal()
+                          ? _buildHorizontal(constraints)
                           : _buildVertical(constraints),
                     ),
-
                   ],
                 );
               },
@@ -119,84 +113,32 @@ class _ModuleCardState extends State<ModuleCard> {
     );
   }
 
-  Widget _buildHorizontal() {
-    ResponsiveUtil responsiveUtil=new ResponsiveUtil();
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _buildAvatar(size: 70),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.title.toUpperCase(),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style:  TextStyle(
-                  fontSize: responsiveUtil.diagonalP(1.6),
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF06245B),
-                  letterSpacing: 0.20,
-                  height: 1.2,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                "Acceder al módulo",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 11.8,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.blueGrey.shade500,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Row(
-                children: [
-                  _buildLineaDecorativa(width: 42),
-                  const SizedBox(width: 8),
-                  const Icon(
-                    Icons.arrow_forward_rounded,
-                    size: 16,
-                    color: Color(0xFF195BA6),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildVertical(BoxConstraints constraints) {
+    final double w = constraints.maxWidth;
     final double h = constraints.maxHeight;
+    final double referencia = w < h ? w : h;
 
-    final double avatarSize = h < 185 ? 64 : h < 210 ? 72 : 84;
-    final double gap1 = h < 185 ? 6 : 12;
-    final double gap2 = h < 185 ? 4 : 6;
-    final double gap3 = h < 185 ? 6 : 10;
-    final double titleSize = h < 185 ? 11.8 : 13.2;
-    final double subtitleSize = h < 185 ? 10.5 : 11.4;
-    final double lineWidth = h < 185 ? 30 : 38;
+    final double avatarSize = _valorResponsivo(referencia * 0.22, 58, 90);
+    final double titleSize = _valorResponsivo(referencia * 0.038, 11.5, 15.5);
+    final double subtitleSize = _valorResponsivo(referencia * 0.030, 10.5, 13);
+    final double gapAvatar = _valorResponsivo(h * 0.025, 7, 14);
+    final double gapTexto = _valorResponsivo(h * 0.012, 4, 7);
+    final double gapLinea = _valorResponsivo(h * 0.018, 6, 11);
+    final double lineWidth = _valorResponsivo(w * 0.10, 30, 45);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildAvatar(size: avatarSize),
-        SizedBox(height: gap1),
-        Flexible(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildAvatar(size: avatarSize),
+          SizedBox(height: gapAvatar),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: _valorResponsivo(w * 0.025, 4, 12)),
             child: Text(
               widget.title.toUpperCase(),
               textAlign: TextAlign.center,
-              maxLines: h < 185 ? 2 : 3,
+              maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: titleSize,
@@ -207,29 +149,83 @@ class _ModuleCardState extends State<ModuleCard> {
               ),
             ),
           ),
-        ),
-        SizedBox(height: gap2),
-        Text(
-          "Acceder al módulo",
-          textAlign: TextAlign.center,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: subtitleSize,
-            fontWeight: FontWeight.w600,
-            color: Colors.blueGrey.shade500,
+          SizedBox(height: gapTexto),
+          Text(
+            'Acceder al módulo',
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: subtitleSize,
+              fontWeight: FontWeight.w600,
+              color: Colors.blueGrey.shade500,
+            ),
           ),
-        ),
-        SizedBox(height: gap3),
-        _buildLineaDecorativa(width: lineWidth),
-      ],
+          SizedBox(height: gapLinea),
+          _buildLineaDecorativa(width: lineWidth),
+        ],
+      ),
     );
   }
+
+  Widget _buildHorizontal(BoxConstraints constraints) {
+    final double w = constraints.maxWidth;
+    final double h = constraints.maxHeight;
+
+    final double avatarSize = _valorResponsivo(h * 0.48, 55, 82);
+    final double titleSize = _valorResponsivo(h * 0.105, 12, 16);
+    final double subtitleSize = _valorResponsivo(h * 0.078, 10.5, 13);
+    final double separacion = _valorResponsivo(w * 0.03, 10, 18);
+
+    return Center(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _buildAvatar(size: avatarSize),
+          SizedBox(width: separacion),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title.toUpperCase(),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: titleSize,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xFF06245B),
+                    letterSpacing: 0.20,
+                    height: 1.15,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  'Acceder al módulo',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: subtitleSize,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.blueGrey.shade500,
+                  ),
+                ),
+                const SizedBox(height: 7),
+                _buildLineaDecorativa(width: _valorResponsivo(w * 0.09, 32, 46)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildAvatar({required double size}) {
     return Container(
       width: size,
       height: size,
-      padding: const EdgeInsets.all(3),
+      padding: EdgeInsets.all(_valorResponsivo(size * 0.045, 2.5, 4)),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: widget.destacado
@@ -245,10 +241,7 @@ class _ModuleCardState extends State<ModuleCard> {
         ),
         boxShadow: [
           BoxShadow(
-            color: (widget.destacado
-                ? const Color(0xFFD94B4B)
-                : const Color(0xFF195BA6))
-                .withOpacity(0.24),
+            color: (widget.destacado ? const Color(0xFFD94B4B) : const Color(0xFF195BA6)).withOpacity(0.24),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -261,7 +254,7 @@ class _ModuleCardState extends State<ModuleCard> {
         ),
         child: ClipOval(
           child: Padding(
-            padding: const EdgeInsets.all(6), // 👈 espacio interno
+            padding: EdgeInsets.all(_valorResponsivo(size * 0.07, 4, 7)),
             child: _buildImageContent(),
           ),
         ),
@@ -273,6 +266,7 @@ class _ModuleCardState extends State<ModuleCard> {
     if (widget.base64Img == null || widget.base64Img!.trim().isEmpty) {
       return _buildFallbackIcon();
     }
+
     try {
       return Image.memory(
         base64Decode(widget.base64Img!),
@@ -306,18 +300,12 @@ class _ModuleCardState extends State<ModuleCard> {
         borderRadius: BorderRadius.circular(8),
         gradient: widget.destacado
             ? const LinearGradient(
-          colors: [
-            Color(0xFFD94B4B),
-            Color(0xFF195BA6),
-          ],
+          colors: [Color(0xFFD94B4B), Color(0xFF195BA6)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         )
             : const LinearGradient(
-          colors: [
-            Color(0xFF195BA6),
-            Color(0xFF6C757D),
-          ],
+          colors: [Color(0xFF195BA6), Color(0xFF6C757D)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -325,44 +313,9 @@ class _ModuleCardState extends State<ModuleCard> {
     );
   }
 
-  Widget _buildBadgeDestacado() {
-    return Positioned(
-      top: 10,
-      right: 10,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          color: const Color(0xFFD94B4B),
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFFD94B4B).withOpacity(0.24),
-              blurRadius: 8,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: const Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.priority_high_rounded,
-              color: Colors.white,
-              size: 14,
-            ),
-            SizedBox(width: 4),
-            Text(
-              "DESTACADO",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 10.2,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+  double _valorResponsivo(double valor, double minimo, double maximo) {
+    if (valor < minimo) return minimo;
+    if (valor > maximo) return maximo;
+    return valor;
   }
 }

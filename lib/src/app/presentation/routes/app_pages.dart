@@ -71,5 +71,13 @@ class AppPagesMiUpc {
         name:AppRoutesMiUpc.ALERTASDELITOS,
         page: () => AlertasDelitosPage(),
         binding: AlertasDelitosBinding()),
+    getPageConfig(
+        name: AppRoutesMiUpc.VEHICULOS_ROBADOS,
+        page: () => const VehiculosRobadosPage(),
+        binding: VehiculoRobadoBinding()),
+    getPageConfig(
+        name: AppRoutesMiUpc.ALERTAS_DESAPARECIDOS,
+        page: () => const AlertasDesaparecidosPage(),
+        binding: AlertasDesaparecidosBinding()),
   ];
 }

@@ -55,6 +55,12 @@ import 'package:geolocator_apple/geolocator_apple.dart';
 
 import 'mapaUpc/includes/claseInstructionStep.dart';
 import 'dart:typed_data';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import '../../data/models/vehiculo_robado_registro.dart';
+import '../../data/repository/local/vehiculo_robado_local_repository.dart';
+import '../../data/models/alerta_desaparecido_registro.dart';
+import '../../data/repository/local/alertas_desaparecidos_local_repository.dart';
 
 part 'splash/splash_controller.dart';
 part 'menu/menu_principal_controller.dart';
@@ -67,3 +73,5 @@ part 'eventos/eventos_controller.dart';
 part 'vehiculos/vehiculos_controller.dart';
 part 'detalleAlertas/detalle_alertas_controller.dart';
 part 'alertasDelitos/alertas_delitos_controller.dart';
+part 'vehiculosRobados/vehiculo_robado_controller.dart';
+part 'alertasDesaparecidos/alertas_desaparecidos_controller.dart';

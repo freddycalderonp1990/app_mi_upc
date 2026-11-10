@@ -1,0 +1,89 @@
+{
+  "upcModulosMovil": {
+    "codeError": 0,
+    "msj": "existe",
+    "datos": [
+      {
+        "idUpcModulosMovil": 12,
+        "tituloModulo": "PERSONAS DESAPARECIDAS",
+        "descripcionModulo": "REGISTRO LOCAL Y PRIVADO DE PERSONAS DESAPARECIDAS",
+        "imagenModulo": "",
+        "ordenModulo": 1,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      },
+      {
+        "idUpcModulosMovil": 5,
+        "tituloModulo": "ALERTAS CIUDADANAS",
+        "descripcionModulo": "ALERTAS CIUDADANAS",
+        "imagenModulo": "imagenModulo_49006_20261013_085304.png",
+        "ordenModulo": 2,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      },
+      {
+        "idUpcModulosMovil": 11,
+        "tituloModulo": "ALERTA DE VEHÍCULOS ROBADOS",
+        "descripcionModulo": "REGISTRO LOCAL Y PRIVADO DE VEHÍCULOS ROBADOS",
+        "imagenModulo": "",
+        "ordenModulo": 3,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      },
+      {
+        "idUpcModulosMovil": 13,
+        "tituloModulo": "MASCOTAS DESAPARECIDAS",
+        "descripcionModulo": "REGISTRO LOCAL Y PRIVADO DE MASCOTAS DESAPARECIDAS",
+        "imagenModulo": "",
+        "ordenModulo": 4,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      },
+      {
+        "idUpcModulosMovil": 9,
+        "tituloModulo": "ALERTA COMUNITARIA",
+        "descripcionModulo": "ALERTAS GENERADAS A LOS UPC",
+        "imagenModulo": "imagenModulo_49006_20261013_085222.png",
+        "ordenModulo": 5,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      },
+      {
+        "idUpcModulosMovil": 1,
+        "tituloModulo": "ENCUENTRA LA UPC MÁS CERCANA",
+        "descripcionModulo": "PERMITE GEOREFERENCIAR LOS UPC CERCANOS A LA UBICACION DEL USUARIO",
+        "imagenModulo": "imagenModulo_49006_20260316_143910.png",
+        "ordenModulo": 6,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      },
+      {
+        "idUpcModulosMovil": 4,
+        "tituloModulo": "VIOLENCIA DE GÉNERO",
+        "descripcionModulo": "PERMITE VISUALIZAR LA INFORMACIÓN DE PREVENCIÓN Y DENUNCIA ANTE CASOS DE VIOLENCIA INTRAFAMILIAR Y DE GÉNERO",
+        "imagenModulo": "imagenModulo_49006_20261013_085249.png",
+        "ordenModulo": 7,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      },
+      {
+        "idUpcModulosMovil": 10,
+        "tituloModulo": "SERVICIOS DE POLICÍA COMUNITARIA",
+        "descripcionModulo": "SERVICIOS DE POLICÍA COMUNITARIA",
+        "imagenModulo": "imagenModulo_49006_20261013_085214.png",
+        "ordenModulo": 8,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      },
+      {
+        "idUpcModulosMovil": 3,
+        "tituloModulo": "MEDIDAS DE AUTOPROTECCIÓN",
+        "descripcionModulo": "TIPS DE SEGURIDAD QUE PERMITEN QUE LA CIUDADANÍA EVITE SER VÍCTIMA DE ACTOS DELICTIVOS",
+        "imagenModulo": "imagenModulo_49006_20261013_085232.png",
+        "ordenModulo": 9,
+        "idGenEstado": 1,
+        "imgBase64": ""
+      }
+    ]
+  }
+}

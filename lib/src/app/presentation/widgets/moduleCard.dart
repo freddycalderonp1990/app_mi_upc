@@ -279,13 +279,24 @@ class _ModuleCardState extends State<ModuleCard> {
   }
 
   Widget _buildFallbackIcon() {
+    final titulo = widget.title.toUpperCase();
+    final IconData icono;
+    if (titulo.contains('PERSONAS DESAPARECIDAS')) {
+      icono = Icons.person_search_rounded;
+    } else if (titulo.contains('MASCOTAS DESAPARECIDAS')) {
+      icono = Icons.pets_rounded;
+    } else if (titulo.contains('VEHÍCULOS ROBADOS')) {
+      icono = Icons.car_crash_rounded;
+    } else {
+      icono = Icons.eighteen_mp_rounded;
+    }
     return Container(
       color: const Color(0xFFF4F7FB),
-      child: const Center(
+      child: Center(
         child: Icon(
-          Icons.eighteen_mp_rounded,
+          icono,
           size: 30,
-          color: Color(0xFF195BA6),
+          color: const Color(0xFF195BA6),
         ),
       ),
     );

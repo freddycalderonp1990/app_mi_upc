@@ -9,7 +9,7 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
         WorkAreaMenuPageWidget(
           btnAtras: false,
           pantallaIrAtras: () => Get.back(),
-          peticionServer: controller.peticionServerState,
+          peticionServer: controller.cargandoModulos,
           numNotificacion: controller.listaAlertasUsuario.length.obs,
           contenido:
           controller.status.value == ConnectionStatus.online
@@ -497,102 +497,100 @@ class MenuPrincipalPage extends GetView<MenuPrincipalController> {
       ],
     );
   }
-  muestraPantalla(index, BuildContext ctx) async {
+  Future<void> muestraPantalla(int index, BuildContext ctx) async {
+    if (index < 0 || index >= controller.listaModulo.length) return;
+    final modulo = controller.listaModulo[index];
+    final titulo = modulo.tituloModulo.trim().toUpperCase();
 
-    if (controller.listaModulo[0].tituloModulo=='ENCUENTRA LA UPC MÁS CERCANA') {
-      if (index == 0) {
-        if (controller.status == ConnectionStatus.online) {
-          controller.verificarGps();
-        } else {
-          DialogosAwesome.getError(descripcion: "No tiene Conexión a Internet");
+    switch (titulo) {
+      case 'PERSONAS DESAPARECIDAS':
+        Get.toNamed(
+          AppRoutesMiUpc.ALERTAS_DESAPARECIDOS,
+          parameters: {'tipo': 'personas'},
+        );
+        return;
+      case 'MASCOTAS DESAPARECIDAS':
+        Get.toNamed(
+          AppRoutesMiUpc.ALERTAS_DESAPARECIDOS,
+          parameters: {'tipo': 'mascotas'},
+        );
+        return;
+      case 'ALERTA DE VEHÍCULOS ROBADOS':
+        Get.toNamed(AppRoutesMiUpc.VEHICULOS_ROBADOS);
+        return;
+      case 'ALERTAS CIUDADANAS':
+        if (controller.status.value != ConnectionStatus.online) {
+          DialogosAwesome.getError(
+            descripcion:
+                'No tiene conexión a Internet para registrar una alerta.',
+          );
+          return;
         }
-      }
-      if (index == 1) {
-        if (controller.status == ConnectionStatus.online) {
-          Map<String, String> data = {
-            "id": "3",
-            "imagen": controller.listaModulo[1].imgBase64,
-            "nombreModulo": 'Violencia de Género',
-          };
-          Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
+        Get.toNamed(
+          AppRoutesMiUpc.ALERTASDELITOS,
+          parameters: {
+            'id': '4',
+            'imagen': modulo.imgBase64,
+            'nombreModulo': modulo.tituloModulo,
+          },
+        );
+        return;
+      case 'ALERTA COMUNITARIA':
+        if (controller.status.value != ConnectionStatus.online) {
+          DialogosAwesome.getError(
+            descripcion:
+                'No tiene conexión a Internet para consultar sus alertas.',
+          );
+          return;
+        }
+        Get.toNamed(AppRoutesMiUpc.DETALLEALERTAS);
+        return;
+      case 'ENCUENTRA LA UPC MÁS CERCANA':
+        if (controller.status.value == ConnectionStatus.online) {
+          await controller.verificarGps();
         } else {
           DialogosAwesome.getError(
-            descripcion: "No tiene Conexión a Internet para registrar un evento",
+            descripcion: 'No tiene conexión a Internet.',
           );
         }
-      }
-
-      if (index == 2) {
-        Map<String, String> data = {
-          "id": "1",
-          "imagen": controller.listaModulo[2].imgBase64,
-          "nombreModulo": 'Servicio Policía Comunitaria',
-        };
-        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
-      }
-      if (index == 3) {
-        Map<String, String> data = {
-          "id": "2",
-          "imagen": controller.listaModulo[3].imgBase64,
-          "nombreModulo": 'Medidas de Autoprotección',
-        };
-        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
-      }
-
-    }else{
-      if (index == 1) {
-        if (controller.status == ConnectionStatus.online) {
-          controller.verificarGps();
-        } else {
-          DialogosAwesome.getError(descripcion: "No tiene Conexión a Internet");
-        }
-      }
-      if (index == 0) {
-        if (controller.status == ConnectionStatus.online) {
-          Map<String, String> data = {
-            "id": "4",
-            "imagen": controller.listaModulo[0].imgBase64,
-            "nombreModulo": controller.listaModulo[0].tituloModulo,
-          };
-          Get.toNamed(AppRoutesMiUpc.ALERTASDELITOS, parameters: data);
-
-        } else {
+        return;
+      case 'VIOLENCIA DE GÉNERO':
+        if (controller.status.value != ConnectionStatus.online) {
           DialogosAwesome.getError(
-            descripcion: "No tiene Conexión a Internet para registrar un evento",
+            descripcion:
+                'No tiene conexión a Internet para registrar un evento.',
           );
+          return;
         }
-      }
-      if (index == 2) {
-        if (controller.status == ConnectionStatus.online) {
-          Map<String, String> data = {
-            "id": "3",
-            "imagen": controller.listaModulo[2].imgBase64,
-            "nombreModulo": 'Violencia de Género',
-          };
-          Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
-        } else {
-          DialogosAwesome.getError(
-            descripcion: "No tiene Conexión a Internet para registrar un evento",
-          );
-        }
-      }
-
-      if (index == 3) {
-        Map<String, String> data = {
-          "id": "1",
-          "imagen": controller.listaModulo[3].imgBase64,
-          "nombreModulo": 'Servicio Policía Comunitaria',
-        };
-        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
-      }
-      if (index == 4) {
-        Map<String, String> data = {
-          "id": "2",
-          "imagen": controller.listaModulo[4].imgBase64,
-          "nombreModulo": 'Medidas de Autoprotección',
-        };
-        Get.toNamed(AppRoutesMiUpc.SERVICIOS, parameters: data);
-      }
+        Get.toNamed(
+          AppRoutesMiUpc.SERVICIOS,
+          parameters: {
+            'id': '3',
+            'imagen': modulo.imgBase64,
+            'nombreModulo': modulo.tituloModulo,
+          },
+        );
+        return;
+      case 'SERVICIOS DE POLICÍA COMUNITARIA':
+        Get.toNamed(
+          AppRoutesMiUpc.SERVICIOS,
+          parameters: {
+            'id': '1',
+            'imagen': modulo.imgBase64,
+            'nombreModulo': modulo.tituloModulo,
+          },
+        );
+        return;
+      case 'MEDIDAS DE AUTOPROTECCIÓN':
+        Get.toNamed(
+          AppRoutesMiUpc.SERVICIOS,
+          parameters: {
+            'id': '2',
+            'imagen': modulo.imgBase64,
+            'nombreModulo': modulo.tituloModulo,
+          },
+        );
+        return;
     }
   }
 

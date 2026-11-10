@@ -4,6 +4,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 
 import '../../core/services/google_auth_service.dart';
+import '../../data/repository/local/vehiculo_robado_local_repository.dart';
+import '../../data/repository/local/alertas_desaparecidos_local_repository.dart';
 import 'controllers.dart';
 
 part 'splash/splash_binding.dart';
@@ -17,3 +19,5 @@ part 'eventos/eventos_binding.dart';
 part 'vehiculos/vehiculos_binding.dart';
 part 'detalleAlertas/detalle_alertas_binding.dart';
 part 'alertasDelitos/alertas_delitos_binding.dart';
+part 'vehiculosRobados/vehiculo_robado_binding.dart';
+part 'alertasDesaparecidos/alertas_desaparecidos_binding.dart';

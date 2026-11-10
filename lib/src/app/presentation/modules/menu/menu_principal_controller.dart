@@ -3,11 +3,15 @@ part of '../controllers.dart';
 class MenuPrincipalController extends GetxController {
   // ======================= ⚙️ ESTADOS ==========================
   final RxBool peticionServerState = false.obs;
+  final RxBool cargandoModulos = false.obs;
+  bool _escuchandoConexion = false;
+  bool _cargaInicialModulosIniciada = false;
+  bool _cargandoModulosAhora = false;
   final Rx<Uint8List?> fotoPerfilBytes = Rx<Uint8List?>(null);
   final RxString userPref = ''.obs;
   final RxString metodoRegistro = ''.obs;
   final CheckInternetConnection internetChecker = CheckInternetConnection();
-  late StreamSubscription connectionSubscription;
+  StreamSubscription<ConnectionStatus>? connectionSubscription;
   final Rx<ConnectionStatus> status = ConnectionStatus.online.obs;
   final RxString correoUsuario = ''.obs;
   final RxString telefonoUsuario = ''.obs;
@@ -51,11 +55,9 @@ class MenuPrincipalController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    verificaTConexion();
-    consultaPermisosBotonAlerta();
+    connectionStatusController();
     _verificaDatos();
     _cargarFotoPerfil();
-    connectionStatusController();
 
 
   }
@@ -69,7 +71,7 @@ class MenuPrincipalController extends GetxController {
 
   @override
   void onClose() {
-    connectionSubscription.cancel();
+    connectionSubscription?.cancel();
     internetChecker.close();
     super.onClose();
   }
@@ -106,30 +108,22 @@ class MenuPrincipalController extends GetxController {
   // 🌐 CONTROL DE CONEXIÓN
   // =============================================================
   void connectionStatusController() {
-    connectionSubscription =
-        internetChecker.internetStatus().listen((newStatus) {
-          status.value = newStatus;
-        });
+    if (!_escuchandoConexion) {
+      _escuchandoConexion = true;
+      connectionSubscription =
+          internetChecker.internetStatus().listen((newStatus) {
+        status.value = newStatus;
+      });
+    }
 
-    if (status.value == ConnectionStatus.online) {
-      verificaTConexion();
-    } else {
-      _cargarModulosOffline();
+    // El banner invoca este callback al reconstruirse; carga el JSON una sola vez.
+    if (!_cargaInicialModulosIniciada) {
+      _cargaInicialModulosIniciada = true;
+      cargarDatosLista();
     }
   }
 
-  Future<void> verificaTConexion() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        await cargarDatosLista();
-      } else {
-        await _cargarModulosOffline();
-      }
-    } on SocketException {
-      await _cargarModulosOffline();
-    }
-  }
+  Future<void> verificaTConexion() => cargarDatosLista();
 
   Future<void> _cargarModulosOffline() async {
     final list = await _localStoreImpl.getListModulos();
@@ -140,38 +134,53 @@ class MenuPrincipalController extends GetxController {
   // 📦 CARGA DE MÓDULOS
   // =============================================================
   Future<void> cargarDatosLista() async {
+    if (_cargandoModulosAhora) return;
+    _cargandoModulosAhora = true;
+    cargandoModulos.value = true;
     try {
-      peticionServerState(true);
-      listaModulo.clear();
-
-      await consultaPermisosBotonAlerta();
-
+      // La lista procede del asset local; no espera permisos ni una API.
       final lista = await _apiModulosRepository.buscaListaModulos();
-
       if (lista.isEmpty) {
         await _cargarModulosOffline();
         return;
       }
 
-      final listaFiltrada = lista.where((mod) {
-        if (mod.tituloModulo == "ALERTAS TEMPRANAS") {
-          return tienePermisoAlerta.value;
-        }
-        return true;
+      // Conserva las imágenes que ya estén guardadas localmente para no
+      // reemplazar las tarjetas actuales por iconos vacíos.
+      final cache = await _localStoreImpl.getListModulos();
+      final imagenesGuardadas = {
+        for (final modulo in cache) modulo.idUpcModulosMovil: modulo.imgBase64,
+      };
+      final modulosLocales = lista.map((modulo) {
+        final imagen = modulo.imgBase64.isNotEmpty
+            ? modulo.imgBase64
+            : (imagenesGuardadas[modulo.idUpcModulosMovil] ?? '');
+        return Modulo(
+          idUpcModulosMovil: modulo.idUpcModulosMovil,
+          tituloModulo: modulo.tituloModulo,
+          descripcionModulo: modulo.descripcionModulo,
+          imagenModulo: modulo.imagenModulo,
+          ordenModulo: modulo.ordenModulo,
+          idGenEstado: modulo.idGenEstado,
+          imgBase64: imagen,
+        );
       }).toList();
 
-      listaModulo.value = listaFiltrada;
-
+      listaModulo.assignAll(modulosLocales);
       await _localStoreImpl.setDatosListaModulos(
-        listModulos: listaFiltrada,
+        listModulos: modulosLocales,
       );
-      print('moduloooooooo '+listaModulo[0].descripcionModulo);
-      print('moduloooooooo '+listaModulo[1].descripcionModulo);
-      print('moduloooooooo '+listaModulo[2].descripcionModulo);
-    } on ServerException {
-      await _cargarModulosOffline();
+    } catch (error) {
+      // El cache local permite seguir mostrando el menú si el asset falla.
+      try {
+        await _cargarModulosOffline();
+      } catch (_) {
+        listaModulo.clear();
+      }
+      print('Error cargando módulos locales: $error');
     } finally {
-      peticionServerState(false);
+      cargandoModulos.value = false;
+      _cargandoModulosAhora = false;
     }
   }
 

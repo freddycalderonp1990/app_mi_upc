@@ -28,19 +28,19 @@
 	<true/>
 
     <key>NSCameraUsageDescription</key>
-    <string>SIIPNE Móvil necesita acceder a la cámara para tomar fotografías y registrar novedades durante los operativos.</string>
+    <string>SIIPNE Móvil necesita acceder a la cámara cuando el usuario decide tomar una fotografía del vehículo.</string>
     <key>NSFaceIDUsageDescription</key>
     <string>SIIPNE Móvil utiliza Face ID para verificar la identidad del usuario y brindar mayor seguridad en el acceso al sistema.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>SIIPNE Móvil necesita acceder a su ubicación para georreferenciar los operativos, registrar el lugar donde se realizan las actividades.</string>
+    <string>SIIPNE Móvil accede a la ubicación solo si el usuario decide adjuntar las coordenadas GPS del incidente.</string>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>SIIPNE Móvil necesita acceder a su ubicación para georreferenciar los operativos y registrar la ubicación de las actividades realizadas.</string>
+    <string>SIIPNE Móvil accede a la ubicación solo si el usuario decide adjuntar las coordenadas GPS del incidente.</string>
     <key>NSLocationUsageDescription</key>
-    <string>SIIPNE Móvil necesita acceder a su ubicación para georreferenciar los operativos y registrar la ubicación de las actividades realizadas.</string>
+    <string>SIIPNE Móvil accede a la ubicación solo si el usuario decide adjuntar las coordenadas GPS del incidente.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>SIIPNE Móvil necesita acceder a su ubicación para georreferenciar los operativos y registrar la ubicación de las actividades realizadas.</string>
+    <string>SIIPNE Móvil accede a la ubicación solo si el usuario decide adjuntar las coordenadas GPS del incidente.</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>SIIPNE Móvil necesita acceder a la galería para seleccionar fotografías y registrarlas como parte de las novedades durante los operativos.</string>
+    <string>SIIPNE Móvil necesita acceder a la galería cuando el usuario decide adjuntar una fotografía del vehículo.</string>
 
 
 

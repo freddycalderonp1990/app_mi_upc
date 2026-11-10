@@ -4,11 +4,13 @@ import 'dart:developer';
 import 'dart:ffi';
 import 'dart:typed_data';
 import 'dart:io';
+import 'dart:math' show Random;
 
 //NECESARIOS PARA SUBIR ARCHIVOS
 import 'package:async/async.dart'; //DelegatingStream
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';

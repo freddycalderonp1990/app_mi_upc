@@ -14,6 +14,10 @@ class AppRoutesMiUpc{
   static var CONSULTAVEHICULO = _nameApp + "consultaVehiculo";
   static var DETALLEALERTAS = _nameApp + "detalleAlertas";
   static var ALERTASDELITOS = _nameApp + "AlertasDelitos";
+  static const String VEHICULOS_ROBADOS =
+      _nameApp + "vehiculosRobados";
+  static const String ALERTAS_DESAPARECIDOS =
+      _nameApp + "alertasDesaparecidos";
 
 
   static var nameMenuInit = "Inicio";

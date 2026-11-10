@@ -89,7 +89,7 @@ class VehiculoRobadoRegistro {
         lugar: json['lugar']?.toString() ?? '',
         contactoNombre: json['contactoNombre']?.toString() ?? '',
         contactoTelefono: json['contactoTelefono']?.toString() ?? '',
-        estado: json['estado']?.toString() ?? 'Registro local',
+        estado: json['estado']?.toString() ?? '',
         fechaCreacion: json['fechaCreacion']?.toString() ?? '',
         latitud: (json['latitud'] as num?)?.toDouble(),
         longitud: (json['longitud'] as num?)?.toDouble(),

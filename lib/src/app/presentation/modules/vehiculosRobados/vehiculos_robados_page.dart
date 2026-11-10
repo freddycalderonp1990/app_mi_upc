@@ -1097,7 +1097,7 @@ class _VehiculoRobadoFormPageState extends State<VehiculoRobadoFormPage> {
       lugar: _lugar.text.trim(),
       contactoNombre: _nombre.text.trim(),
       contactoTelefono: _telefono.text.trim(),
-      estado: 'Registro local',
+      estado: '',
       fechaCreacion: original?.fechaCreacion ?? now.toIso8601String(),
       latitud: _latitud,
       longitud: _longitud,
